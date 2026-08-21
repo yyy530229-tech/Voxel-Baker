@@ -1,0 +1,284 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using VoxelBaker.Data;
+using VoxelBaker.Runtime.Rendering;
+
+namespace VoxelBaker.Runtime
+{
+    [ExecuteAlways]
+    public class VoxelModelInstance : MonoBehaviour
+    {
+        [Header("Asset Reference")]
+        public VoxelAsset voxelAsset;
+        public Material voxelMaterial;
+
+        [Header("Runtime Status")]
+        [SerializeField] private int activeVoxelCount = 0;
+        [SerializeField] private int destroyedVoxelCount = 0;
+
+        private IVoxelRenderer _renderer;
+        private VoxelCell[,,] _runtimeGrid;
+        private int[,,] _gpuInstanceIndexMap; // 映射 (x,y,z) 到 _activeGPUList 中的下标 (-1 表示未渲染)
+        private List<PackedVoxelGPU> _activeGPUList = new List<PackedVoxelGPU>();
+        private bool _isDirty = false;
+        private bool _isInitialized = false;
+
+        public VoxelAsset Asset => voxelAsset;
+        public int ActiveVoxelCount => activeVoxelCount;
+        public int DestroyedVoxelCount => destroyedVoxelCount;
+
+        private static readonly Vector3Int[] Directions6 = new Vector3Int[]
+        {
+            new Vector3Int( 1,  0,  0),
+            new Vector3Int(-1,  0,  0),
+            new Vector3Int( 0,  1,  0),
+            new Vector3Int( 0, -1,  0),
+            new Vector3Int( 0,  0,  1),
+            new Vector3Int( 0,  0, -1)
+        };
+
+        private void OnEnable()
+        {
+            InitializeModel();
+        }
+
+        private void OnDisable()
+        {
+            ReleaseRenderer();
+        }
+
+        public void InitializeModel()
+        {
+            ReleaseRenderer();
+
+            if (voxelAsset == null) return;
+
+            if (voxelMaterial == null)
+            {
+                Shader s = Shader.Find("VoxelBaker/URP/VoxelLit");
+                if (s != null)
+                {
+                    voxelMaterial = new Material(s);
+                }
+            }
+
+            int gx = voxelAsset.gridDimensions.x;
+            int gy = voxelAsset.gridDimensions.y;
+            int gz = voxelAsset.gridDimensions.z;
+
+            _runtimeGrid = new VoxelCell[gx, gy, gz];
+            _gpuInstanceIndexMap = new int[gx, gy, gz];
+
+            for (int x = 0; x < gx; x++)
+            {
+                for (int y = 0; y < gy; y++)
+                {
+                    for (int z = 0; z < gz; z++)
+                    {
+                        _gpuInstanceIndexMap[x, y, z] = -1;
+                    }
+                }
+            }
+
+            // 从 Chunk 还原完整网格状态
+            activeVoxelCount = 0;
+            destroyedVoxelCount = 0;
+
+            if (voxelAsset.chunks != null)
+            {
+                foreach (var chunk in voxelAsset.chunks)
+                {
+                    if (chunk.cells == null) continue;
+                    foreach (var cell in chunk.cells)
+                    {
+                        _runtimeGrid[cell.gridPos.x, cell.gridPos.y, cell.gridPos.z] = cell;
+                        activeVoxelCount++;
+                    }
+                }
+            }
+
+            // 加载初始可见集合
+            _activeGPUList.Clear();
+            if (voxelAsset.initialVisibleVoxels != null)
+            {
+                for (int i = 0; i < voxelAsset.initialVisibleVoxels.Length; i++)
+                {
+                    PackedVoxelGPU v = voxelAsset.initialVisibleVoxels[i];
+                    Vector3Int pos = PackedVoxelGPU.UnpackPosition(v.packedPosition);
+                    _gpuInstanceIndexMap[pos.x, pos.y, pos.z] = _activeGPUList.Count;
+                    _activeGPUList.Add(v);
+                }
+            }
+
+            _renderer = new VoxelIndirectRenderer();
+            _renderer.Initialize(voxelAsset, voxelMaterial, transform);
+            _renderer.UpdateVisibleInstances(_activeGPUList.ToArray(), _activeGPUList.Count);
+
+            _isInitialized = true;
+        }
+
+        public bool Raycast(Ray worldRay, out VoxelRaycastHit hitResult, float maxDistance = 100f)
+        {
+            return VoxelDDA.Raycast(worldRay, transform, voxelAsset, IsVoxelAlive, out hitResult, maxDistance);
+        }
+
+        public bool IsVoxelAlive(Vector3Int gridPos)
+        {
+            if (_runtimeGrid == null || voxelAsset == null || !voxelAsset.IsInBounds(gridPos))
+                return false;
+            return _runtimeGrid[gridPos.x, gridPos.y, gridPos.z].isOccupied &&
+                   _runtimeGrid[gridPos.x, gridPos.y, gridPos.z].isAlive;
+        }
+
+        public void ApplyDamage(Vector3Int gridPos, int damageAmount, Vector3 hitWorldPoint, Vector3 hitWorldNormal)
+        {
+            if (!IsVoxelAlive(gridPos)) return;
+
+            VoxelCell cell = _runtimeGrid[gridPos.x, gridPos.y, gridPos.z];
+            cell.currentHP -= (short)damageAmount;
+
+            if (cell.currentHP <= 0)
+            {
+                // 体素被彻底破坏
+                cell.isAlive = false;
+                cell.isOccupied = false;
+                _runtimeGrid[gridPos.x, gridPos.y, gridPos.z] = cell;
+
+                activeVoxelCount--;
+                destroyedVoxelCount++;
+
+                // 产生物理碎片特效
+                if (VoxelDebrisManager.Instance != null)
+                {
+                    VoxelDebrisManager.Instance.SpawnDebris(
+                        hitWorldPoint,
+                        hitWorldNormal,
+                        cell.customColor,
+                        voxelAsset.voxelSize,
+                        3
+                    );
+                }
+
+                // 从 GPU 可见列表中移除自身
+                RemoveVoxelFromGPU(gridPos);
+
+                // 核心机制：检测 6 个相邻体素，将新暴露出来的内部体素动态加入 GPU 渲染集合！
+                for (int d = 0; d < 6; d++)
+                {
+                    Vector3Int n = gridPos + Directions6[d];
+                    if (voxelAsset.IsInBounds(n) && _runtimeGrid[n.x, n.y, n.z].isOccupied && _runtimeGrid[n.x, n.y, n.z].isAlive)
+                    {
+                        UpdateVoxelExposure(n);
+                    }
+                }
+
+                _isDirty = true;
+            }
+            else
+            {
+                _runtimeGrid[gridPos.x, gridPos.y, gridPos.z] = cell;
+            }
+        }
+
+        private void RemoveVoxelFromGPU(Vector3Int gridPos)
+        {
+            int index = _gpuInstanceIndexMap[gridPos.x, gridPos.y, gridPos.z];
+            if (index < 0 || index >= _activeGPUList.Count) return;
+
+            int lastIndex = _activeGPUList.Count - 1;
+            if (index != lastIndex)
+            {
+                // 用末尾元素填充被移除的位置 (O(1) 紧凑移除)
+                PackedVoxelGPU lastVoxel = _activeGPUList[lastIndex];
+                Vector3Int lastPos = PackedVoxelGPU.UnpackPosition(lastVoxel.packedPosition);
+                _activeGPUList[index] = lastVoxel;
+                _gpuInstanceIndexMap[lastPos.x, lastPos.y, lastPos.z] = index;
+            }
+
+            _activeGPUList.RemoveAt(lastIndex);
+            _gpuInstanceIndexMap[gridPos.x, gridPos.y, gridPos.z] = -1;
+        }
+
+        private void UpdateVoxelExposure(Vector3Int gridPos)
+        {
+            VoxelCell neighbor = _runtimeGrid[gridPos.x, gridPos.y, gridPos.z];
+            VoxelFaceMask mask = VoxelFaceMask.None;
+
+            int gx = voxelAsset.gridDimensions.x;
+            int gy = voxelAsset.gridDimensions.y;
+            int gz = voxelAsset.gridDimensions.z;
+
+            if (gridPos.x == gx - 1 || !_runtimeGrid[gridPos.x + 1, gridPos.y, gridPos.z].isOccupied) mask |= VoxelFaceMask.PosX;
+            if (gridPos.x == 0 || !_runtimeGrid[gridPos.x - 1, gridPos.y, gridPos.z].isOccupied) mask |= VoxelFaceMask.NegX;
+            if (gridPos.y == gy - 1 || !_runtimeGrid[gridPos.x, gridPos.y + 1, gridPos.z].isOccupied) mask |= VoxelFaceMask.PosY;
+            if (gridPos.y == 0 || !_runtimeGrid[gridPos.x, gridPos.y - 1, gridPos.z].isOccupied) mask |= VoxelFaceMask.NegY;
+            if (gridPos.z == gz - 1 || !_runtimeGrid[gridPos.x, gridPos.y, gridPos.z + 1].isOccupied) mask |= VoxelFaceMask.PosZ;
+            if (gridPos.z == 0 || !_runtimeGrid[gridPos.x, gridPos.y, gridPos.z - 1].isOccupied) mask |= VoxelFaceMask.NegZ;
+
+            neighbor.faceMask = mask;
+            _runtimeGrid[gridPos.x, gridPos.y, gridPos.z] = neighbor;
+
+            int gpuIdx = _gpuInstanceIndexMap[gridPos.x, gridPos.y, gridPos.z];
+
+            if (mask != VoxelFaceMask.None)
+            {
+                PackedVoxelGPU gpuVoxel = new PackedVoxelGPU
+                {
+                    packedPosition = PackedVoxelGPU.PackPosition(gridPos.x, gridPos.y, gridPos.z),
+                    packedAttributes = PackedVoxelGPU.PackAttributes(neighbor.paletteIndex, neighbor.layer, neighbor.ao, neighbor.faceMask),
+                    colorRGBA = PackedVoxelGPU.ColorToUInt(neighbor.customColor),
+                    voxelMeta = 0
+                };
+
+                if (gpuIdx >= 0 && gpuIdx < _activeGPUList.Count)
+                {
+                    // 已经在渲染队列，更新其 FaceMask
+                    _activeGPUList[gpuIdx] = gpuVoxel;
+                }
+                else
+                {
+                    // 新暴露的内部体素，正式推入 GPU 渲染集合！
+                    _gpuInstanceIndexMap[gridPos.x, gridPos.y, gridPos.z] = _activeGPUList.Count;
+                    _activeGPUList.Add(gpuVoxel);
+                }
+            }
+            else
+            {
+                if (gpuIdx >= 0)
+                {
+                    RemoveVoxelFromGPU(gridPos);
+                }
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (!_isInitialized || _renderer == null)
+            {
+                if (voxelAsset != null) InitializeModel();
+                else return;
+            }
+
+            if (_isDirty)
+            {
+                _renderer.UpdateVisibleInstances(_activeGPUList.ToArray(), _activeGPUList.Count);
+                _isDirty = false;
+            }
+
+            _renderer.Render();
+        }
+
+        private void ReleaseRenderer()
+        {
+            _renderer?.Release();
+            _renderer = null;
+            _isInitialized = false;
+        }
+
+        private void OnDestroy()
+        {
+            ReleaseRenderer();
+        }
+    }
+}
