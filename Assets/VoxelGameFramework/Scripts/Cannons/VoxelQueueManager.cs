@@ -68,7 +68,7 @@ namespace VoxelGameFramework.Cannons
             for (int i = 0; i < allVoxelColors.Count; i++)
             {
                 Color32 c = allVoxelColors[i];
-                int bucketKey = GetHueAwareBucketKey(c);
+                int bucketKey = VoxelColorUtility.GetHueFamilyKey(c);
 
                 if (!colorBuckets.ContainsKey(bucketKey))
                 {
@@ -187,43 +187,7 @@ namespace VoxelGameFramework.Cannons
             }
         }
 
-        /// <summary>
-        /// 色相感知(Hue-Aware)分类器：将颜色分类为纯白、深黑、竹绿、明黄、亮橙、湛蓝等独立的主题色系
-        /// </summary>
-        private static int GetHueAwareBucketKey(Color32 c)
-        {
-            Color.RGBToHSV(c, out float h, out float s, out float v);
 
-            // 1. 无彩色系 (黑、白、灰)
-            if (s < 0.18f)
-            {
-                if (v >= 0.55f) return 100; // 白色系 (White / Off-white)
-                return 101;                 // 黑色/深灰系 (Black / Charcoal)
-            }
-
-            // 2. 有彩色系 (根据色相 Hue 划分为鲜明色系，保证绿竹子绝对独立！)
-            float deg = h * 360f;
-            if (deg >= 55f && deg <= 165f)
-            {
-                return 1; // 🌿 绿色竹子 / 植物色系 (Green)
-            }
-            else if (deg >= 25f && deg < 55f)
-            {
-                return 2; // 💛 黄色色系 (Yellow)
-            }
-            else if (deg >= 165f && deg <= 260f)
-            {
-                return 3; // 💙 蓝色色系 (Blue)
-            }
-            else if (deg >= 260f && deg <= 330f)
-            {
-                return 4; // 💜 紫/粉色系 (Purple / Pink)
-            }
-            else
-            {
-                return 5; // ❤️ 红/橙色系 (Red / Orange)
-            }
-        }
 
         private void Update()
         {

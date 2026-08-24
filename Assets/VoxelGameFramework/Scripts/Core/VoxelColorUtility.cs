@@ -2,29 +2,64 @@ using UnityEngine;
 
 namespace VoxelGameFramework.Core
 {
+    /// <summary>
+    /// 体素色彩工具库 (提供色相感知匹配、色彩欧氏距离计算及色彩友好命名)
+    /// </summary>
     public static class VoxelColorUtility
     {
+        /// <summary>
+        /// 判断两个颜色是否在容差范围内相近
+        /// </summary>
         public static bool IsColorMatching(Color32 a, Color32 b, float tolerance = 65f)
         {
-            // 计算 RGB 欧氏距离
             float dr = a.r - b.r;
             float dg = a.g - b.g;
             float db = a.b - b.b;
-            float dist = Mathf.Sqrt(dr * dr + dg * dg + db * db);
-            return dist <= tolerance;
+            return (dr * dr + dg * dg + db * db) <= (tolerance * tolerance);
         }
 
+        /// <summary>
+        /// 色相感知(HSV)智能特征分类
+        /// </summary>
+        public static int GetHueFamilyKey(Color32 c)
+        {
+            Color.RGBToHSV(c, out float h, out float s, out float v);
+
+            // 无彩色系：纯白、深黑、浅灰
+            if (s < 0.18f)
+            {
+                return (v >= 0.55f) ? 100 : 101;
+            }
+
+            // 有彩色系：按色相分度
+            float deg = h * 360f;
+            if (deg >= 55f && deg <= 165f) return 1;  // 🌿 翠绿色 / 竹绿色 (Green)
+            if (deg >= 25f && deg < 55f)   return 2;  // 💛 明黄色 (Yellow)
+            if (deg >= 165f && deg <= 260f) return 3; // 💙 湛蓝色 (Blue)
+            if (deg >= 260f && deg <= 330f) return 4; // 💜 粉紫色 (Pink / Purple)
+            return 5;                                 // ❤️ 橙红色 (Red / Orange)
+        }
+
+        /// <summary>
+        /// 获取色彩的用户友好显示名称
+        /// </summary>
         public static string GetColorName(Color32 c)
         {
-            if (c.r > 180 && c.g < 80 && c.b < 80) return "红色 (Red)";
-            if (c.r > 200 && c.g > 180 && c.b < 50) return "黄色 (Yellow)";
-            if (c.r < 80 && c.g > 150 && c.b > 200) return "青色 (Cyan)";
-            if (c.r < 80 && c.g < 120 && c.b > 180) return "蓝色 (Blue)";
-            if (c.r > 120 && c.g < 80 && c.b > 150) return "紫色 (Purple)";
-            if (c.r > 100 && c.g > 60 && c.b < 40) return "棕色 (Brown)";
-            if (c.r > 200 && c.g > 100 && c.b < 50) return "橙色 (Orange)";
-            if (c.r > 220 && c.g < 100 && c.b > 150) return "粉色 (Pink)";
-            return "彩色";
+            Color.RGBToHSV(c, out float h, out float s, out float v);
+
+            if (s < 0.18f)
+            {
+                if (v >= 0.85f) return "纯白 (Pure White)";
+                if (v >= 0.50f) return "浅灰 (Light Gray)";
+                return "炭黑 (Charcoal Black)";
+            }
+
+            float deg = h * 360f;
+            if (deg >= 55f && deg <= 165f) return "竹绿 (Bamboo Green)";
+            if (deg >= 25f && deg < 55f)   return "明黄 (Bright Yellow)";
+            if (deg >= 165f && deg <= 260f) return "湛蓝 (Ocean Blue)";
+            if (deg >= 260f && deg <= 330f) return "粉紫 (Pink / Purple)";
+            return "暖红 (Warm Red)";
         }
     }
 }

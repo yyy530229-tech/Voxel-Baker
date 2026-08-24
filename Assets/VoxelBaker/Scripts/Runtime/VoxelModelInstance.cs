@@ -203,13 +203,10 @@ namespace VoxelBaker.Runtime
 
                 Color32 vColor = PackedVoxelGPU.UIntToColor(gpuVoxel.colorRGBA);
 
-                // 严格颜色匹配判定 (RGB 距离容差)
-                float dr = vColor.r - targetColor.r;
-                float dg = vColor.g - targetColor.g;
-                float db = vColor.b - targetColor.b;
-                float dist = Mathf.Sqrt(dr * dr + dg * dg + db * db);
+                // 严格色相族匹配 (保证竹绿、纯白、炭黑严格独立精准消除)
+                bool isSameColorFamily = (VoxelColorUtility.GetHueFamilyKey(vColor) == VoxelColorUtility.GetHueFamilyKey(targetColor));
 
-                if (dist <= 80f)
+                if (isSameColorFamily)
                 {
                     _tempMatchingIndices.Add(i);
 
