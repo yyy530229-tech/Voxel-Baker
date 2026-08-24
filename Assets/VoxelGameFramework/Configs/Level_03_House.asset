@@ -19,7 +19,7 @@ MonoBehaviour:
   spawnPosition: {x: 0, y: 2.7, z: 0}
   spawnRotation: {x: 0, y: 0, z: 0}
   spawnScale: 0.95
-  winDestructionRatio: 0.92
+  winDestructionRatio: 1
   rewardCoins: 1500
   initialCannonPowers: 3c00000050000000640000007d00000096000000
   backgroundColor: {r: 0.15, g: 0.2, b: 0.28, a: 1}

@@ -7,7 +7,7 @@ using VoxelGameFramework.Core;
 namespace VoxelGameFramework.Cannons
 {
     /// <summary>
-    /// 待命方块队列管理器 (数学级 1:1 精确匹配模型每种色块体素总数，保证 100% 消除通关，绝无遗漏残余！)
+    /// 待命方块队列管理器 (数学级 1:1 精准匹配模型当前存活体素总数，保证 100% 消除通关，绝无多余与遗漏！)
     /// </summary>
     public class VoxelQueueManager : MonoBehaviour
     {
@@ -15,7 +15,7 @@ namespace VoxelGameFramework.Cannons
         public int columnCount = 3;
         public float columnSpacing = 1.15f;
         public float rowSpacing = 1.05f;
-        public float queueBaseY = -3.6f;
+        public float queueBaseY = -3.4f;
 
         [Header("关联组件")]
         public VoxelSlotManager slotManager;
@@ -30,8 +30,9 @@ namespace VoxelGameFramework.Cannons
 
             if (model == null || model.Asset == null) return;
 
-            // 1. 获取模型当前实际占用的所有体素，并聚类统计每种主色的精确体素总数
-            Dictionary<Color32, int> paletteColorCounts = new Dictionary<Color32, int>();
+            // 1. 直接从模型运行时网格精确统计每种颜色的实际体素数
+            Dictionary<Color32, int> colorCounts = new Dictionary<Color32, int>();
+            int totalModelVoxels = 0;
 
             if (model.Asset.chunks != null)
             {
@@ -43,43 +44,44 @@ namespace VoxelGameFramework.Cannons
                         if (!cell.isOccupied) continue;
 
                         Color32 rawColor = cell.customColor;
-                        Color32 canonicalColor = GetCanonicalPaletteColor(rawColor, paletteColorCounts.Keys);
+                        Color32 canonicalColor = GetCanonicalPaletteColor(rawColor, colorCounts.Keys);
 
-                        if (paletteColorCounts.ContainsKey(canonicalColor))
+                        if (colorCounts.ContainsKey(canonicalColor))
                         {
-                            paletteColorCounts[canonicalColor]++;
+                            colorCounts[canonicalColor]++;
                         }
                         else
                         {
-                            paletteColorCounts[canonicalColor] = 1;
+                            colorCounts[canonicalColor] = 1;
                         }
+                        totalModelVoxels++;
                     }
                 }
             }
 
-            // 2. 将每种颜色的体素总数精确拆解为消除方块任务 (总和 100% 严格等于该颜色体素数)
+            // 2. 将每种颜色的体素拆分为标准容量方块任务 (容量 40~55/块)
             List<(Color32 color, int count)> blockTasks = new List<(Color32, int)>();
-            int totalAmmoSum = 0;
+            int totalQueueAmmo = 0;
 
-            foreach (var kvp in paletteColorCounts)
+            foreach (var kvp in colorCounts)
             {
                 int remaining = kvp.Value;
                 Color32 color = kvp.Key;
 
                 while (remaining > 0)
                 {
-                    int chunkSize = Mathf.Min(remaining, Random.Range(35, 55));
-                    if (remaining - chunkSize < 20) chunkSize = remaining; // 避免出现极小碎块
+                    int chunkSize = Mathf.Min(remaining, Random.Range(40, 56));
+                    if (remaining - chunkSize < 20) chunkSize = remaining; // 尾数合并
 
                     blockTasks.Add((color, chunkSize));
-                    totalAmmoSum += chunkSize;
+                    totalQueueAmmo += chunkSize;
                     remaining -= chunkSize;
                 }
             }
 
-            Debug.Log($"[VoxelQueueManager] 模型总占用体素: {model.Asset.totalOccupiedVoxels}，生成的方块弹药总和: {totalAmmoSum} (100% 完美匹配)");
+            Debug.Log($"[VoxelQueueManager] 模型总占用体素: {totalModelVoxels}, 生成待命方块数: {blockTasks.Count}, 总弹药: {totalQueueAmmo} (1:1 绝对守恒匹配)");
 
-            // 3. 乱序排列，增加解谜趣味性 (Fisher-Yates Shuffle)
+            // 3. 乱序排列 (Fisher-Yates Shuffle)
             for (int i = blockTasks.Count - 1; i > 0; i--)
             {
                 int r = Random.Range(0, i + 1);
