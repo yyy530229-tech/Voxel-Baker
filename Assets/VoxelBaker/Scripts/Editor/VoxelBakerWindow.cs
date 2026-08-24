@@ -915,7 +915,7 @@ namespace VoxelBaker.Editor
             if (asset == null) return;
 
             // 彻底清理场景中原有的旧体素模型游戏对象，绝不发生多个模型重叠！
-            VoxelModelInstance[] existing = Object.FindObjectsOfType<VoxelModelInstance>();
+            VoxelModelInstance[] existing = UnityEngine.Object.FindObjectsOfType<VoxelModelInstance>();
             foreach (var inst in existing)
             {
                 if (inst != null && inst.gameObject != null)
