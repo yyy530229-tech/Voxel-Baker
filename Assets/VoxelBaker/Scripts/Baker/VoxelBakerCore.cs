@@ -34,7 +34,12 @@ namespace VoxelBaker.Baker
 
             // 确定包围盒与带 1 格边距的局部原点及尺寸
             Bounds bounds = settings.sourceMesh.bounds;
-            float voxelSize = settings.voxelSize > 0 ? settings.voxelSize : report.recommendedVoxelSize;
+            float maxDim = Mathf.Max(bounds.size.x, Mathf.Max(bounds.size.y, bounds.size.z));
+            float voxelSize = settings.voxelSize;
+            if (voxelSize <= 0 || (maxDim > 0 && maxDim / voxelSize < 3) || (maxDim > 0 && maxDim / voxelSize > 80))
+            {
+                voxelSize = report.recommendedVoxelSize;
+            }
             
             // 边缘留出 1 格空隙用于外部 Flood Fill 连通
             Vector3 minBounds = bounds.min - Vector3.one * voxelSize;

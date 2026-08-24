@@ -87,19 +87,22 @@ namespace VoxelBaker.Baker
                 report.nonManifoldEdgeCount = 0;
             }
 
-            // 推荐体素尺寸（根据包围盒最大跨度，默认建议分辨率 64 左右）
+            // 推荐最佳体素尺寸（休闲消除游戏黄金分辨率：长轴方向约 18~24 个体素，总数约 600~1,500 格）
             float maxDim = Mathf.Max(report.dimensions.x, Mathf.Max(report.dimensions.y, report.dimensions.z));
-            report.recommendedVoxelSize = maxDim > 0 ? maxDim / 64f : 0.1f;
-            if (targetVoxelSize <= 0) targetVoxelSize = report.recommendedVoxelSize;
+            report.recommendedVoxelSize = maxDim > 0 ? (maxDim / 22.0f) : 0.2f;
+            if (targetVoxelSize <= 0 || (maxDim > 0 && maxDim / targetVoxelSize < 3))
+            {
+                targetVoxelSize = report.recommendedVoxelSize;
+            }
 
-            int gx = Mathf.Max(1, Mathf.CeilToInt(report.dimensions.x / targetVoxelSize) + 2);
-            int gy = Mathf.Max(1, Mathf.CeilToInt(report.dimensions.y / targetVoxelSize) + 2);
-            int gz = Mathf.Max(1, Mathf.CeilToInt(report.dimensions.z / targetVoxelSize) + 2);
+            int gx = Mathf.Max(3, Mathf.CeilToInt(report.dimensions.x / targetVoxelSize) + 2);
+            int gy = Mathf.Max(3, Mathf.CeilToInt(report.dimensions.y / targetVoxelSize) + 2);
+            int gz = Mathf.Max(3, Mathf.CeilToInt(report.dimensions.z / targetVoxelSize) + 2);
             report.estimatedGridSize = new Vector3Int(gx, gy, gz);
             report.totalCells = gx * gy * gz;
 
-            // 预估占用体素数
-            report.estimatedOccupiedVoxels = Mathf.Min(report.totalCells, (int)(report.totalCells * 0.35f));
+            // 预估占用体素数 (约占包围盒体积的 25%~45%)
+            report.estimatedOccupiedVoxels = Mathf.Max(120, (int)(report.totalCells * 0.35f));
             report.estimatedMemoryMB = (report.totalCells * 16f) / (1024f * 1024f);
             report.canDoSolidVoxelization = true;
 
