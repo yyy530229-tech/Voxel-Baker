@@ -531,11 +531,7 @@ namespace VoxelBaker.Editor
             sourceGameObject = (GameObject)EditorGUILayout.ObjectField("场景对象 / Prefab", sourceGameObject, typeof(GameObject), true);
             if (EditorGUI.EndChangeCheck() && sourceGameObject != null)
             {
-                MeshFilter mf = sourceGameObject.GetComponent<MeshFilter>();
-                if (mf != null) sourceMesh = mf.sharedMesh;
-                Renderer r = sourceGameObject.GetComponent<Renderer>();
-                if (r != null) sourceMaterials = r.sharedMaterials;
-                RunAnalysis();
+                ExtractModelFromSource(sourceGameObject);
             }
 
             EditorGUI.BeginChangeCheck();
@@ -895,6 +891,88 @@ namespace VoxelBaker.Editor
             GUIStyle valStyle = new GUIStyle(EditorStyles.boldLabel) { normal = { textColor = valColor } };
             EditorGUILayout.LabelField(value, valStyle);
             EditorGUILayout.EndVertical();
+        }
+
+        private void ExtractModelFromSource(GameObject go)
+        {
+            if (go == null) return;
+
+            // 1. 自动确保源 FBX / OBJ 模型开启 Read/Write Enabled (isReadable = true)
+            string assetPath = AssetDatabase.GetAssetPath(go);
+            if (!string.IsNullOrEmpty(assetPath))
+            {
+                ModelImporter importer = AssetImporter.GetAtPath(assetPath) as ModelImporter;
+                if (importer != null && !importer.isReadable)
+                {
+                    importer.isReadable = true;
+                    importer.SaveAndReimport();
+                }
+            }
+
+            // 2. 深度扫描根节点与所有子节点的 MeshFilter / SkinnedMeshRenderer
+            List<Mesh> meshes = new List<Mesh>();
+            List<Material> materials = new List<Material>();
+            List<Matrix4x4> transforms = new List<Matrix4x4>();
+
+            MeshFilter[] filters = go.GetComponentsInChildren<MeshFilter>(true);
+            foreach (var mf in filters)
+            {
+                if (mf != null && mf.sharedMesh != null)
+                {
+                    meshes.Add(mf.sharedMesh);
+                    transforms.Add(go.transform.worldToLocalMatrix * mf.transform.localToWorldMatrix);
+
+                    Renderer r = mf.GetComponent<Renderer>();
+                    if (r != null && r.sharedMaterials != null)
+                    {
+                        materials.AddRange(r.sharedMaterials);
+                    }
+                }
+            }
+
+            SkinnedMeshRenderer[] skins = go.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+            foreach (var smr in skins)
+            {
+                if (smr != null && smr.sharedMesh != null)
+                {
+                    meshes.Add(smr.sharedMesh);
+                    transforms.Add(go.transform.worldToLocalMatrix * smr.transform.localToWorldMatrix);
+                    if (smr.sharedMaterials != null)
+                    {
+                        materials.AddRange(smr.sharedMaterials);
+                    }
+                }
+            }
+
+            if (meshes.Count == 1 && transforms[0] == Matrix4x4.identity)
+            {
+                sourceMesh = meshes[0];
+            }
+            else if (meshes.Count > 0)
+            {
+                CombineInstance[] combines = new CombineInstance[meshes.Count];
+                for (int i = 0; i < meshes.Count; i++)
+                {
+                    combines[i].mesh = meshes[i];
+                    combines[i].transform = transforms[i];
+                }
+                Mesh combined = new Mesh();
+                combined.name = $"{go.name}_Combined";
+                combined.CombineMeshes(combines, false, true);
+                sourceMesh = combined;
+            }
+
+            if (materials.Count > 0)
+            {
+                sourceMaterials = materials.ToArray();
+            }
+
+            if (string.IsNullOrEmpty(assetName) || assetName.StartsWith("NewModel_"))
+            {
+                assetName = $"VoxelModel_{go.name}";
+            }
+
+            RunAnalysis();
         }
 
         private void RunAnalysis()
