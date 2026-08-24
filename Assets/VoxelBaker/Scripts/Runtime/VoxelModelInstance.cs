@@ -238,15 +238,16 @@ namespace VoxelBaker.Runtime
                 activeVoxelCount--;
                 destroyedVoxelCount++;
 
-                // 产生物理碎片特效
+                // 产生高精度物理碎片特效 (精确从被消除体素的实际中心爆发)
                 if (VoxelDebrisManager.Instance != null)
                 {
+                    Vector3 exactVoxelWorldCenter = transform.TransformPoint(voxelAsset.GridToLocalPosition(gridPos));
                     VoxelDebrisManager.Instance.SpawnDebris(
-                        hitWorldPoint,
+                        exactVoxelWorldCenter,
                         hitWorldNormal,
                         cell.customColor,
                         voxelAsset.voxelSize,
-                        3
+                        20
                     );
                 }
 
