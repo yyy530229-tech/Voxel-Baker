@@ -139,9 +139,10 @@ namespace VoxelBaker.Runtime
         }
 
         private readonly List<int> _tempMatchingIndices = new List<int>(128);
+        private readonly List<int> _tempFrontIndices = new List<int>(64);
 
         /// <summary>
-        /// 查找当前暴露在外面的表面同色体素（在整个同色区域均匀生动消解，而非只从最底下开始）
+        /// 查找当前暴露在外面的表面同色体素（优先面向正面的可见体素，实现直观精准的指向性）
         /// </summary>
         public bool FindExposedVoxelOfColor(Color32 targetColor, Vector3 fromWorldPos, out Vector3Int hitGridPos, out Vector3 hitWorldPos)
         {
@@ -152,6 +153,9 @@ namespace VoxelBaker.Runtime
                 return false;
 
             _tempMatchingIndices.Clear();
+            _tempFrontIndices.Clear();
+
+            Vector3 center = transform.position;
 
             for (int i = 0; i < _activeGPUList.Count; i++)
             {
@@ -167,18 +171,31 @@ namespace VoxelBaker.Runtime
                 if (dist <= 85f)
                 {
                     _tempMatchingIndices.Add(i);
+
+                    Vector3Int pos = PackedVoxelGPU.UnpackPosition(gpuVoxel.packedPosition);
+                    Vector3 localPos = voxelAsset.GridToLocalPosition(pos);
+                    Vector3 wPos = transform.TransformPoint(localPos);
+
+                    // 优先挑选朝向正面与炮台镜头的体素 (Z <= center.z + 0.15f)
+                    if (wPos.z <= center.z + 0.15f)
+                    {
+                        _tempFrontIndices.Add(i);
+                    }
                 }
             }
 
             if (_tempMatchingIndices.Count == 0) return false;
 
-            // 随机挑选一个匹配颜色的暴露体素，让子弹均匀打在整个色块上（屋顶、墙壁、窗户），实现生动自然的粉碎效果
-            int chosenIdx = _tempMatchingIndices[UnityEngine.Random.Range(0, _tempMatchingIndices.Count)];
+            // 优先从正面可见的同色体素中挑选，确保弹道直射对应色块！
+            int chosenIdx = (_tempFrontIndices.Count > 0)
+                ? _tempFrontIndices[UnityEngine.Random.Range(0, _tempFrontIndices.Count)]
+                : _tempMatchingIndices[UnityEngine.Random.Range(0, _tempMatchingIndices.Count)];
+
             PackedVoxelGPU chosenGpu = _activeGPUList[chosenIdx];
 
             hitGridPos = PackedVoxelGPU.UnpackPosition(chosenGpu.packedPosition);
-            Vector3 localPos = voxelAsset.GridToLocalPosition(hitGridPos);
-            hitWorldPos = transform.TransformPoint(localPos);
+            Vector3 finalLocal = voxelAsset.GridToLocalPosition(hitGridPos);
+            hitWorldPos = transform.TransformPoint(finalLocal);
             return true;
         }
 

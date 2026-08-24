@@ -15,7 +15,7 @@ namespace VoxelGameFramework.Cannons
     }
 
     /// <summary>
-    /// 彩色射击方块单元 (匹配参考图2: 逐发节奏射击、视线射线首层命中、弹药归零优雅消失)
+    /// 彩色射击方块单元 (匹配参考图2: 清晰激光弹道轨道、精准正面索敌、逐发节奏发射)
     /// </summary>
     public class VoxelColorShooterBlock : MonoBehaviour
     {
@@ -23,8 +23,8 @@ namespace VoxelGameFramework.Cannons
         public Color32 blockColor = new Color32(230, 40, 50, 255);
         public int initialCapacity = 50;
         public int remainingAmmo = 50;
-        public float bulletSpeed = 22f;
-        public float shotCooldown = 0.18f; // 逐发有节奏发射，而不是瞬间机枪乱射
+        public float bulletSpeed = 36f;     // 高速精准命中
+        public float shotCooldown = 0.22f;  // 节奏清晰的单发节奏 (每秒约4.5发)
 
         [Header("状态")]
         public ShooterBlockState state = ShooterBlockState.InQueue;
@@ -155,58 +155,53 @@ namespace VoxelGameFramework.Cannons
 
             if (now >= _nextFireTime)
             {
-                // 通过视线射线寻找最外层暴露的【同色体素】（绝不隔空击穿，先打外层）
-                if (FindOutermostExposedVoxelOfColor(out Vector3Int hitGridPos, out Vector3 hitWorldPos))
+                // 寻找正面清晰可见的【同色体素】（精准指向屋顶、墙壁等对应色块）
+                if (_targetModel.FindExposedVoxelOfColor(blockColor, transform.position, out Vector3Int hitGridPos, out Vector3 hitWorldPos))
                 {
                     FireColorBullet(hitGridPos, hitWorldPos);
-                    _nextFireTime = now + shotCooldown + UnityEngine.Random.Range(-0.02f, 0.02f);
+                    _nextFireTime = now + shotCooldown + UnityEngine.Random.Range(-0.015f, 0.015f);
                 }
                 else
                 {
-                    // 当前未露出同色体素，等待模型旋转露出
+                    // 当前未露出正面同色体素，等待模型旋转露出
                     _nextFireTime = now + 0.25f;
                 }
             }
-        }
-
-        private bool FindOutermostExposedVoxelOfColor(out Vector3Int hitGridPos, out Vector3 hitWorldPos)
-        {
-            hitGridPos = Vector3Int.zero;
-            hitWorldPos = Vector3.zero;
-
-            if (_targetModel == null || _targetModel.Asset == null) return false;
-
-            // 1. 获取所有该颜色的表面可见体素
-            return _targetModel.FindExposedVoxelOfColor(blockColor, transform.position, out hitGridPos, out hitWorldPos);
         }
 
         private void FireColorBullet(Vector3Int targetGridPos, Vector3 targetWorldPos)
         {
             if (_isDisposed) return;
 
+            Vector3 spawnPos = transform.position + Vector3.up * 0.6f;
+
+            // 1. 生成清晰透明白色弹道光轨 (匹配参考图2中直通目标体素的光线轨道)
+            CreateTrajectoryRay(spawnPos, targetWorldPos);
+
+            // 2. 发射高亮白色能量弹头
             GameObject bulletObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             bulletObj.name = "ColorBullet";
-            bulletObj.transform.position = transform.position + Vector3.up * 0.55f;
-            bulletObj.transform.localScale = Vector3.one * 0.24f;
+            bulletObj.transform.position = spawnPos;
+            bulletObj.transform.localScale = Vector3.one * 0.22f;
 
             Collider c = bulletObj.GetComponent<Collider>();
             if (c != null) c.enabled = false;
 
             Material bm = new Material(Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Unlit/Color"));
-            bm.color = Color.Lerp(blockColor, Color.white, 0.4f);
+            bm.color = Color.white; // 极简纯白弹头
             bulletObj.GetComponent<Renderer>().sharedMaterial = bm;
 
+            // 极细清爽拖尾 (0.08s 快速消隐，绝不遮挡视野)
             TrailRenderer trail = bulletObj.AddComponent<TrailRenderer>();
-            trail.time = 0.2f;
-            trail.startWidth = 0.2f;
-            trail.endWidth = 0.02f;
+            trail.time = 0.08f;
+            trail.startWidth = 0.12f;
+            trail.endWidth = 0.01f;
             trail.sharedMaterial = bm;
-            trail.startColor = new Color(1f, 1f, 1f, 0.9f);
-            trail.endColor = new Color(blockColor.r / 255f, blockColor.g / 255f, blockColor.b / 255f, 0f);
+            trail.startColor = new Color(1f, 1f, 1f, 0.95f);
+            trail.endColor = new Color(1f, 1f, 1f, 0f);
 
             var bulletComp = bulletObj.AddComponent<ColorMatchBullet>();
             bulletComp.Launch(
-                targetWorldPos,
                 targetGridPos,
                 blockColor,
                 bulletSpeed,
@@ -215,7 +210,27 @@ namespace VoxelGameFramework.Cannons
             );
 
             // 轻微后坐力弹跳
-            transform.position = _targetSlotPos - Vector3.up * 0.08f;
+            transform.position = _targetSlotPos - Vector3.up * 0.06f;
+        }
+
+        private void CreateTrajectoryRay(Vector3 start, Vector3 end)
+        {
+            GameObject lineObj = new GameObject("TrajectoryRay");
+            LineRenderer line = lineObj.AddComponent<LineRenderer>();
+            line.positionCount = 2;
+            line.SetPosition(0, start);
+            line.SetPosition(1, end);
+            line.startWidth = 0.045f;
+            line.endWidth = 0.015f;
+
+            Material lm = new Material(Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Unlit/Color"));
+            lm.color = new Color(1f, 1f, 1f, 0.45f); // 半透明纯白光轨
+            line.sharedMaterial = lm;
+            line.startColor = new Color(1f, 1f, 1f, 0.6f);
+            line.endColor = new Color(1f, 1f, 1f, 0.1f);
+
+            // 0.14秒后自动销毁光轨
+            Destroy(lineObj, 0.14f);
         }
 
         public void OnBulletHitSuccess()
@@ -237,11 +252,10 @@ namespace VoxelGameFramework.Cannons
     }
 
     /// <summary>
-    /// 同色匹配子弹 (安全回调引用，杜绝 MissingReferenceException)
+    /// 同色匹配子弹 (实时跟踪旋转模型上的体素世界坐标，100% 激光般精准命中)
     /// </summary>
     public class ColorMatchBullet : MonoBehaviour
     {
-        private Vector3 _targetWorldPos;
         private Vector3Int _targetGridPos;
         private Color32 _bulletColor;
         private float _speed;
@@ -249,9 +263,8 @@ namespace VoxelGameFramework.Cannons
         private VoxelColorShooterBlock _sourceBlock;
         private float _spawnTime;
 
-        public void Launch(Vector3 targetWorldPos, Vector3Int targetGridPos, Color32 color, float speed, VoxelModelInstance model, VoxelColorShooterBlock sourceBlock)
+        public void Launch(Vector3Int targetGridPos, Color32 color, float speed, VoxelModelInstance model, VoxelColorShooterBlock sourceBlock)
         {
-            _targetWorldPos = targetWorldPos;
             _targetGridPos = targetGridPos;
             _bulletColor = color;
             _speed = speed;
@@ -262,19 +275,26 @@ namespace VoxelGameFramework.Cannons
 
         private void Update()
         {
+            if (_modelInstance == null || _modelInstance.Asset == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            // 实时获取旋转模型上目标体素的最新世界坐标
+            Vector3 localPos = _modelInstance.Asset.GridToLocalPosition(_targetGridPos);
+            Vector3 currentTargetWorldPos = _modelInstance.transform.TransformPoint(localPos);
+
             float dt = Time.deltaTime;
             Vector3 cur = transform.position;
-            Vector3 dir = (_targetWorldPos - cur);
+            Vector3 dir = (currentTargetWorldPos - cur);
             float dist = dir.magnitude;
             float step = _speed * dt;
 
-            if (dist <= step || dist < 0.22f)
+            if (dist <= step || dist < 0.28f)
             {
-                // 击中体素
-                if (_modelInstance != null)
-                {
-                    _modelInstance.ApplyColorDamage(_targetGridPos, 1, _bulletColor, _targetWorldPos, -dir.normalized);
-                }
+                // 击中体素！
+                _modelInstance.ApplyColorDamage(_targetGridPos, 1, _bulletColor, currentTargetWorldPos, -dir.normalized);
 
                 if (_sourceBlock != null)
                 {
@@ -287,7 +307,7 @@ namespace VoxelGameFramework.Cannons
 
             transform.position = cur + dir.normalized * step;
 
-            if (Time.time - _spawnTime > 2.0f)
+            if (Time.time - _spawnTime > 1.5f)
             {
                 Destroy(gameObject);
             }
