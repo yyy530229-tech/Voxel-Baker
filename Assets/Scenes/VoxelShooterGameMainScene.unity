@@ -201,6 +201,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c2996814a8c913b4197b61ec2c0b0e08, type: 2}
   - {fileID: 11400000, guid: f145c3c36094d814c96dcf19f897c813, type: 2}
   - {fileID: 11400000, guid: 930bd3bd6a8279944ba55270b5118228, type: 2}
+  - {fileID: 11400000, guid: 5cfb5cd13877c454d8bc496360a51bae, type: 2}
   currentLevelIndex: 0
   targetModelInstance: {fileID: 1363454549}
   slotManager: {fileID: 1648869438}
