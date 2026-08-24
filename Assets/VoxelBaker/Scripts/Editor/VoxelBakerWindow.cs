@@ -526,7 +526,12 @@ namespace VoxelBaker.Editor
                 RunAnalysis();
             }
 
+            EditorGUI.BeginChangeCheck();
             sourceMesh = (Mesh)EditorGUILayout.ObjectField("直接指定 Mesh 资产", sourceMesh, typeof(Mesh), false);
+            if (EditorGUI.EndChangeCheck() && sourceMesh != null)
+            {
+                RunAnalysis();
+            }
 
             if (sourceMaterials != null && sourceMaterials.Length > 0)
             {
