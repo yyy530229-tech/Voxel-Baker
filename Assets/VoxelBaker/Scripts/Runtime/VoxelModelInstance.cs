@@ -138,6 +138,31 @@ namespace VoxelBaker.Runtime
             return _runtimeGrid[gridPos.x, gridPos.y, gridPos.z];
         }
 
+        /// <summary>
+        /// 同步网格颜色至 GPU 渲染列表，使 3D 渲染表现与发射方块色彩 100% 绝对一致
+        /// </summary>
+        public void SynchronizeGPUColors()
+        {
+            if (_activeGPUList == null || _runtimeGrid == null || _renderer == null || voxelAsset == null) return;
+
+            for (int i = 0; i < _activeGPUList.Count; i++)
+            {
+                PackedVoxelGPU gpuVoxel = _activeGPUList[i];
+                Vector3Int pos = PackedVoxelGPU.UnpackPosition(gpuVoxel.packedPosition);
+                if (voxelAsset.IsInBounds(pos))
+                {
+                    VoxelCell cell = _runtimeGrid[pos.x, pos.y, pos.z];
+                    if (cell.isOccupied)
+                    {
+                        gpuVoxel.colorRGBA = PackedVoxelGPU.ColorToUInt(cell.customColor);
+                        _activeGPUList[i] = gpuVoxel;
+                    }
+                }
+            }
+
+            _renderer.UpdateVisibleInstances(_activeGPUList.ToArray(), _activeGPUList.Count);
+        }
+
         private readonly List<int> _tempMatchingIndices = new List<int>(128);
         private readonly List<int> _tempFrontIndices = new List<int>(64);
         private readonly HashSet<Vector3Int> _targetedVoxels = new HashSet<Vector3Int>();

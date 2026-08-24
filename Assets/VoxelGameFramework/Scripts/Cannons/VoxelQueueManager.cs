@@ -111,6 +111,9 @@ namespace VoxelGameFramework.Cannons
                 distinctCategoryList.Add((avgColor, indices.Count));
             }
 
+            // 同步刷新模型当前的 GPU 渲染列表，使 3D 渲染与消除方块颜色 100% 绝对一致
+            model.SynchronizeGPUColors();
+
             // 2. 将每个色系切分为大容量方块 (若某个特征色如竹子总量较少，如 25~45 发，直接生成专属绿色大方块)
             List<(Color32 color, int count)> blockTasks = new List<(Color32, int)>();
             int totalQueueAmmo = 0;
