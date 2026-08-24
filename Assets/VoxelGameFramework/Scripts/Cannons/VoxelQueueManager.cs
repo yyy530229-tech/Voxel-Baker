@@ -40,7 +40,7 @@ namespace VoxelGameFramework.Cannons
                 }
             }
 
-            // 1. 提取模型中所有有效体素的颜色，并使用 K-Means 算法聚合为 3~5 种鲜明的主题主色调
+            // 1. 提取模型中所有有效体素的颜色，并使用色相感知(Hue-Aware)特征聚类，确保竹绿、亮橙等特征色绝对保留！
             List<Vector3Int> allOccupiedPositions = new List<Vector3Int>();
             List<Color32> allVoxelColors = new List<Color32>();
 
@@ -61,38 +61,64 @@ namespace VoxelGameFramework.Cannons
             int totalModelVoxels = allVoxelColors.Count;
             if (totalModelVoxels == 0) return;
 
-            // 智能确定主色数量 K (通常为 3~5 种鲜明主色)
-            int k = Mathf.Clamp(Mathf.Min(4, model.Asset.palette != null && model.Asset.palette.entries != null ? model.Asset.palette.entries.Count : 3), 2, 5);
-            
-            // 执行 K-Means 聚类，得到 K 个纯净鲜明的标准主色
-            List<Color32> clusterCentroids = PerformKMeansClustering(allVoxelColors, k);
+            // 执行色相感知聚类：将所有体素分类到各自鲜明的主题色系（如：绿色竹子、纯白毛发、深黑四肢）
+            Dictionary<int, List<int>> colorBuckets = new Dictionary<int, List<int>>();
+            Dictionary<int, Color32> bucketRepresentativeColors = new Dictionary<int, Color32>();
 
-            // 统计每个主色的体素数量，并同步更新模型运行时网格的颜色为纯净聚类色
-            int[] clusterVoxelCounts = new int[clusterCentroids.Count];
             for (int i = 0; i < allVoxelColors.Count; i++)
             {
-                int bestClusterIdx = GetNearestClusterIndex(allVoxelColors[i], clusterCentroids);
-                clusterVoxelCounts[bestClusterIdx]++;
+                Color32 c = allVoxelColors[i];
+                int bucketKey = GetHueAwareBucketKey(c);
 
-                // 将模型体素颜色与主色严格 1:1 对齐，保证视觉与发射方块完全一致
-                Vector3Int gPos = allOccupiedPositions[i];
-                var cell = model.GetCell(gPos);
-                if (cell.isOccupied)
+                if (!colorBuckets.ContainsKey(bucketKey))
                 {
-                    cell.customColor = clusterCentroids[bestClusterIdx];
+                    colorBuckets[bucketKey] = new List<int>();
+                    bucketRepresentativeColors[bucketKey] = c;
                 }
+                colorBuckets[bucketKey].Add(i);
             }
 
-            // 2. 将每个主色均匀切分为 35~50 发的大容量方块，绝对不允许出现任何个位数碎方块！
+            // 计算每个色系的纯净平均代表色，并将模型网格体素更新为该纯净色
+            List<(Color32 color, int count)> distinctCategoryList = new List<(Color32, int)>();
+            foreach (var kvp in colorBuckets)
+            {
+                var indices = kvp.Value;
+                long sumR = 0, sumG = 0, sumB = 0;
+                for (int j = 0; j < indices.Count; j++)
+                {
+                    Color32 c = allVoxelColors[indices[j]];
+                    sumR += c.r; sumG += c.g; sumB += c.b;
+                }
+                Color32 avgColor = new Color32((byte)(sumR / indices.Count), (byte)(sumG / indices.Count), (byte)(sumB / indices.Count), 255);
+
+                // 如果是竹绿色系，增强饱和度让方块鲜艳亮丽
+                Color.RGBToHSV(avgColor, out float h, out float s, out float v);
+                if (s > 0.15f)
+                {
+                    avgColor = Color.HSVToRGB(h, Mathf.Clamp01(s * 1.35f + 0.1f), Mathf.Clamp01(v * 1.1f));
+                }
+
+                for (int j = 0; j < indices.Count; j++)
+                {
+                    Vector3Int gPos = allOccupiedPositions[indices[j]];
+                    var cell = model.GetCell(gPos);
+                    if (cell.isOccupied)
+                    {
+                        cell.customColor = avgColor;
+                    }
+                }
+
+                distinctCategoryList.Add((avgColor, indices.Count));
+            }
+
+            // 2. 将每个色系切分为大容量方块 (若某个特征色如竹子总量较少，如 25~45 发，直接生成专属绿色大方块)
             List<(Color32 color, int count)> blockTasks = new List<(Color32, int)>();
             int totalQueueAmmo = 0;
 
-            for (int c = 0; c < clusterCentroids.Count; c++)
+            for (int c = 0; c < distinctCategoryList.Count; c++)
             {
-                int count = clusterVoxelCounts[c];
-                Color32 col = clusterCentroids[c];
-
-                if (count <= 0) continue;
+                int count = distinctCategoryList[c].count;
+                Color32 col = distinctCategoryList[c].color;
 
                 while (count > 0)
                 {
@@ -105,7 +131,7 @@ namespace VoxelGameFramework.Cannons
                     else
                     {
                         int size = Random.Range(35, 51);
-                        if (count - size < 25)
+                        if (count - size < 20)
                         {
                             size = count; // 尾数自动合并
                         }
@@ -116,7 +142,7 @@ namespace VoxelGameFramework.Cannons
                 }
             }
 
-            Debug.Log($"[VoxelQueueManager] K-Means 聚类完成！主色数: {clusterCentroids.Count}, 模型总占用: {totalModelVoxels}, 生成方块数: {blockTasks.Count}, 总弹药: {totalQueueAmmo} (1:1 绝对守恒)");
+            Debug.Log($"[VoxelQueueManager] 色相特征提取成功！提取特征色数: {distinctCategoryList.Count}, 总占用: {totalModelVoxels}, 总弹药: {totalQueueAmmo} (1:1 绝对守恒)");
 
             // 3. 乱序排列 (Fisher-Yates Shuffle)
             for (int i = blockTasks.Count - 1; i > 0; i--)
@@ -158,96 +184,42 @@ namespace VoxelGameFramework.Cannons
             }
         }
 
-        private static int GetNearestClusterIndex(Color32 c, List<Color32> centroids)
+        /// <summary>
+        /// 色相感知(Hue-Aware)分类器：将颜色分类为纯白、深黑、竹绿、明黄、亮橙、湛蓝等独立的主题色系
+        /// </summary>
+        private static int GetHueAwareBucketKey(Color32 c)
         {
-            if (centroids == null || centroids.Count == 0) return 0;
-            int best = 0;
-            float minDist = float.MaxValue;
-            for (int i = 0; i < centroids.Count; i++)
+            Color.RGBToHSV(c, out float h, out float s, out float v);
+
+            // 1. 无彩色系 (黑、白、灰)
+            if (s < 0.18f)
             {
-                Color32 p = centroids[i];
-                float dr = c.r - p.r;
-                float dg = c.g - p.g;
-                float db = c.b - p.b;
-                float distSq = dr * dr + dg * dg + db * db;
-                if (distSq < minDist)
-                {
-                    minDist = distSq;
-                    best = i;
-                }
-            }
-            return best;
-        }
-
-        private static List<Color32> PerformKMeansClustering(List<Color32> colors, int k)
-        {
-            List<Color32> centroids = new List<Color32>();
-            if (colors == null || colors.Count == 0) return centroids;
-
-            k = Mathf.Clamp(k, 1, colors.Count);
-
-            // 1. 选取初始聚类中心 (选取彼此色彩距离最大的点)
-            centroids.Add(colors[0]);
-            while (centroids.Count < k)
-            {
-                Color32 bestNext = colors[0];
-                float maxMinDist = -1f;
-
-                for (int i = 0; i < colors.Count; i++)
-                {
-                    Color32 candidate = colors[i];
-                    float minDistToExisting = float.MaxValue;
-                    for (int c = 0; c < centroids.Count; c++)
-                    {
-                        Color32 exist = centroids[c];
-                        float dr = candidate.r - exist.r;
-                        float dg = candidate.g - exist.g;
-                        float db = candidate.b - exist.b;
-                        float d = dr * dr + dg * dg + db * db;
-                        if (d < minDistToExisting) minDistToExisting = d;
-                    }
-
-                    if (minDistToExisting > maxMinDist)
-                    {
-                        maxMinDist = minDistToExisting;
-                        bestNext = candidate;
-                    }
-                }
-
-                centroids.Add(bestNext);
+                if (v >= 0.55f) return 100; // 白色系 (White / Off-white)
+                return 101;                 // 黑色/深灰系 (Black / Charcoal)
             }
 
-            // 2. 迭代 6 轮计算均值更新聚类中心
-            for (int iter = 0; iter < 6; iter++)
+            // 2. 有彩色系 (根据色相 Hue 划分为鲜明色系，保证绿竹子绝对独立！)
+            float deg = h * 360f;
+            if (deg >= 55f && deg <= 165f)
             {
-                long[] sumR = new long[k];
-                long[] sumG = new long[k];
-                long[] sumB = new long[k];
-                int[] clusterCounts = new int[k];
-
-                for (int i = 0; i < colors.Count; i++)
-                {
-                    Color32 c = colors[i];
-                    int clusterIdx = GetNearestClusterIndex(c, centroids);
-                    sumR[clusterIdx] += c.r;
-                    sumG[clusterIdx] += c.g;
-                    sumB[clusterIdx] += c.b;
-                    clusterCounts[clusterIdx]++;
-                }
-
-                for (int c = 0; c < k; c++)
-                {
-                    if (clusterCounts[c] > 0)
-                    {
-                        byte nr = (byte)(sumR[c] / clusterCounts[c]);
-                        byte ng = (byte)(sumG[c] / clusterCounts[c]);
-                        byte nb = (byte)(sumB[c] / clusterCounts[c]);
-                        centroids[c] = new Color32(nr, ng, nb, 255);
-                    }
-                }
+                return 1; // 🌿 绿色竹子 / 植物色系 (Green)
             }
-
-            return centroids;
+            else if (deg >= 25f && deg < 55f)
+            {
+                return 2; // 💛 黄色色系 (Yellow)
+            }
+            else if (deg >= 165f && deg <= 260f)
+            {
+                return 3; // 💙 蓝色色系 (Blue)
+            }
+            else if (deg >= 260f && deg <= 330f)
+            {
+                return 4; // 💜 紫/粉色系 (Purple / Pink)
+            }
+            else
+            {
+                return 5; // ❤️ 红/橙色系 (Red / Orange)
+            }
         }
 
         private void Update()
