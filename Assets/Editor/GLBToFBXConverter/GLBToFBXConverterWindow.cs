@@ -322,7 +322,26 @@ namespace ModelConverter
         {
             string folder = Path.GetDirectoryName(fbxAssetPath);
 
-            // 创建材质球
+            // 1. 持久化保存提取出来的网格 Mesh 资产文件 (.asset)
+            List<Mesh> persistentMeshes = new List<Mesh>();
+            for (int m = 0; m < modelData.meshes.Count; m++)
+            {
+                var pMesh = modelData.meshes[m];
+                string meshAssetPath = Path.Combine(folder, $"{pMesh.meshName}.asset").Replace("\\", "/");
+                Mesh existing = AssetDatabase.LoadAssetAtPath<Mesh>(meshAssetPath);
+                if (existing != null)
+                {
+                    EditorUtility.CopySerialized(pMesh.unityMesh, existing);
+                    persistentMeshes.Add(existing);
+                }
+                else
+                {
+                    AssetDatabase.CreateAsset(pMesh.unityMesh, meshAssetPath);
+                    persistentMeshes.Add(pMesh.unityMesh);
+                }
+            }
+
+            // 2. 自动关联贴图与生成 URP 材质球
             List<Material> unityMaterials = new List<Material>();
             Shader urpLitShader = Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard");
 
@@ -331,7 +350,7 @@ namespace ModelConverter
                 for (int i = 0; i < modelData.materials.Count; i++)
                 {
                     var pMat = modelData.materials[i];
-                    string matAssetPath = Path.Combine(folder, $"{pMat.materialName}.mat").Replace("\\", "/");
+                    string matAssetPath = Path.Combine(folder, $"{modelData.modelName}_{pMat.materialName}.mat").Replace("\\", "/");
 
                     Material m = AssetDatabase.LoadAssetAtPath<Material>(matAssetPath);
                     if (m == null)
@@ -345,11 +364,45 @@ namespace ModelConverter
                     if (m.HasProperty("_Metallic")) m.SetFloat("_Metallic", pMat.metallic);
                     if (m.HasProperty("_Smoothness")) m.SetFloat("_Smoothness", 1f - pMat.roughness);
 
+                    // 自动扫描并绑定提取出的 PNG 纹理贴图
+                    if (pMat.diffuseTextureIndex >= 0 && modelData.textures != null && pMat.diffuseTextureIndex < modelData.textures.Count)
+                    {
+                        var texData = modelData.textures[pMat.diffuseTextureIndex];
+                        string texExt = texData.mimeType == "image/jpeg" ? ".jpg" : ".png";
+                        string texAssetPath = Path.Combine(folder, $"{modelData.modelName}_{texData.name}{texExt}").Replace("\\", "/");
+                        Texture2D tex = AssetDatabase.LoadAssetAtPath<Texture2D>(texAssetPath);
+                        if (tex != null)
+                        {
+                            if (m.HasProperty("_BaseMap")) m.SetTexture("_BaseMap", tex);
+                            if (m.HasProperty("_MainTex")) m.SetTexture("_MainTex", tex);
+                        }
+                    }
+                    else
+                    {
+                        // 尝试模糊匹配当前目录下的同名主贴图
+                        string[] pngs = Directory.GetFiles(folder, $"{modelData.modelName}*.png");
+                        foreach (var png in pngs)
+                        {
+                            string p = png.Replace("\\", "/");
+                            if (!p.Contains("normal", StringComparison.OrdinalIgnoreCase) && !p.Contains("roughness", StringComparison.OrdinalIgnoreCase))
+                            {
+                                Texture2D tex = AssetDatabase.LoadAssetAtPath<Texture2D>(p);
+                                if (tex != null)
+                                {
+                                    if (m.HasProperty("_BaseMap")) m.SetTexture("_BaseMap", tex);
+                                    if (m.HasProperty("_MainTex")) m.SetTexture("_MainTex", tex);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    EditorUtility.SetDirty(m);
                     unityMaterials.Add(m);
                 }
             }
 
-            // 创建 Prefab
+            // 3. 生成 Prefab 预制体并关联持久化 Mesh 与材质
             if (createPrefab)
             {
                 GameObject rootGo = new GameObject(modelData.modelName);
@@ -361,7 +414,7 @@ namespace ModelConverter
                     meshGo.transform.SetParent(rootGo.transform);
 
                     MeshFilter mf = meshGo.AddComponent<MeshFilter>();
-                    mf.sharedMesh = pMesh.unityMesh;
+                    mf.sharedMesh = m < persistentMeshes.Count ? persistentMeshes[m] : pMesh.unityMesh;
 
                     MeshRenderer mr = meshGo.AddComponent<MeshRenderer>();
                     Material[] assignedMats = new Material[pMesh.subMeshIndices.Count];
@@ -376,7 +429,7 @@ namespace ModelConverter
                 string prefabPath = Path.Combine(folder, $"{modelData.modelName}.prefab").Replace("\\", "/");
                 PrefabUtility.SaveAsPrefabAsset(rootGo, prefabPath);
                 DestroyImmediate(rootGo);
-                Debug.Log($"[GLBToFBXConverter] 成功生成 Unity 预制体: {prefabPath}");
+                Debug.Log($"[GLBToFBXConverter] 成功生成完整带网格与贴图材质的 Unity 预制体: {prefabPath}");
             }
         }
 

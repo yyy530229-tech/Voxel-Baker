@@ -174,7 +174,7 @@ namespace ModelConverter
                     sb.AppendLine("\t\tLayerElementNormal: 0 {");
                     sb.AppendLine("\t\t\tVersion: 101");
                     sb.AppendLine("\t\t\tName: \"\"");
-                    sb.AppendLine("\t\t\tMappingInformationType: \"ByVertice\"");
+                    sb.AppendLine("\t\t\tMappingInformationType: \"ByControlPoint\"");
                     sb.AppendLine("\t\t\tReferenceInformationType: \"Direct\"");
                     sb.AppendLine($"\t\t\tNormals: *{mesh.normals.Length * 3} {{");
                     sb.Append("\t\t\t\ta: ");
@@ -195,7 +195,7 @@ namespace ModelConverter
                     sb.AppendLine("\t\tLayerElementUV: 0 {");
                     sb.AppendLine("\t\t\tVersion: 101");
                     sb.AppendLine("\t\t\tName: \"UVMap\"");
-                    sb.AppendLine("\t\t\tMappingInformationType: \"ByVertice\"");
+                    sb.AppendLine("\t\t\tMappingInformationType: \"ByControlPoint\"");
                     sb.AppendLine("\t\t\tReferenceInformationType: \"Direct\"");
                     sb.AppendLine($"\t\t\tUV: *{mesh.uvs.Length * 2} {{");
                     sb.Append("\t\t\t\ta: ");
@@ -215,7 +215,7 @@ namespace ModelConverter
                     sb.AppendLine("\t\tLayerElementColor: 0 {");
                     sb.AppendLine("\t\t\tVersion: 101");
                     sb.AppendLine("\t\t\tName: \"Col\"");
-                    sb.AppendLine("\t\t\tMappingInformationType: \"ByVertice\"");
+                    sb.AppendLine("\t\t\tMappingInformationType: \"ByControlPoint\"");
                     sb.AppendLine("\t\t\tReferenceInformationType: \"Direct\"");
                     sb.AppendLine($"\t\t\tColors: *{mesh.colors.Length * 4} {{");
                     sb.Append("\t\t\t\ta: ");
