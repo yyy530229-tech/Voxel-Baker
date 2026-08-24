@@ -48,84 +48,85 @@ namespace VoxelBaker.Editor
             try
             {
                 foreach (var chunk in asset.chunks)
-            {
-                if (chunk.cells == null) continue;
-
-                if (mode == VoxelPreviewMode.ChunkBounds)
                 {
-                    Handles.color = Color.cyan;
-                    Handles.DrawWireCube(rootPos + rootRot * chunk.localBounds.center, chunk.localBounds.size);
-                    continue;
-                }
+                    if (chunk.cells == null) continue;
 
-                for (int i = 0; i < chunk.cells.Length; i += step)
-                {
-                    var cell = chunk.cells[i];
-                    if (!cell.isOccupied) continue;
-
-                    Vector3 localPos = asset.GridToLocalPosition(cell.gridPos);
-
-                    // 切片剖面裁切检查
-                    if (enableSlicePlane)
+                    if (mode == VoxelPreviewMode.ChunkBounds)
                     {
-                        float dist = Vector3.Dot(localPos, slicePlaneNormal.normalized) - slicePlaneOffset;
-                        if (dist > 0) continue;
+                        Handles.color = Color.cyan;
+                        Handles.DrawWireCube(rootPos + rootRot * chunk.localBounds.center, chunk.localBounds.size);
+                        continue;
                     }
 
-                    Vector3 worldPos = rootPos + rootRot * localPos;
-
-                    Color c = Color.white;
-                    switch (mode)
+                    for (int i = 0; i < chunk.cells.Length; i += step)
                     {
-                        case VoxelPreviewMode.SurfaceOnly:
-                            if (cell.layer != VoxelLayerType.OuterSurface) continue;
-                            c = cell.customColor;
-                            break;
+                        var cell = chunk.cells[i];
+                        if (!cell.isOccupied) continue;
 
-                        case VoxelPreviewMode.SolidOccupancy:
-                            c = (cell.layer == VoxelLayerType.OuterSurface) ? new Color(0.2f, 0.85f, 0.3f) : new Color(1f, 0.8f, 0.2f);
-                            break;
+                        Vector3 localPos = asset.GridToLocalPosition(cell.gridPos);
 
-                        case VoxelPreviewMode.DistanceField:
-                            float dNorm = Mathf.Clamp01(cell.distanceToSurface / 8f);
-                            c = Color.Lerp(Color.blue, Color.red, dNorm);
-                            break;
+                        // 切片剖面裁切检查
+                        if (enableSlicePlane)
+                        {
+                            float dist = Vector3.Dot(localPos, slicePlaneNormal.normalized) - slicePlaneOffset;
+                            if (dist > 0) continue;
+                        }
 
-                        case VoxelPreviewMode.LayerClassification:
-                            switch (cell.layer)
-                            {
-                                case VoxelLayerType.OuterSurface: c = new Color(1f, 0.2f, 0.6f); break; // 粉
-                                case VoxelLayerType.InnerSurface: c = new Color(0.2f, 0.8f, 0.9f); break; // 青
-                                case VoxelLayerType.Interior:     c = new Color(0.4f, 0.9f, 0.2f); break; // 绿
-                                case VoxelLayerType.Core:         c = new Color(1f, 0.8f, 0.1f); break; // 黄
-                                default: c = Color.gray; break;
-                            }
-                            break;
+                        Vector3 worldPos = rootPos + rootRot * localPos;
 
-                        case VoxelPreviewMode.AmbientOcclusion:
-                            float ao = cell.ao / 255f;
-                            c = new Color(ao, ao, ao, 1f);
-                            break;
+                        Color c = Color.white;
+                        switch (mode)
+                        {
+                            case VoxelPreviewMode.SurfaceOnly:
+                                if (cell.layer != VoxelLayerType.OuterSurface) continue;
+                                c = cell.customColor;
+                                break;
 
-                        case VoxelPreviewMode.FaceMask:
-                            c = cell.faceMask != VoxelFaceMask.None ? Color.magenta : Color.gray;
-                            break;
+                            case VoxelPreviewMode.SolidOccupancy:
+                                c = (cell.layer == VoxelLayerType.OuterSurface) ? new Color(0.2f, 0.85f, 0.3f) : new Color(1f, 0.8f, 0.2f);
+                                break;
 
-                        case VoxelPreviewMode.PaletteColor:
-                        default:
-                            c = cell.customColor;
-                            break;
+                            case VoxelPreviewMode.DistanceField:
+                                float dNorm = Mathf.Clamp01(cell.distanceToSurface / 8f);
+                                c = Color.Lerp(Color.blue, Color.red, dNorm);
+                                break;
+
+                            case VoxelPreviewMode.LayerClassification:
+                                switch (cell.layer)
+                                {
+                                    case VoxelLayerType.OuterSurface: c = new Color(1f, 0.2f, 0.6f); break; // 粉
+                                    case VoxelLayerType.InnerSurface: c = new Color(0.2f, 0.8f, 0.9f); break; // 青
+                                    case VoxelLayerType.Interior:     c = new Color(0.4f, 0.9f, 0.2f); break; // 绿
+                                    case VoxelLayerType.Core:         c = new Color(1f, 0.8f, 0.1f); break; // 黄
+                                    default: c = Color.gray; break;
+                                }
+                                break;
+
+                            case VoxelPreviewMode.AmbientOcclusion:
+                                float ao = cell.ao / 255f;
+                                c = new Color(ao, ao, ao, 1f);
+                                break;
+
+                            case VoxelPreviewMode.FaceMask:
+                                c = cell.faceMask != VoxelFaceMask.None ? Color.magenta : Color.gray;
+                                break;
+
+                            case VoxelPreviewMode.PaletteColor:
+                            default:
+                                c = cell.customColor;
+                                break;
+                        }
+
+                        Handles.color = c;
+                        Handles.CubeHandleCap(0, worldPos, rootRot, vSize, EventType.Repaint);
+                        drawnCount++;
                     }
-
-                    Handles.color = c;
-                    Handles.CubeHandleCap(0, worldPos, rootRot, vSize, EventType.Repaint);
-                    drawnCount++;
                 }
             }
-        }
-        finally
-        {
-            Handles.zTest = prevZTest;
+            finally
+            {
+                Handles.zTest = prevZTest;
+            }
         }
     }
 }
