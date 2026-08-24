@@ -15,7 +15,7 @@ namespace VoxelGameFramework.Cannons
     }
 
     /// <summary>
-    /// 彩色射击方块单元 (匹配参考图2: 清晰激光弹道轨道、精准正面索敌、逐发节奏发射)
+    /// 彩色射击方块单元 (1:1 绝对守恒：1发子弹锁定1个未被占用的外层体素，命中精准消除并扣减1发)
     /// </summary>
     public class VoxelColorShooterBlock : MonoBehaviour
     {
@@ -23,8 +23,8 @@ namespace VoxelGameFramework.Cannons
         public Color32 blockColor = new Color32(230, 40, 50, 255);
         public int initialCapacity = 50;
         public int remainingAmmo = 50;
-        public float bulletSpeed = 52f;      // 极速飞驰精准命中
-        public float shotCooldown = 0.085f;  // 畅快爽利的消除射速 (每秒约 11~12 发)
+        public float bulletSpeed = 52f;
+        public float shotCooldown = 0.085f;
 
         [Header("状态")]
         public ShooterBlockState state = ShooterBlockState.InQueue;
@@ -129,7 +129,7 @@ namespace VoxelGameFramework.Cannons
                     {
                         transform.position = _targetSlotPos;
                         state = ShooterBlockState.ActiveInSlot;
-                        _nextFireTime = now + 0.15f;
+                        _nextFireTime = now + 0.12f;
                     }
                     break;
 
@@ -155,16 +155,16 @@ namespace VoxelGameFramework.Cannons
 
             if (now >= _nextFireTime)
             {
-                // 寻找正面清晰可见的【同色体素】（精准指向屋顶、墙壁等对应色块）
-                if (_targetModel.FindExposedVoxelOfColor(blockColor, transform.position, out Vector3Int hitGridPos, out Vector3 hitWorldPos))
+                // 寻找并独占锁定最外层未被其它子弹锁定的【同色体素】(1:1 严格剥皮消解，绝不重锁浪费弹药)
+                if (_targetModel.FindAndReserveExposedVoxel(blockColor, transform.position, out Vector3Int hitGridPos, out Vector3 hitWorldPos))
                 {
                     FireColorBullet(hitGridPos, hitWorldPos);
-                    _nextFireTime = now + shotCooldown + UnityEngine.Random.Range(-0.015f, 0.015f);
+                    _nextFireTime = now + shotCooldown + UnityEngine.Random.Range(-0.01f, 0.01f);
                 }
                 else
                 {
-                    // 当前未露出正面同色体素，等待模型旋转露出
-                    _nextFireTime = now + 0.25f;
+                    // 当前未露出同色外部体素，等待模型旋转露出
+                    _nextFireTime = now + 0.18f;
                 }
             }
         }
@@ -175,10 +175,10 @@ namespace VoxelGameFramework.Cannons
 
             Vector3 spawnPos = transform.position + Vector3.up * 0.6f;
 
-            // 1. 生成清晰透明白色弹道光轨 (匹配参考图2中直通目标体素的光线轨道)
+            // 生成清晰透明白色弹道光轨
             CreateTrajectoryRay(spawnPos, targetWorldPos);
 
-            // 2. 发射高亮白色能量弹头
+            // 发射高亮白色能量弹头
             GameObject bulletObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             bulletObj.name = "ColorBullet";
             bulletObj.transform.position = spawnPos;
@@ -188,10 +188,9 @@ namespace VoxelGameFramework.Cannons
             if (c != null) c.enabled = false;
 
             Material bm = new Material(Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Unlit/Color"));
-            bm.color = Color.white; // 极简纯白弹头
+            bm.color = Color.white;
             bulletObj.GetComponent<Renderer>().sharedMaterial = bm;
 
-            // 极细清爽拖尾 (0.08s 快速消隐，绝不遮挡视野)
             TrailRenderer trail = bulletObj.AddComponent<TrailRenderer>();
             trail.time = 0.08f;
             trail.startWidth = 0.12f;
@@ -210,7 +209,7 @@ namespace VoxelGameFramework.Cannons
             );
 
             // 轻微后坐力弹跳
-            transform.position = _targetSlotPos - Vector3.up * 0.06f;
+            transform.position = _targetSlotPos - Vector3.up * 0.05f;
         }
 
         private void CreateTrajectoryRay(Vector3 start, Vector3 end)
@@ -220,17 +219,16 @@ namespace VoxelGameFramework.Cannons
             line.positionCount = 2;
             line.SetPosition(0, start);
             line.SetPosition(1, end);
-            line.startWidth = 0.045f;
+            line.startWidth = 0.04f;
             line.endWidth = 0.015f;
 
             Material lm = new Material(Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Unlit/Color"));
-            lm.color = new Color(1f, 1f, 1f, 0.45f); // 半透明纯白光轨
+            lm.color = new Color(1f, 1f, 1f, 0.4f);
             line.sharedMaterial = lm;
-            line.startColor = new Color(1f, 1f, 1f, 0.6f);
+            line.startColor = new Color(1f, 1f, 1f, 0.55f);
             line.endColor = new Color(1f, 1f, 1f, 0.1f);
 
-            // 0.14秒后自动销毁光轨
-            Destroy(lineObj, 0.14f);
+            Destroy(lineObj, 0.12f);
         }
 
         public void OnBulletHitSuccess()
@@ -245,14 +243,14 @@ namespace VoxelGameFramework.Cannons
                 state = ShooterBlockState.Disappearing;
                 if (VoxelDebrisManager.Instance != null)
                 {
-                    VoxelDebrisManager.Instance.SpawnDebris(transform.position, Vector3.up, blockColor, 0.25f, 8);
+                    VoxelDebrisManager.Instance.SpawnDebris(transform.position, Vector3.up, blockColor, 0.25f, 6);
                 }
             }
         }
     }
 
     /// <summary>
-    /// 同色匹配子弹 (实时跟踪旋转模型上的体素世界坐标，100% 激光般精准命中)
+    /// 同色匹配子弹 (独占命中，命中成功才扣减发射方块弹药，确保 100% 绝对守恒)
     /// </summary>
     public class ColorMatchBullet : MonoBehaviour
     {
@@ -281,7 +279,6 @@ namespace VoxelGameFramework.Cannons
                 return;
             }
 
-            // 实时获取旋转模型上目标体素的最新世界坐标
             Vector3 localPos = _modelInstance.Asset.GridToLocalPosition(_targetGridPos);
             Vector3 currentTargetWorldPos = _modelInstance.transform.TransformPoint(localPos);
 
@@ -294,9 +291,10 @@ namespace VoxelGameFramework.Cannons
             if (dist <= step || dist < 0.28f)
             {
                 // 击中体素！
-                _modelInstance.ApplyColorDamage(_targetGridPos, 1, _bulletColor, currentTargetWorldPos, -dir.normalized);
+                bool hitValid = _modelInstance.ApplyColorDamage(_targetGridPos, 1, _bulletColor, currentTargetWorldPos, -dir.normalized);
+                _modelInstance.ReleaseTargetVoxel(_targetGridPos);
 
-                if (_sourceBlock != null)
+                if (hitValid && _sourceBlock != null)
                 {
                     _sourceBlock.OnBulletHitSuccess();
                 }
@@ -309,7 +307,16 @@ namespace VoxelGameFramework.Cannons
 
             if (Time.time - _spawnTime > 1.5f)
             {
+                if (_modelInstance != null) _modelInstance.ReleaseTargetVoxel(_targetGridPos);
                 Destroy(gameObject);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (_modelInstance != null)
+            {
+                _modelInstance.ReleaseTargetVoxel(_targetGridPos);
             }
         }
     }

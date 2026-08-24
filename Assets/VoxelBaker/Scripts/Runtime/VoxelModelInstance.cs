@@ -140,11 +140,22 @@ namespace VoxelBaker.Runtime
 
         private readonly List<int> _tempMatchingIndices = new List<int>(128);
         private readonly List<int> _tempFrontIndices = new List<int>(64);
+        private readonly HashSet<Vector3Int> _targetedVoxels = new HashSet<Vector3Int>();
+
+        public void ReserveTargetVoxel(Vector3Int gridPos)
+        {
+            _targetedVoxels.Add(gridPos);
+        }
+
+        public void ReleaseTargetVoxel(Vector3Int gridPos)
+        {
+            _targetedVoxels.Remove(gridPos);
+        }
 
         /// <summary>
-        /// 查找当前暴露在最外层且对炮台无遮挡的表面同色体素 (严格一对一从外到内消除，绝不隔空击穿)
+        /// 查找并独占锁定最外层表面同色体素 (1:1 绝对守恒，绝不允许多发子弹重打同一格已毁体素)
         /// </summary>
-        public bool FindExposedVoxelOfColor(Color32 targetColor, Vector3 fromWorldPos, out Vector3Int hitGridPos, out Vector3 hitWorldPos)
+        public bool FindAndReserveExposedVoxel(Color32 targetColor, Vector3 fromWorldPos, out Vector3Int hitGridPos, out Vector3 hitWorldPos)
         {
             hitGridPos = Vector3Int.zero;
             hitWorldPos = Vector3.zero;
@@ -160,6 +171,11 @@ namespace VoxelBaker.Runtime
             for (int i = 0; i < _activeGPUList.Count; i++)
             {
                 PackedVoxelGPU gpuVoxel = _activeGPUList[i];
+                Vector3Int pos = PackedVoxelGPU.UnpackPosition(gpuVoxel.packedPosition);
+
+                // 关键点：已被其它在途子弹锁定的体素跳过，杜绝多弹打一格造成的虚耗弹药！
+                if (_targetedVoxels.Contains(pos)) continue;
+
                 Color32 vColor = PackedVoxelGPU.UIntToColor(gpuVoxel.colorRGBA);
 
                 // 严格颜色匹配判定 (RGB 距离容差)
@@ -172,13 +188,9 @@ namespace VoxelBaker.Runtime
                 {
                     _tempMatchingIndices.Add(i);
 
-                    Vector3Int pos = PackedVoxelGPU.UnpackPosition(gpuVoxel.packedPosition);
                     Vector3 localPos = voxelAsset.GridToLocalPosition(pos);
                     Vector3 wPos = transform.TransformPoint(localPos);
 
-                    // 1. 严格筛选朝向正面与炮台的外部表面体素 (Z <= center.z + 0.15f)
-                    // 2. 检查法线是否大致朝向炮台/摄像机，确保处于模型外壳可见第一层
-                    Vector3 dirToShooter = (fromWorldPos - wPos).normalized;
                     if (wPos.z <= center.z + 0.15f)
                     {
                         _tempFrontIndices.Add(i);
@@ -190,7 +202,6 @@ namespace VoxelBaker.Runtime
 
             // 剥皮式层序消除核心算法 (Peeling Layer-by-Layer)：
             // 挑选当前最外层、最凸出的“表皮层”同色体素进行消解！
-            // 严格像削苹果一样从最外层一层一层向内剥落，彻底消灭“悬空空洞”！
             int bestIdx = -1;
             float maxOutwardness = -float.MaxValue;
 
@@ -204,7 +215,6 @@ namespace VoxelBaker.Runtime
                 Vector3 localPos = voxelAsset.GridToLocalPosition(pos);
                 Vector3 wPos = transform.TransformPoint(localPos);
 
-                // 外凸度 = 离模型中心距离 + 朝向镜头/炮台的前凸权重 (越靠前外侧越优先)
                 float distFromCenter = (wPos - center).sqrMagnitude;
                 float frontBias = (center.z - wPos.z) * 3.0f;
                 float outwardness = distFromCenter + frontBias;
@@ -223,7 +233,15 @@ namespace VoxelBaker.Runtime
             hitGridPos = PackedVoxelGPU.UnpackPosition(chosenGpu.packedPosition);
             Vector3 finalLocal = voxelAsset.GridToLocalPosition(hitGridPos);
             hitWorldPos = transform.TransformPoint(finalLocal);
+
+            // 独占锁定此体素，直到这发子弹命中或销毁
+            ReserveTargetVoxel(hitGridPos);
             return true;
+        }
+
+        public bool FindExposedVoxelOfColor(Color32 targetColor, Vector3 fromWorldPos, out Vector3Int hitGridPos, out Vector3 hitWorldPos)
+        {
+            return FindAndReserveExposedVoxel(targetColor, fromWorldPos, out hitGridPos, out hitWorldPos);
         }
 
         public bool ApplyColorDamage(Vector3Int gridPos, int damageAmount, Color32 attackerColor, Vector3 hitWorldPoint, Vector3 hitWorldNormal)
