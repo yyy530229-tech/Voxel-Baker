@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace VoxelGameFramework.Core
+namespace VoxelBaker.Data
 {
     /// <summary>
-    /// 体素色彩工具库 (提供色相感知匹配、色彩欧氏距离计算及色彩友好命名)
+    /// 体素色彩核心工具库 (提供色相感知匹配、欧氏距离计算及色彩命名)
     /// </summary>
     public static class VoxelColorUtility
     {
@@ -33,11 +33,11 @@ namespace VoxelGameFramework.Core
 
             // 有彩色系：按色相分度
             float deg = h * 360f;
-            if (deg >= 55f && deg <= 165f) return 1;  // 🌿 翠绿色 / 竹绿色 (Green)
-            if (deg >= 25f && deg < 55f)   return 2;  // 💛 明黄色 (Yellow)
-            if (deg >= 165f && deg <= 260f) return 3; // 💙 湛蓝色 (Blue)
-            if (deg >= 260f && deg <= 330f) return 4; // 💜 粉紫色 (Pink / Purple)
-            return 5;                                 // ❤️ 橙红色 (Red / Orange)
+            if (deg >= 55f && deg <= 165f) return 1;  // 🌿 绿色色系 (Green)
+            if (deg >= 25f && deg < 55f)   return 2;  // 💛 黄色色系 (Yellow)
+            if (deg >= 165f && deg <= 260f) return 3; // 💙 蓝色色系 (Blue)
+            if (deg >= 260f && deg <= 330f) return 4; // 💜 粉紫色系 (Pink / Purple)
+            return 5;                                 // ❤️ 橙红色系 (Red / Orange)
         }
 
         /// <summary>
@@ -55,11 +55,22 @@ namespace VoxelGameFramework.Core
             }
 
             float deg = h * 360f;
-            if (deg >= 55f && deg <= 165f) return "竹绿 (Bamboo Green)";
+            if (deg >= 55f && deg <= 165f) return "绿色 (Green)";
             if (deg >= 25f && deg < 55f)   return "明黄 (Bright Yellow)";
             if (deg >= 165f && deg <= 260f) return "湛蓝 (Ocean Blue)";
             if (deg >= 260f && deg <= 330f) return "粉紫 (Pink / Purple)";
             return "暖红 (Warm Red)";
         }
+    }
+}
+
+namespace VoxelGameFramework.Core
+{
+    // 向后兼容命名空间别名
+    public static class VoxelColorUtility
+    {
+        public static bool IsColorMatching(Color32 a, Color32 b, float tolerance = 65f) => VoxelBaker.Data.VoxelColorUtility.IsColorMatching(a, b, tolerance);
+        public static int GetHueFamilyKey(Color32 c) => VoxelBaker.Data.VoxelColorUtility.GetHueFamilyKey(c);
+        public static string GetColorName(Color32 c) => VoxelBaker.Data.VoxelColorUtility.GetColorName(c);
     }
 }
