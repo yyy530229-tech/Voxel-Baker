@@ -60420,5 +60420,5 @@ MonoBehaviour:
   totalSurfaceVoxels: 1781
   totalInteriorVoxels: 2063
   totalVisibleVoxels: 1136
-  bakeDurationSeconds: 2.724652
+  bakeDurationSeconds: 2.7649498
   interiorProfile: {fileID: 0}

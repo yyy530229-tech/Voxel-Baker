@@ -90,7 +90,8 @@ namespace VoxelBaker.Editor
         private MeshAnalysisReport analysisReport;
 
         // 阶段 2: 几何
-        private float voxelSize = 0.08f;
+        private float targetModelHeight = 3.6f;
+        private float voxelSize = 0.16f;
         private bool fillInteriorSolid = true;
 
         // 阶段 3: 外观
@@ -589,21 +590,30 @@ namespace VoxelBaker.Editor
             EditorGUILayout.LabelField("② 网格尺寸与实体化填充 (Geometry & Solid Voxelization)", sectionHeaderStyle);
 
             EditorGUILayout.BeginVertical(cardStyle);
-            EditorGUILayout.LabelField("网格分辨率配置", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("1. 模型整体尺寸与体素粒度配置", EditorStyles.boldLabel);
             EditorGUILayout.Space(4);
 
-            voxelSize = EditorGUILayout.Slider(new GUIContent("体素尺寸 Voxel Size (米)", "每个小方块的物理边长。数值越小，体素越精细，计算量越大。"), voxelSize, 0.02f, 0.4f);
+            EditorGUI.BeginChangeCheck();
+            targetModelHeight = EditorGUILayout.Slider(new GUIContent("模型目标整体高度 (Target Height)", "【控制模型在场景中看起来有多大】：例如设为 4.0 米会让模型更大更显眼，设为 2.2 米为标准人偶尺寸。"), targetModelHeight, 1.0f, 10.0f);
+            if (EditorGUI.EndChangeCheck() && sourceGameObject != null)
+            {
+                ExtractModelFromSource(sourceGameObject);
+            }
 
-            if (analysisReport != null && GUILayout.Button("🎯 自动应用推荐的最佳体素尺寸", GUILayout.Height(24)))
+            voxelSize = EditorGUILayout.Slider(new GUIContent("单个体素颗粒尺寸 (Voxel Size)", "【控制体素颗粒的粗细与精细度】：数值越小（如 0.08），细节越多、总方块数越多；数值越大（如 0.20），像素颗粒感越强、总方块数越少。"), voxelSize, 0.04f, 0.5f);
+
+            if (analysisReport != null && GUILayout.Button("🎯 自动计算并应用推荐的最佳体素粒度", GUILayout.Height(26)))
             {
                 voxelSize = analysisReport.recommendedVoxelSize;
             }
 
-            EditorGUILayout.Space(8);
-            fillInteriorSolid = EditorGUILayout.Toggle(new GUIContent("启用 3D 边界泛洪实体填充 (Solid Fill)", "采用 3D Boundary Flood Fill 算法，生成真实内部实体（非空心外壳），击碎表面后可露出内部。"), fillInteriorSolid);
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("2. 内部实体化填充", EditorStyles.boldLabel);
+            EditorGUILayout.Space(4);
+            fillInteriorSolid = EditorGUILayout.Toggle(new GUIContent("启用 3D 边界泛洪实体填充 (Solid Fill)", "【控制是否为实心】：勾选后模型内部是实心肉体，消解时像削苹果皮一样由外向内逐层剥落；不勾选则为空心气球外壳。"), fillInteriorSolid);
 
             EditorGUILayout.Space(6);
-            EditorGUILayout.HelpBox("【规范原则】：系统自动将模型规范化至局部体素空间 (Local Voxel Space)，统一计算 (0,0,0) 原点与边界，无需在每个体素中冗余存储世界坐标。", MessageType.Info);
+            EditorGUILayout.HelpBox("【尺寸换算提示】：总占用体素数 ≈ (模型高度 / 体素尺寸)³ × 填充率。消除游戏推荐总数在 600 ~ 1,500 格之间最佳！", MessageType.Info);
             EditorGUILayout.EndVertical();
         }
         #endregion
@@ -964,13 +974,13 @@ namespace VoxelBaker.Editor
                 sourceMesh = combined;
             }
 
-            // 尺寸自动规范化 (无论 FBX 原始单位是 0.01 厘米还是 1000 毫米，自动对齐至 ~2.2 米休闲消除标准比例)
+            // 尺寸自动规范化 (对齐至用户在界面设定的 targetModelHeight 目标物理尺寸)
             if (sourceMesh != null)
             {
                 float maxBoundDim = Mathf.Max(sourceMesh.bounds.size.x, Mathf.Max(sourceMesh.bounds.size.y, sourceMesh.bounds.size.z));
-                if (maxBoundDim > 0 && (maxBoundDim < 0.2f || maxBoundDim > 20f))
+                if (maxBoundDim > 0)
                 {
-                    float autoScale = 2.2f / maxBoundDim;
+                    float autoScale = targetModelHeight / maxBoundDim;
                     CombineInstance[] scaleCombines = new CombineInstance[1];
                     scaleCombines[0].mesh = sourceMesh;
                     scaleCombines[0].transform = Matrix4x4.Scale(Vector3.one * autoScale);
