@@ -278,13 +278,17 @@ namespace ModelConverter
                 string matName = (modelData.materials != null && i < modelData.materials.Count) ? modelData.materials[i].materialName : $"Material_{i}";
                 Color baseCol = (modelData.materials != null && i < modelData.materials.Count) ? modelData.materials[i].baseColor : Color.white;
 
+                string rStr = baseCol.r.ToString("F4", inv);
+                string gStr = baseCol.g.ToString("F4", inv);
+                string bStr = baseCol.b.ToString("F4", inv);
+
                 sb.AppendLine($"\tMaterial: {matId}, \"Material::{matName}\", \"\" {{");
                 sb.AppendLine("\t\tVersion: 102");
                 sb.AppendLine("\t\tShadingModel: \"phong\"");
                 sb.AppendLine("\t\tMultiLayer: 0");
                 sb.AppendLine("\t\tProperties70:  {");
                 sb.AppendLine("\t\t\tP: \"ShadingModel\", \"KString\", \"\", \"\", \"Phong\"");
-                sb.AppendLine($"\t\t\tP: \"DiffuseColor\", \"Color\", \"\", \"A\",{baseCol.r.ToString(\"F4\", inv)},{baseCol.g.ToString(\"F4\", inv)},{baseCol.b.ToString(\"F4\", inv)}");
+                sb.AppendLine($"\t\t\tP: \"DiffuseColor\", \"Color\", \"\", \"A\",{rStr},{gStr},{bStr}");
                 sb.AppendLine("\t\t\tP: \"DiffuseFactor\", \"Number\", \"\", \"A\",1.0");
                 sb.AppendLine("\t\t\tP: \"AmbientColor\", \"Color\", \"\", \"A\",0.1,0.1,0.1");
                 sb.AppendLine("\t\t\tP: \"SpecularColor\", \"Color\", \"\", \"A\",0.2,0.2,0.2");
