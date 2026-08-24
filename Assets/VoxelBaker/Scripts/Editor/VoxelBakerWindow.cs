@@ -218,13 +218,10 @@ namespace VoxelBaker.Editor
 
         private void DrawTopBanner()
         {
-            Rect bannerRect = EditorGUILayout.GetControlRect(false, 56);
-            EditorGUI.DrawRect(bannerRect, new Color(0.12f, 0.15f, 0.20f));
-
-            GUILayout.BeginArea(new Rect(bannerRect.x + 14, bannerRect.y + 7, bannerRect.width - 28, 44));
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             EditorGUILayout.LabelField("📦 体素资产生产与工程管理工作室 (Voxel Baker Studio)", headerTitleStyle);
             EditorGUILayout.LabelField("Unity 2022.3 LTS + URP ｜ 工程分类归档 · 批量烘焙 · 几何分析 · 实体填充 · GPU 渲染 · 运行时破坏", headerSubStyle);
-            GUILayout.EndArea();
+            EditorGUILayout.EndVertical();
         }
 
         private void DrawLeftSidebar()
@@ -853,21 +850,18 @@ namespace VoxelBaker.Editor
 
         private void DrawBottomBar()
         {
-            Rect barRect = EditorGUILayout.GetControlRect(false, 34);
-            EditorGUI.DrawRect(barRect, new Color(0.12f, 0.14f, 0.18f));
-
-            GUILayout.BeginArea(new Rect(barRect.x + 10, barRect.y + 4, barRect.width - 20, 26));
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("🎬 一键生成并打开演示场景 (Playground Demo Scene)", GUILayout.Height(22)))
+            if (GUILayout.Button("🎬 一键生成并打开演示场景 (Playground Demo Scene)", GUILayout.Height(24)))
             {
                 VoxelMenuTools.CreateAndOpenDemoScene();
             }
-            if (GUILayout.Button("📦 批量生成所有示例资产 (Duck / PinkHead / House)", GUILayout.Height(22)))
+            if (GUILayout.Button("📦 批量生成所有示例资产 (Duck / PinkHead / House)", GUILayout.Height(24)))
             {
                 VoxelMenuTools.CreateSampleAssets();
             }
             EditorGUILayout.EndHorizontal();
-            GUILayout.EndArea();
+            EditorGUILayout.EndVertical();
         }
 
         private void OnSceneGUI(SceneView sceneView)
@@ -875,7 +869,6 @@ namespace VoxelBaker.Editor
             if (bakedAsset != null && currentNavIndex == 6)
             {
                 VoxelScenePreview.DrawPreviewScene(bakedAsset, null, previewMode, enableSlicePlane, sliceNormal.normalized, sliceOffset);
-                SceneView.RepaintAll();
             }
         }
     }
