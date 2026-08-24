@@ -195,6 +195,7 @@ namespace VoxelBaker.Runtime
                     {
                         _tempFrontIndices.Add(i);
                     }
+                }
             }
 
             if (_tempMatchingIndices.Count == 0)
