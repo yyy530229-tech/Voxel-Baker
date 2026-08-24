@@ -21,6 +21,8 @@ namespace VoxelGameFramework.Level
 
         [Header("核心场景引用")]
         public VoxelModelInstance targetModelInstance;
+        public VoxelSlotManager slotManager;
+        public VoxelQueueManager queueManager;
         public VoxelCannonSquad cannonSquad;
         public Camera mainCamera;
 
@@ -72,7 +74,40 @@ namespace VoxelGameFramework.Level
                 _initialTotalVoxels = targetModelInstance.ActiveVoxelCount;
             }
 
-            // 3. 配置炮台编队
+            // 3. 初始化 5 联装活动槽位与底部排队队列
+            List<Color32> levelColors = new List<Color32>();
+            if (_currentConfig != null && _currentConfig.targetAsset != null && _currentConfig.targetAsset.palette != null && _currentConfig.targetAsset.palette.entries.Count > 0)
+            {
+                foreach (var e in _currentConfig.targetAsset.palette.entries)
+                {
+                    if (e.baseColor.a > 0) levelColors.Add((Color32)e.baseColor);
+                }
+            }
+            if (levelColors.Count == 0)
+            {
+                levelColors = new List<Color32>
+                {
+                    new Color32(230, 40, 50, 255),  // 红
+                    new Color32(50, 130, 230, 255), // 蓝
+                    new Color32(140, 80, 40, 255),  // 棕
+                    new Color32(245, 200, 30, 255)  // 黄
+                };
+            }
+
+            if (slotManager != null)
+            {
+                slotManager.ClearAll();
+                slotManager.InitializeSlots();
+            }
+
+            if (queueManager != null)
+            {
+                queueManager.slotManager = slotManager;
+                queueManager.targetModel = targetModelInstance;
+                queueManager.SetupQueue(levelColors, new int[] { 40, 50, 80 });
+            }
+
+            // 4. 配置传统炮台 (可选)
             if (cannonSquad != null && _currentConfig != null)
             {
                 cannonSquad.targetModel = targetModelInstance;

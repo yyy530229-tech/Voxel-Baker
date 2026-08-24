@@ -131,6 +131,81 @@ namespace VoxelBaker.Runtime
                    _runtimeGrid[gridPos.x, gridPos.y, gridPos.z].isAlive;
         }
 
+        public VoxelCell GetCell(Vector3Int gridPos)
+        {
+            if (_runtimeGrid == null || voxelAsset == null || !voxelAsset.IsInBounds(gridPos))
+                return VoxelCell.Empty;
+            return _runtimeGrid[gridPos.x, gridPos.y, gridPos.z];
+        }
+
+        /// <summary>
+        /// 查找距离指定世界坐标最近且颜色匹配的当前暴露在外面的表面体素
+        /// </summary>
+        public bool FindNearestExposedVoxelOfColor(Color32 targetColor, Vector3 fromWorldPos, out Vector3Int hitGridPos, out Vector3 hitWorldPos)
+        {
+            hitGridPos = Vector3Int.zero;
+            hitWorldPos = Vector3.zero;
+
+            if (_activeGPUList == null || _activeGPUList.Count == 0 || voxelAsset == null)
+                return false;
+
+            float minDistanceSq = float.MaxValue;
+            bool found = false;
+
+            for (int i = 0; i < _activeGPUList.Count; i++)
+            {
+                PackedVoxelGPU gpuVoxel = _activeGPUList[i];
+                Color32 vColor = PackedVoxelGPU.UIntToColor(gpuVoxel.colorRGBA);
+
+                // 颜色匹配判定 (RGB 距离容差)
+                float dr = vColor.r - targetColor.r;
+                float dg = vColor.g - targetColor.g;
+                float db = vColor.b - targetColor.b;
+                float dist = Mathf.Sqrt(dr * dr + dg * dg + db * db);
+
+                if (dist <= 75f)
+                {
+                    Vector3Int pos = PackedVoxelGPU.UnpackPosition(gpuVoxel.packedPosition);
+                    Vector3 localPos = voxelAsset.GridToLocalPosition(pos);
+                    Vector3 wPos = transform.TransformPoint(localPos);
+
+                    // 优先选择正面朝向且距离近的体素
+                    float dSq = (wPos - fromWorldPos).sqrMagnitude;
+                    if (dSq < minDistanceSq)
+                    {
+                        minDistanceSq = dSq;
+                        hitGridPos = pos;
+                        hitWorldPos = wPos;
+                        found = true;
+                    }
+                }
+            }
+
+            return found;
+        }
+
+        public bool ApplyColorDamage(Vector3Int gridPos, int damageAmount, Color32 attackerColor, Vector3 hitWorldPoint, Vector3 hitWorldNormal)
+        {
+            if (!IsVoxelAlive(gridPos)) return false;
+
+            VoxelCell cell = _runtimeGrid[gridPos.x, gridPos.y, gridPos.z];
+
+            // 检查颜色是否匹配
+            float dr = cell.customColor.r - attackerColor.r;
+            float dg = cell.customColor.g - attackerColor.g;
+            float db = cell.customColor.b - attackerColor.b;
+            float dist = Mathf.Sqrt(dr * dr + dg * dg + db * db);
+
+            if (dist > 80f)
+            {
+                // 颜色不匹配，无法消除！
+                return false;
+            }
+
+            ApplyDamage(gridPos, damageAmount, hitWorldPoint, hitWorldNormal);
+            return true;
+        }
+
         public void ApplyDamage(Vector3Int gridPos, int damageAmount, Vector3 hitWorldPoint, Vector3 hitWorldNormal)
         {
             if (!IsVoxelAlive(gridPos)) return;

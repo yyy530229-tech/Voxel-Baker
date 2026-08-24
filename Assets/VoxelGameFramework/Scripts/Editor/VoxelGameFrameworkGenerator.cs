@@ -75,17 +75,23 @@ namespace VoxelGameFramework.Editor
             rotator.autoRotate = true;
             rotator.rotateSpeed = 22f;
 
-            // 底部 5 联装炮台编队
-            GameObject squadObj = new GameObject("VoxelCannonSquad");
-            VoxelCannonSquad cannonSquad = squadObj.AddComponent<VoxelCannonSquad>();
-            cannonSquad.targetModel = targetModel;
+            // 中间 5 联装活动槽位 (Slot Manager)
+            GameObject slotObj = new GameObject("VoxelSlotManager");
+            VoxelSlotManager slotManager = slotObj.AddComponent<VoxelSlotManager>();
+
+            // 底部待命方块排队队列 (Queue Manager)
+            GameObject queueObj = new GameObject("VoxelQueueManager");
+            VoxelQueueManager queueManager = queueObj.AddComponent<VoxelQueueManager>();
+            queueManager.slotManager = slotManager;
+            queueManager.targetModel = targetModel;
 
             // 关卡核心总控 (Level Manager)
             GameObject lmObj = new GameObject("VoxelLevelManager");
             VoxelLevelManager levelManager = lmObj.AddComponent<VoxelLevelManager>();
             levelManager.mainCamera = cam;
             levelManager.targetModelInstance = targetModel;
-            levelManager.cannonSquad = cannonSquad;
+            levelManager.slotManager = slotManager;
+            levelManager.queueManager = queueManager;
             levelManager.levelPlaylists = new List<VoxelLevelConfig> { lvl1, lvl2, lvl3 };
 
             // HUD 游戏界面
