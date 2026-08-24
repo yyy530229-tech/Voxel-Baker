@@ -122,10 +122,10 @@ namespace VoxelBaker.Editor
                     drawnCount++;
                 }
             }
-            finally
-            {
-                Handles.zTest = prevZTest;
-            }
+        }
+        finally
+        {
+            Handles.zTest = prevZTest;
         }
     }
 }
