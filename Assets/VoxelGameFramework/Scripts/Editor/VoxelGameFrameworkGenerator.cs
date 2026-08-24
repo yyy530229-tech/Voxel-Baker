@@ -64,9 +64,9 @@ namespace VoxelGameFramework.Editor
             GameObject debrisObj = new GameObject("VoxelDebrisManager");
             debrisObj.AddComponent<VoxelDebrisManager>();
 
-            // 目标体素模型 (位于屏幕上半区域)
+            // 目标体素模型 (居中位于屏幕上半区域，与顶部HUD和底部槽位完美留白)
             GameObject targetObj = new GameObject("VoxelTargetModel");
-            targetObj.transform.position = new Vector3(0f, 2.7f, 0f);
+            targetObj.transform.position = new Vector3(0f, 0.8f, 0f);
             VoxelModelInstance targetModel = targetObj.AddComponent<VoxelModelInstance>();
             targetModel.voxelAsset = (pandaAsset != null) ? pandaAsset : duckAsset;
             Shader s = Shader.Find("VoxelBaker/URP/VoxelLit");
@@ -121,7 +121,7 @@ namespace VoxelGameFramework.Editor
             cfg.levelIndex = idx;
             cfg.levelTitle = title;
             cfg.targetAsset = asset;
-            cfg.spawnPosition = new Vector3(0f, 2.7f, 0f);
+            cfg.spawnPosition = new Vector3(0f, 0.8f, 0f);
             cfg.spawnScale = 0.95f;
             cfg.initialCannonPowers = powers;
             cfg.backgroundColor = bg;
