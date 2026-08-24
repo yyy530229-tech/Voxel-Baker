@@ -776,12 +776,26 @@ namespace VoxelBaker.Editor
                 EditorGUILayout.HelpBox($"✓ 当前预览资产: {bakedAsset.name}\n总占据体素: {bakedAsset.totalOccupiedVoxels:N0} (表面: {bakedAsset.totalSurfaceVoxels:N0}, 内部实体: {bakedAsset.totalInteriorVoxels:N0})\n初始 GPU 可见渲染实例: {bakedAsset.totalVisibleVoxels:N0}", MessageType.Info);
 
                 EditorGUILayout.Space(6);
+                EditorGUILayout.BeginHorizontal();
                 GUI.backgroundColor = new Color(0.2f, 0.75f, 1f);
-                if (GUILayout.Button("🌟 一键将此体素模型实例化至当前场景 (并在视口聚焦)", GUILayout.Height(32)))
+                if (GUILayout.Button("🌟 一键实例化至场景 (自动替换)", GUILayout.Height(32)))
                 {
                     InstantiateRecipeInScene(bakedAsset);
                 }
+                GUI.backgroundColor = new Color(1f, 0.4f, 0.4f);
+                if (GUILayout.Button("🧹 清空场景已有体素对象", GUILayout.Height(32)))
+                {
+                    VoxelModelInstance[] existing = UnityEngine.Object.FindObjectsOfType<VoxelModelInstance>();
+                    foreach (var inst in existing)
+                    {
+                        if (inst != null && inst.gameObject != null)
+                        {
+                            Undo.DestroyObjectImmediate(inst.gameObject);
+                        }
+                    }
+                }
                 GUI.backgroundColor = Color.white;
+                EditorGUILayout.EndHorizontal();
             }
             else
             {

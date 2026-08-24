@@ -34,14 +34,20 @@ namespace VoxelBaker.Editor
             Vector3 rootPos = transform != null ? transform.position : Vector3.zero;
             Quaternion rootRot = transform != null ? transform.rotation : Quaternion.identity;
 
-            float vSize = asset.voxelSize * 0.92f;
+            float vSize = asset.voxelSize * 0.98f;
             int totalOccupied = asset.totalOccupiedVoxels;
             // 超过 15000 体素时启用步进采样以保持 Scene 视图 60fps 丝滑流畅
             int step = (totalOccupied > 15000) ? Mathf.CeilToInt(totalOccupied / 15000f) : 1;
 
             int drawnCount = 0;
 
-            foreach (var chunk in asset.chunks)
+            // 启用深度测试 (LessEqual)，彻底消除半透明 X 光穿透感，恢复 100% 实体遮挡！
+            var prevZTest = Handles.zTest;
+            Handles.zTest = UnityEngine.Rendering.CompareFunction.LessEqual;
+
+            try
+            {
+                foreach (var chunk in asset.chunks)
             {
                 if (chunk.cells == null) continue;
 
@@ -115,6 +121,10 @@ namespace VoxelBaker.Editor
                     Handles.CubeHandleCap(0, worldPos, rootRot, vSize, EventType.Repaint);
                     drawnCount++;
                 }
+            }
+            finally
+            {
+                Handles.zTest = prevZTest;
             }
         }
     }
