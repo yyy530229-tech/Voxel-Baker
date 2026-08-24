@@ -1111,7 +1111,18 @@ namespace VoxelBaker.Editor
         {
             if (bakedAsset != null && currentNavIndex == 6)
             {
-                VoxelScenePreview.DrawPreviewScene(bakedAsset, null, previewMode, enableSlicePlane, sliceNormal.normalized, sliceOffset);
+                // 如果场景中已经有实体化的体素模型，则直接使用其实体，不重复绘制 Handles 避免双层穿透重叠
+                VoxelModelInstance existing = UnityEngine.Object.FindObjectOfType<VoxelModelInstance>();
+                if (existing != null && existing.gameObject != null && existing.gameObject.activeInHierarchy)
+                {
+                    if (existing.voxelAsset == bakedAsset)
+                    {
+                        return;
+                    }
+                }
+
+                Transform anchor = (existing != null) ? existing.transform : null;
+                VoxelScenePreview.DrawPreviewScene(bakedAsset, anchor, previewMode, enableSlicePlane, sliceNormal.normalized, sliceOffset);
             }
         }
     }

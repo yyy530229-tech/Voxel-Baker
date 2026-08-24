@@ -27,14 +27,16 @@ namespace VoxelGameFramework.Editor
             if (!Directory.Exists(configDir)) Directory.CreateDirectory(configDir);
             if (!Directory.Exists(sceneDir)) Directory.CreateDirectory(sceneDir);
 
-            // 2. 创建 3 个标准关卡配置 (ScriptableObject)
+            // 2. 创建 4 个标准关卡配置 (ScriptableObject)，包含大熊猫关卡！
             VoxelAsset duckAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Characters/VoxelModel_Duck/VoxelModel_Duck.asset");
             VoxelAsset pinkAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Characters/VoxelModel_PinkHead/VoxelModel_PinkHead.asset");
             VoxelAsset houseAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Buildings/VoxelModel_House/VoxelModel_House.asset");
+            VoxelAsset pandaAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Characters/VoxelModel_Giantpanda/VoxelModel_Giantpanda.asset");
 
             VoxelLevelConfig lvl1 = CreateOrUpdateConfig($"{configDir}/Level_01_Duck.asset", 1, "关卡 1: 可爱小黄鸭", duckAsset, new int[] { 33, 45, 55, 66, 77 }, new Color(0.16f, 0.22f, 0.30f));
             VoxelLevelConfig lvl2 = CreateOrUpdateConfig($"{configDir}/Level_02_PinkHead.asset", 2, "关卡 2: 多层粉色头颅", pinkAsset, new int[] { 45, 60, 75, 90, 110 }, new Color(0.18f, 0.24f, 0.35f));
             VoxelLevelConfig lvl3 = CreateOrUpdateConfig($"{configDir}/Level_03_House.asset", 3, "关卡 3: 像素复古房屋", houseAsset, new int[] { 60, 80, 100, 125, 150 }, new Color(0.15f, 0.20f, 0.28f));
+            VoxelLevelConfig lvl4 = CreateOrUpdateConfig($"{configDir}/Level_04_Giantpanda.asset", 4, "关卡 4: 国宝大熊猫 (竹林食客)", pandaAsset ?? duckAsset, new int[] { 50, 75, 100, 125, 150 }, new Color(0.12f, 0.22f, 0.18f));
 
             // 3. 构建独立的游戏主场景
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -66,7 +68,7 @@ namespace VoxelGameFramework.Editor
             GameObject targetObj = new GameObject("VoxelTargetModel");
             targetObj.transform.position = new Vector3(0f, 2.7f, 0f);
             VoxelModelInstance targetModel = targetObj.AddComponent<VoxelModelInstance>();
-            targetModel.voxelAsset = duckAsset;
+            targetModel.voxelAsset = (pandaAsset != null) ? pandaAsset : duckAsset;
             Shader s = Shader.Find("VoxelBaker/URP/VoxelLit");
             if (s != null) targetModel.voxelMaterial = new Material(s);
             targetModel.InitializeModel();
@@ -93,7 +95,7 @@ namespace VoxelGameFramework.Editor
             levelManager.targetModelInstance = targetModel;
             levelManager.slotManager = slotManager;
             levelManager.queueManager = queueManager;
-            levelManager.levelPlaylists = new List<VoxelLevelConfig> { lvl1, lvl2, lvl3 };
+            levelManager.levelPlaylists = new List<VoxelLevelConfig> { lvl1, lvl2, lvl3, lvl4 };
 
             // HUD 游戏界面
             GameObject hudObj = new GameObject("VoxelGameHUD");
