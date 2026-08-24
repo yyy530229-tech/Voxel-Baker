@@ -89,9 +89,9 @@ namespace VoxelBaker.Editor
         private Material[] sourceMaterials;
         private MeshAnalysisReport analysisReport;
 
-        // 阶段 2: 几何
-        private float targetModelHeight = 3.6f;
-        private float voxelSize = 0.16f;
+        // 阶段 2: 几何 (统一为标准预设尺寸：高度 3.0m，体素 0.22m，与小黄鸭/房子预设 100% 一模一样大)
+        private float targetModelHeight = 3.0f;
+        private float voxelSize = 0.22f;
         private bool fillInteriorSolid = true;
 
         // 阶段 3: 外观
