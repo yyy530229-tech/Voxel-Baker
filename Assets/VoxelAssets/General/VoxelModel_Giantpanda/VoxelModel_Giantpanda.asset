@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: VoxelModel_Giantpanda
   m_EditorClassIdentifier: 
   version: 1.0.0
-  sourceModelName: node_0
-  boundsCenter: {x: -0.00030838512, y: 0.004638855, z: -0.00086995994}
-  boundsSize: {x: 0.00764707, y: 0.00927771, z: 0.0074895592}
+  sourceModelName: Giantpanda_Combined_Normalized
+  boundsCenter: {x: -0.11966169, y: 1.8, z: -0.33756775}
+  boundsSize: {x: 2.967268, y: 3.6, z: 2.9061499}
   gridDimensions: {x: 21, y: 24, z: 20}
-  voxelSize: 0.00042171407
-  localOrigin: {x: -0.004553634, y: -0.00042171407, z: -0.0050364537}
+  voxelSize: 0.16363636
+  localOrigin: {x: -1.766932, y: -0.16363636, z: -1.9542791}
   chunkSize: 16
   palette: {fileID: 11400000, guid: 5eff14ab279db12439fc42b0b17d5a9f, type: 2}
   paletteTexture: {fileID: 0}
@@ -28,8 +28,8 @@ MonoBehaviour:
     minGridPos: {x: 0, y: 0, z: 0}
     chunkSize: 16
     localBounds:
-      m_Center: {x: -0.0011799217, y: 0.0029519985, z: -0.0016627412}
-      m_Extent: {x: 0.0033737125, y: 0.0033737125, z: 0.0033737125}
+      m_Center: {x: -0.45784116, y: 1.1454544, z: -0.6451882}
+      m_Extent: {x: 1.3090909, y: 1.3090909, z: 1.3090909}
     cells:
     - gridPos: {x: 0, y: 13, z: 15}
       isOccupied: 1
@@ -14877,7 +14877,7 @@ MonoBehaviour:
       distanceToSurface: 0
       paletteIndex: 86
       materialId: 0
-      ao: 183
+      ao: 191
       faceMask: 42
       initialHP: 1
       currentHP: 1
@@ -15087,7 +15087,7 @@ MonoBehaviour:
       distanceToSurface: 0
       paletteIndex: 4
       materialId: 0
-      ao: 142
+      ao: 150
       faceMask: 34
       initialHP: 1
       currentHP: 1
@@ -15297,7 +15297,7 @@ MonoBehaviour:
       distanceToSurface: 0
       paletteIndex: 135
       materialId: 0
-      ao: 126
+      ao: 134
       faceMask: 34
       initialHP: 1
       currentHP: 1
@@ -17845,7 +17845,7 @@ MonoBehaviour:
       distanceToSurface: 0
       paletteIndex: 6
       materialId: 0
-      ao: 159
+      ao: 167
       faceMask: 40
       initialHP: 1
       currentHP: 1
@@ -18035,28 +18035,14 @@ MonoBehaviour:
       customColor:
         serializedVersion: 2
         rgba: 4287796890
-    - gridPos: {x: 10, y: 2, z: 0}
-      isOccupied: 1
-      layer: 1
-      distanceToSurface: 0
-      paletteIndex: 8
-      materialId: 0
-      ao: 183
-      faceMask: 47
-      initialHP: 1
-      currentHP: 1
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4281283387
     - gridPos: {x: 10, y: 2, z: 1}
       isOccupied: 1
       layer: 1
       distanceToSurface: 0
       paletteIndex: 171
       materialId: 0
-      ao: 110
-      faceMask: 0
+      ao: 118
+      faceMask: 32
       initialHP: 1
       currentHP: 1
       isAlive: 1
@@ -18265,7 +18251,7 @@ MonoBehaviour:
       distanceToSurface: 0
       paletteIndex: 4
       materialId: 0
-      ao: 110
+      ao: 118
       faceMask: 32
       initialHP: 1
       currentHP: 1
@@ -20813,7 +20799,7 @@ MonoBehaviour:
       distanceToSurface: 0
       paletteIndex: 86
       materialId: 0
-      ao: 167
+      ao: 175
       faceMask: 41
       initialHP: 1
       currentHP: 1
@@ -21009,7 +20995,7 @@ MonoBehaviour:
       distanceToSurface: 0
       paletteIndex: 86
       materialId: 0
-      ao: 118
+      ao: 126
       faceMask: 32
       initialHP: 1
       currentHP: 1
@@ -21219,7 +21205,7 @@ MonoBehaviour:
       distanceToSurface: 0
       paletteIndex: 6
       materialId: 0
-      ao: 110
+      ao: 118
       faceMask: 32
       initialHP: 1
       currentHP: 1
@@ -35017,14 +35003,14 @@ MonoBehaviour:
       customColor:
         serializedVersion: 2
         rgba: 4291021778
-    initialVisibleCellIndices: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f0000002000000021000000220000002700000028000000290000002a0000002b0000002c00000033000000340000003500000036000000370000003e0000003f0000004000000041000000420000004700000048000000490000004a0000004b0000004c0000004d0000004e0000004f000000500000005100000052000000530000005400000055000000560000005700000058000000590000005a0000005b0000005c0000005d0000005e0000005f000000600000006100000062000000630000006400000065000000660000006700000068000000690000006a0000006b0000006c0000006d0000006e0000006f000000700000007100000072000000730000007400000075000000760000007700000078000000790000007a0000007b0000007c0000007d0000007e0000007f000000800000008100000082000000830000008400000085000000860000008700000088000000890000008a0000008b0000008c0000008d0000008e00000099000000a5000000b0000000b1000000bb000000bc000000c5000000c6000000ce000000cf000000d0000000d1000000d2000000dc000000dd000000de000000df000000e8000000e9000000ea000000eb000000f3000000f4000000f5000000f6000000ff000000000100000601000007010000090100000a0100000d0100000e0100000f010000100100001101000012010000130100001401000015010000160100001701000018010000190100001a0100001b0100001c0100001d0100001e0100001f010000200100002101000022010000230100002401000025010000310100003e0100004a0100004b010000560100005701000062010000630100006f010000700100007d0100008a01000096010000a2010000ad010000ae010000b5010000b7010000b8010000be010000bf010000c0010000c1010000c2010000c3010000c6010000c7010000c8010000ca010000cb010000cc010000cd010000ce010000cf010000d0010000d1010000d2010000d3010000d4010000d5010000d6010000d7010000e4010000f2010000000200000d0200000e0200001b0200001c020000290200002a020000380200004602000053020000600200006c0200007802000082020000830200008d0200008e0200008f020000900200009102000092020000930200009402000095020000960200009702000098020000990200009a0200009b020000a8020000b6020000c4020000d1020000d2020000df020000e0020000ed020000ee020000fc0200000a0300001803000025030000320300003e030000490300004a0300005403000055030000560300005703000058030000590300005a0300005b0300005c0300005d0300005e0300005f030000600300006103000062030000700300007e0300008d0300009c030000ab030000b9030000ba030000c8030000d6030000e4030000f2030000ff0300000b0400000c040000180400002404000025040000260400002704000028040000290400002a0400002b0400002c0400002d0400002e0400002f04000030040000310400003204000033040000410400004204000051040000600400006f0400007e0400008d0400009b0400009c040000aa040000b8040000c6040000d3040000e0040000ec040000f8040000f9040000fa040000fb040000fc040000fd040000fe040000ff04000000050000010500000205000003050000040500000505000006050000150500001605000025050000340500004305000052050000610500006f050000700500007e0500008c0500009a050000a6050000a7050000b4050000c0050000cc050000cd050000ce050000cf050000d0050000d1050000d2050000d3050000d4050000d5050000d6050000d7050000d8050000d9050000da050000e8050000e9050000f80500000706000016060000250600003406000043060000510600005f0600006c0600006d060000790600007a06000087060000930600009f060000a0060000a1060000a2060000a3060000a4060000a5060000a6060000a7060000a8060000a9060000aa060000ab060000ac060000ba060000bb060000ca060000d9060000e8060000f7060000060700001507000023070000310700003e0700003f0700004b0700004c07000059070000650700007107000072070000730700007407000075070000760700007707000078070000790700007a0700007b0700007c0700007d0700007e0700008c0700009a070000a7070000a8070000b7070000c6070000d5070000e4070000f2070000ff070000000800000c0800000d0800001808000019080000250800002608000031080000320800003e0800003f080000400800004108000042080000430800004408000045080000460800004708000048080000490800004a080000570800006508000073080000810800008f0800009d080000ab080000b9080000c7080000d3080000d4080000df080000e0080000eb080000ec080000f7080000f8080000030900000409000005090000060900000709000008090000090900000a0900000b0900000c0900000d0900000e0900000f090000100900001d0900002b090000390900004609000047090000540900005509000063090000710900007f0900008c0900009809000099090000a3090000a4090000ae090000af090000b8090000b9090000c2090000
+    initialVisibleCellIndices: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f0000002000000021000000220000002700000028000000290000002a0000002b0000002c00000033000000340000003500000036000000370000003e0000003f0000004000000041000000420000004700000048000000490000004a0000004b0000004c0000004d0000004e0000004f000000500000005100000052000000530000005400000055000000560000005700000058000000590000005a0000005b0000005c0000005d0000005e0000005f000000600000006100000062000000630000006400000065000000660000006700000068000000690000006a0000006b0000006c0000006d0000006e0000006f000000700000007100000072000000730000007400000075000000760000007700000078000000790000007a0000007b0000007c0000007d0000007e0000007f000000800000008100000082000000830000008400000085000000860000008700000088000000890000008a0000008b0000008c0000008d0000008e00000099000000a5000000b0000000b1000000bb000000bc000000c5000000c6000000ce000000cf000000d0000000d1000000d2000000dc000000dd000000de000000df000000e8000000e9000000ea000000eb000000f3000000f4000000f5000000f6000000ff000000000100000601000007010000090100000a0100000d0100000e0100000f010000100100001101000012010000130100001401000015010000160100001701000018010000190100001a0100001b0100001c0100001d0100001e0100001f010000200100002101000022010000230100002401000025010000310100003e0100004a0100004b010000560100005701000062010000630100006f010000700100007d0100008a01000096010000a2010000ad010000ae010000b5010000b7010000b8010000be010000bf010000c0010000c1010000c2010000c3010000c6010000c7010000c8010000ca010000cb010000cc010000cd010000ce010000cf010000d0010000d1010000d2010000d3010000d4010000d5010000d6010000d7010000e4010000f2010000000200000d0200000e0200001b0200001c020000290200002a020000380200004602000053020000600200006c0200007802000082020000830200008d0200008e0200008f020000900200009102000092020000930200009402000095020000960200009702000098020000990200009a0200009b020000a8020000b6020000c4020000d1020000d2020000df020000e0020000ed020000ee020000fc0200000a0300001803000025030000320300003e030000490300004a0300005403000055030000560300005703000058030000590300005a0300005b0300005c0300005d0300005e0300005f030000600300006103000062030000700300007e0300008d0300009c030000ab030000b9030000ba030000c8030000d6030000e4030000f2030000ff0300000b0400000c040000180400002404000025040000260400002704000028040000290400002a0400002b0400002c0400002d0400002e0400002f04000030040000310400003204000033040000410400004204000051040000600400006f0400007e0400008d0400009b0400009c040000aa040000b8040000c6040000d3040000e0040000ec040000f8040000f9040000fa040000fb040000fc040000fd040000fe040000ff04000000050000010500000205000003050000040500000505000006050000140500001505000024050000330500004205000051050000600500006e0500006f0500007d0500008b05000099050000a5050000a6050000b3050000bf050000cb050000cc050000cd050000ce050000cf050000d0050000d1050000d2050000d3050000d4050000d5050000d6050000d7050000d8050000d9050000e7050000e8050000f70500000606000015060000240600003306000042060000500600005e0600006b0600006c060000780600007906000086060000920600009e0600009f060000a0060000a1060000a2060000a3060000a4060000a5060000a6060000a7060000a8060000a9060000aa060000ab060000b9060000ba060000c9060000d8060000e7060000f6060000050700001407000022070000300700003d0700003e0700004a0700004b0700005807000064070000700700007107000072070000730700007407000075070000760700007707000078070000790700007a0700007b0700007c0700007d0700008b07000099070000a6070000a7070000b6070000c5070000d4070000e3070000f1070000fe070000ff0700000b0800000c0800001708000018080000240800002508000030080000310800003d0800003e0800003f08000040080000410800004208000043080000440800004508000046080000470800004808000049080000560800006408000072080000800800008e0800009c080000aa080000b8080000c6080000d2080000d3080000de080000df080000ea080000eb080000f6080000f708000002090000030900000409000005090000060900000709000008090000090900000a0900000b0900000c0900000d0900000e0900000f0900001c0900002a090000380900004509000046090000530900005409000062090000700900007e0900008b0900009709000098090000a2090000a3090000ad090000ae090000b7090000b8090000c1090000
   - chunkId: 1
     chunkCoord: {x: 0, y: 0, z: 1}
     minGridPos: {x: 0, y: 0, z: 16}
     chunkSize: 16
     localBounds:
-      m_Center: {x: -0.0011799217, y: 0.0029519985, z: 0.0025543997}
-      m_Extent: {x: 0.0033737125, y: 0.0033737125, z: 0.0008434283}
+      m_Center: {x: -0.45784116, y: 1.1454544, z: 0.9911753}
+      m_Extent: {x: 1.3090909, y: 1.3090909, z: 0.32727265}
     cells:
     - gridPos: {x: 3, y: 11, z: 16}
       isOccupied: 1
@@ -38098,8 +38084,8 @@ MonoBehaviour:
     minGridPos: {x: 0, y: 16, z: 0}
     chunkSize: 16
     localBounds:
-      m_Center: {x: -0.0011799217, y: 0.008012568, z: -0.0016627412}
-      m_Extent: {x: 0.0033737125, y: 0.0016868564, z: 0.0033737125}
+      m_Center: {x: -0.45784116, y: 3.1090908, z: -0.6451882}
+      m_Extent: {x: 1.3090909, y: 0.6545454, z: 1.3090909}
     cells:
     - gridPos: {x: 5, y: 16, z: 7}
       isOccupied: 1
@@ -46955,8 +46941,8 @@ MonoBehaviour:
     minGridPos: {x: 0, y: 16, z: 16}
     chunkSize: 16
     localBounds:
-      m_Center: {x: -0.0011799217, y: 0.008012568, z: 0.0025543997}
-      m_Extent: {x: 0.0033737125, y: 0.0016868564, z: 0.0008434283}
+      m_Center: {x: -0.45784116, y: 3.1090908, z: 0.9911753}
+      m_Extent: {x: 1.3090909, y: 0.6545454, z: 0.32727265}
     cells:
     - gridPos: {x: 8, y: 16, z: 16}
       isOccupied: 1
@@ -47384,8 +47370,8 @@ MonoBehaviour:
     minGridPos: {x: 16, y: 0, z: 0}
     chunkSize: 16
     localBounds:
-      m_Center: {x: 0.0032480762, y: 0.0029519985, z: -0.0016627412}
-      m_Extent: {x: 0.0010542853, y: 0.0033737125, z: 0.0033737125}
+      m_Center: {x: 1.2603406, y: 1.1454544, z: -0.6451882}
+      m_Extent: {x: 0.40909088, y: 1.3090909, z: 1.3090909}
     cells:
     - gridPos: {x: 16, y: 1, z: 5}
       isOccupied: 1
@@ -53301,8 +53287,8 @@ MonoBehaviour:
     minGridPos: {x: 16, y: 0, z: 16}
     chunkSize: 16
     localBounds:
-      m_Center: {x: 0.0032480762, y: 0.0029519985, z: 0.0025543997}
-      m_Extent: {x: 0.0010542853, y: 0.0033737125, z: 0.0008434283}
+      m_Center: {x: 1.2603406, y: 1.1454544, z: 0.9911753}
+      m_Extent: {x: 0.40909088, y: 1.3090909, z: 0.32727265}
     cells:
     - gridPos: {x: 16, y: 1, z: 16}
       isOccupied: 1
@@ -53562,8 +53548,8 @@ MonoBehaviour:
     minGridPos: {x: 16, y: 16, z: 0}
     chunkSize: 16
     localBounds:
-      m_Center: {x: 0.0032480762, y: 0.008012568, z: -0.0016627412}
-      m_Extent: {x: 0.0010542853, y: 0.0016868564, z: 0.0033737125}
+      m_Center: {x: 1.2603406, y: 3.1090908, z: -0.6451882}
+      m_Extent: {x: 0.40909088, y: 0.6545454, z: 1.3090909}
     cells:
     - gridPos: {x: 16, y: 16, z: 7}
       isOccupied: 1
@@ -55104,7 +55090,7 @@ MonoBehaviour:
     colorRGBA: 4280098852
     voxelMeta: 1048
   - packedPosition: 1049609
-    packedAttributes: 716640342
+    packedAttributes: 717164630
     colorRGBA: 4280164644
     voxelMeta: 1060
   - packedPosition: 2098185
@@ -55164,7 +55150,7 @@ MonoBehaviour:
     colorRGBA: 4279308304
     voxelMeta: 1074
   - packedPosition: 1050633
-    packedAttributes: 579735556
+    packedAttributes: 580259844
     colorRGBA: 4280690990
     voxelMeta: 1075
   - packedPosition: 15730697
@@ -55172,7 +55158,7 @@ MonoBehaviour:
     colorRGBA: 4280163099
     voxelMeta: 1089
   - packedPosition: 1051657
-    packedAttributes: 578687111
+    packedAttributes: 579211399
     colorRGBA: 4280032803
     voxelMeta: 1090
   - packedPosition: 1052681
@@ -55228,7 +55214,7 @@ MonoBehaviour:
     colorRGBA: 4280098594
     voxelMeta: 1260
   - packedPosition: 1049610
-    packedAttributes: 681512966
+    packedAttributes: 682037254
     colorRGBA: 4280493609
     voxelMeta: 1272
   - packedPosition: 2098186
@@ -55283,706 +55269,706 @@ MonoBehaviour:
     packedAttributes: 411439287
     colorRGBA: 4287796890
     voxelMeta: 1285
-  - packedPosition: 2058
-    packedAttributes: 800526344
-    colorRGBA: 4281283387
+  - packedPosition: 1050634
+    packedAttributes: 544608427
+    colorRGBA: 4280756782
     voxelMeta: 1286
   - packedPosition: 15730698
     packedAttributes: 409866445
     colorRGBA: 4289310130
-    voxelMeta: 1301
+    voxelMeta: 1300
   - packedPosition: 1051658
-    packedAttributes: 544083972
+    packedAttributes: 544608260
     colorRGBA: 4280691504
-    voxelMeta: 1302
+    voxelMeta: 1301
   - packedPosition: 1052682
     packedAttributes: 544608273
     colorRGBA: 4280231208
-    voxelMeta: 1317
+    voxelMeta: 1316
   - packedPosition: 1053706
     packedAttributes: 544608275
     colorRGBA: 4290890192
-    voxelMeta: 1332
+    voxelMeta: 1331
   - packedPosition: 1054730
     packedAttributes: 544608278
     colorRGBA: 4291416537
-    voxelMeta: 1347
+    voxelMeta: 1346
   - packedPosition: 1055754
     packedAttributes: 544608280
     colorRGBA: 4291547866
-    voxelMeta: 1362
+    voxelMeta: 1361
   - packedPosition: 1056778
     packedAttributes: 613290008
     colorRGBA: 4291613658
-    voxelMeta: 1377
+    voxelMeta: 1376
   - packedPosition: 15736842
     packedAttributes: 272502902
     colorRGBA: 4290494664
-    voxelMeta: 1391
+    voxelMeta: 1390
   - packedPosition: 2106378
     packedAttributes: 543035416
     colorRGBA: 4291547866
-    voxelMeta: 1392
+    voxelMeta: 1391
   - packedPosition: 2107402
     packedAttributes: 544608282
     colorRGBA: 4291613915
-    voxelMeta: 1406
+    voxelMeta: 1405
   - packedPosition: 2108426
     packedAttributes: 613290010
     colorRGBA: 4291613914
-    voxelMeta: 1420
+    voxelMeta: 1419
   - packedPosition: 3158026
     packedAttributes: 543035416
     colorRGBA: 4291613401
-    voxelMeta: 1434
+    voxelMeta: 1433
   - packedPosition: 15740938
     packedAttributes: 273027283
     colorRGBA: 4280690473
-    voxelMeta: 1446
+    voxelMeta: 1445
   - packedPosition: 3159050
     packedAttributes: 613290006
     colorRGBA: 4291351257
-    voxelMeta: 1447
+    voxelMeta: 1446
   - packedPosition: 4208650
     packedAttributes: 543035446
     colorRGBA: 4280428333
-    voxelMeta: 1460
+    voxelMeta: 1459
   - packedPosition: 4209674
     packedAttributes: 613290070
     colorRGBA: 4280164388
-    voxelMeta: 1472
+    voxelMeta: 1471
   - packedPosition: 1049611
-    packedAttributes: 698814550
+    packedAttributes: 699338838
     colorRGBA: 4280361508
-    voxelMeta: 1484
+    voxelMeta: 1483
   - packedPosition: 2098187
     packedAttributes: 142479462
     colorRGBA: 4280164127
-    voxelMeta: 1485
+    voxelMeta: 1484
   - packedPosition: 3146763
     packedAttributes: 141955238
     colorRGBA: 4279242768
-    voxelMeta: 1486
+    voxelMeta: 1485
   - packedPosition: 4195339
     packedAttributes: 141955078
     colorRGBA: 4280428075
-    voxelMeta: 1487
+    voxelMeta: 1486
   - packedPosition: 5243915
     packedAttributes: 141955276
     colorRGBA: 4286875530
-    voxelMeta: 1488
+    voxelMeta: 1487
   - packedPosition: 6292491
     packedAttributes: 141955202
     colorRGBA: 4287796888
-    voxelMeta: 1489
+    voxelMeta: 1488
   - packedPosition: 7341067
     packedAttributes: 141955202
     colorRGBA: 4287796632
-    voxelMeta: 1490
+    voxelMeta: 1489
   - packedPosition: 8389643
     packedAttributes: 141955292
     colorRGBA: 4287072393
-    voxelMeta: 1491
+    voxelMeta: 1490
   - packedPosition: 9438219
     packedAttributes: 141955255
     colorRGBA: 4287928217
-    voxelMeta: 1492
+    voxelMeta: 1491
   - packedPosition: 10486795
     packedAttributes: 141955236
     colorRGBA: 4287599252
-    voxelMeta: 1493
+    voxelMeta: 1492
   - packedPosition: 11535371
     packedAttributes: 141955293
     colorRGBA: 4287665046
-    voxelMeta: 1494
+    voxelMeta: 1493
   - packedPosition: 12583947
     packedAttributes: 141955276
     colorRGBA: 4286875529
-    voxelMeta: 1495
+    voxelMeta: 1494
   - packedPosition: 13632523
     packedAttributes: 141955260
     colorRGBA: 4286546564
-    voxelMeta: 1496
+    voxelMeta: 1495
   - packedPosition: 14681099
     packedAttributes: 411963614
     colorRGBA: 4286941580
-    voxelMeta: 1497
+    voxelMeta: 1496
   - packedPosition: 1050635
-    packedAttributes: 544608342
+    packedAttributes: 545132630
     colorRGBA: 4280230178
-    voxelMeta: 1498
+    voxelMeta: 1497
   - packedPosition: 15730699
     packedAttributes: 410390751
     colorRGBA: 4289573560
-    voxelMeta: 1512
+    voxelMeta: 1511
   - packedPosition: 1051659
-    packedAttributes: 544083974
+    packedAttributes: 544608262
     colorRGBA: 4280296746
-    voxelMeta: 1513
+    voxelMeta: 1512
   - packedPosition: 1052683
     packedAttributes: 544608308
     colorRGBA: 4280099366
-    voxelMeta: 1528
+    voxelMeta: 1527
   - packedPosition: 1053707
     packedAttributes: 544608405
     colorRGBA: 4289903297
-    voxelMeta: 1543
+    voxelMeta: 1542
   - packedPosition: 1054731
     packedAttributes: 544608280
     colorRGBA: 4291547865
-    voxelMeta: 1558
+    voxelMeta: 1557
   - packedPosition: 1055755
     packedAttributes: 544608280
     colorRGBA: 4291547865
-    voxelMeta: 1573
+    voxelMeta: 1572
   - packedPosition: 1056779
     packedAttributes: 613290008
     colorRGBA: 4291482330
-    voxelMeta: 1588
+    voxelMeta: 1587
   - packedPosition: 2106379
     packedAttributes: 543035418
     colorRGBA: 4291614172
-    voxelMeta: 1603
+    voxelMeta: 1602
   - packedPosition: 2107403
     packedAttributes: 544608282
     colorRGBA: 4291613915
-    voxelMeta: 1617
+    voxelMeta: 1616
   - packedPosition: 2108427
     packedAttributes: 613290008
     colorRGBA: 4291548122
-    voxelMeta: 1631
+    voxelMeta: 1630
   - packedPosition: 15739915
     packedAttributes: 274075816
     colorRGBA: 4279899926
-    voxelMeta: 1644
+    voxelMeta: 1643
   - packedPosition: 3158027
     packedAttributes: 543035416
     colorRGBA: 4291548122
-    voxelMeta: 1645
+    voxelMeta: 1644
   - packedPosition: 15740939
     packedAttributes: 274075879
     colorRGBA: 4281085486
-    voxelMeta: 1657
+    voxelMeta: 1656
   - packedPosition: 3159051
     packedAttributes: 613290064
     colorRGBA: 4290626506
-    voxelMeta: 1658
+    voxelMeta: 1657
   - packedPosition: 4208651
     packedAttributes: 543035444
     colorRGBA: 4280164903
-    voxelMeta: 1671
+    voxelMeta: 1670
   - packedPosition: 4209675
     packedAttributes: 613290001
     colorRGBA: 4280427560
-    voxelMeta: 1683
+    voxelMeta: 1682
   - packedPosition: 2098188
     packedAttributes: 697700461
     colorRGBA: 4279440405
-    voxelMeta: 1695
+    voxelMeta: 1694
   - packedPosition: 3146764
     packedAttributes: 142479413
     colorRGBA: 4279704606
-    voxelMeta: 1696
+    voxelMeta: 1695
   - packedPosition: 4195340
     packedAttributes: 141955078
     colorRGBA: 4280428074
-    voxelMeta: 1697
+    voxelMeta: 1696
   - packedPosition: 5243916
     packedAttributes: 141955276
     colorRGBA: 4286941067
-    voxelMeta: 1698
+    voxelMeta: 1697
   - packedPosition: 6292492
     packedAttributes: 141955257
     colorRGBA: 4288190875
-    voxelMeta: 1699
+    voxelMeta: 1698
   - packedPosition: 7341068
     packedAttributes: 141955258
     colorRGBA: 4287467408
-    voxelMeta: 1700
+    voxelMeta: 1699
   - packedPosition: 8389644
     packedAttributes: 141955309
     colorRGBA: 4287927702
-    voxelMeta: 1701
+    voxelMeta: 1700
   - packedPosition: 9438220
     packedAttributes: 141955255
     colorRGBA: 4287993754
-    voxelMeta: 1702
+    voxelMeta: 1701
   - packedPosition: 10486796
     packedAttributes: 141955310
     colorRGBA: 4287401616
-    voxelMeta: 1703
+    voxelMeta: 1702
   - packedPosition: 11535372
     packedAttributes: 141955293
     colorRGBA: 4287665045
-    voxelMeta: 1704
+    voxelMeta: 1703
   - packedPosition: 12583948
     packedAttributes: 141955292
     colorRGBA: 4287006601
-    voxelMeta: 1705
+    voxelMeta: 1704
   - packedPosition: 13632524
     packedAttributes: 141955311
     colorRGBA: 4284440932
-    voxelMeta: 1706
+    voxelMeta: 1705
   - packedPosition: 14681100
     packedAttributes: 411439210
     colorRGBA: 4285362548
-    voxelMeta: 1707
+    voxelMeta: 1706
   - packedPosition: 1050636
     packedAttributes: 698290194
     colorRGBA: 4280098593
-    voxelMeta: 1708
+    voxelMeta: 1707
   - packedPosition: 15730700
     packedAttributes: 408817904
     colorRGBA: 4288652200
-    voxelMeta: 1722
+    voxelMeta: 1721
   - packedPosition: 1051660
     packedAttributes: 562958507
     colorRGBA: 4280756780
-    voxelMeta: 1723
+    voxelMeta: 1722
   - packedPosition: 1052684
     packedAttributes: 562434128
     colorRGBA: 4290495693
-    voxelMeta: 1738
+    voxelMeta: 1737
   - packedPosition: 1053708
     packedAttributes: 545132627
     colorRGBA: 4290627022
-    voxelMeta: 1753
+    voxelMeta: 1752
   - packedPosition: 1054732
     packedAttributes: 544608280
     colorRGBA: 4291482073
-    voxelMeta: 1768
+    voxelMeta: 1767
   - packedPosition: 1055756
     packedAttributes: 544608278
     colorRGBA: 4291482072
-    voxelMeta: 1783
+    voxelMeta: 1782
   - packedPosition: 1056780
     packedAttributes: 613290008
     colorRGBA: 4291548123
-    voxelMeta: 1798
+    voxelMeta: 1797
   - packedPosition: 2106380
     packedAttributes: 543035418
     colorRGBA: 4291613915
-    voxelMeta: 1813
+    voxelMeta: 1812
   - packedPosition: 2107404
     packedAttributes: 544608282
     colorRGBA: 4291613915
-    voxelMeta: 1827
+    voxelMeta: 1826
   - packedPosition: 2108428
     packedAttributes: 613290008
     colorRGBA: 4291613658
-    voxelMeta: 1841
+    voxelMeta: 1840
   - packedPosition: 15739916
     packedAttributes: 292425981
     colorRGBA: 4280228890
-    voxelMeta: 1854
+    voxelMeta: 1853
   - packedPosition: 3158028
     packedAttributes: 543035416
     colorRGBA: 4291482586
-    voxelMeta: 1855
+    voxelMeta: 1854
   - packedPosition: 15740940
     packedAttributes: 292950271
     colorRGBA: 4282862417
-    voxelMeta: 1867
+    voxelMeta: 1866
   - packedPosition: 3159052
     packedAttributes: 613290190
     colorRGBA: 4290363077
-    voxelMeta: 1868
+    voxelMeta: 1867
   - packedPosition: 4208652
     packedAttributes: 543035409
     colorRGBA: 4280362280
-    voxelMeta: 1881
+    voxelMeta: 1880
   - packedPosition: 4209676
     packedAttributes: 613290119
     colorRGBA: 4279967267
-    voxelMeta: 1893
+    voxelMeta: 1892
   - packedPosition: 3146765
     packedAttributes: 697700369
     colorRGBA: 4280230952
-    voxelMeta: 1905
+    voxelMeta: 1904
   - packedPosition: 4195341
     packedAttributes: 142479619
     colorRGBA: 4283389274
-    voxelMeta: 1906
+    voxelMeta: 1905
   - packedPosition: 5243917
     packedAttributes: 141955294
     colorRGBA: 4286941324
-    voxelMeta: 1907
+    voxelMeta: 1906
   - packedPosition: 6292493
     packedAttributes: 141955258
     colorRGBA: 4287664531
-    voxelMeta: 1908
+    voxelMeta: 1907
   - packedPosition: 7341069
     packedAttributes: 141955202
     colorRGBA: 4287796375
-    voxelMeta: 1909
+    voxelMeta: 1908
   - packedPosition: 8389645
     packedAttributes: 141955202
     colorRGBA: 4287731095
-    voxelMeta: 1910
+    voxelMeta: 1909
   - packedPosition: 9438221
     packedAttributes: 141955236
     colorRGBA: 4287599252
-    voxelMeta: 1911
+    voxelMeta: 1910
   - packedPosition: 10486797
     packedAttributes: 141955255
     colorRGBA: 4287927961
-    voxelMeta: 1912
+    voxelMeta: 1911
   - packedPosition: 11535373
     packedAttributes: 141955224
     colorRGBA: 4281084972
-    voxelMeta: 1913
+    voxelMeta: 1912
   - packedPosition: 12583949
     packedAttributes: 141955175
     colorRGBA: 4279834648
-    voxelMeta: 1914
+    voxelMeta: 1913
   - packedPosition: 13632525
     packedAttributes: 141955181
     colorRGBA: 4279637269
-    voxelMeta: 1915
+    voxelMeta: 1914
   - packedPosition: 14681101
     packedAttributes: 142479494
     colorRGBA: 4279439890
-    voxelMeta: 1916
+    voxelMeta: 1915
   - packedPosition: 15729677
     packedAttributes: 177082502
     colorRGBA: 4279374354
-    voxelMeta: 1917
+    voxelMeta: 1916
   - packedPosition: 2099213
     packedAttributes: 696652017
     colorRGBA: 4281612092
-    voxelMeta: 1918
+    voxelMeta: 1917
   - packedPosition: 2100237
     packedAttributes: 543559934
     colorRGBA: 4282006593
-    voxelMeta: 1932
+    voxelMeta: 1931
   - packedPosition: 2101261
     packedAttributes: 542511160
     colorRGBA: 4290166726
-    voxelMeta: 1946
+    voxelMeta: 1945
   - packedPosition: 15732749
     packedAttributes: 271978629
     colorRGBA: 4286217344
-    voxelMeta: 1959
+    voxelMeta: 1958
   - packedPosition: 1053709
     packedAttributes: 697700388
     colorRGBA: 4291087829
-    voxelMeta: 1960
+    voxelMeta: 1959
   - packedPosition: 1054733
     packedAttributes: 562958360
     colorRGBA: 4291482329
-    voxelMeta: 1975
+    voxelMeta: 1974
   - packedPosition: 1055757
     packedAttributes: 562958360
     colorRGBA: 4291482330
-    voxelMeta: 1990
+    voxelMeta: 1989
   - packedPosition: 1056781
     packedAttributes: 631181336
     colorRGBA: 4291482586
-    voxelMeta: 2005
+    voxelMeta: 2004
   - packedPosition: 2106381
     packedAttributes: 543559706
     colorRGBA: 4291613915
-    voxelMeta: 2020
+    voxelMeta: 2019
   - packedPosition: 2107405
     packedAttributes: 545132570
     colorRGBA: 4291613915
-    voxelMeta: 2034
+    voxelMeta: 2033
   - packedPosition: 15738893
     packedAttributes: 72225039
     colorRGBA: 4280556054
-    voxelMeta: 2047
+    voxelMeta: 2046
   - packedPosition: 2108429
     packedAttributes: 630591514
     colorRGBA: 4291613659
-    voxelMeta: 2048
+    voxelMeta: 2047
   - packedPosition: 14691341
     packedAttributes: 273027265
     colorRGBA: 4279702032
-    voxelMeta: 2060
+    voxelMeta: 2059
   - packedPosition: 3158029
     packedAttributes: 544083992
     colorRGBA: 4291548123
-    voxelMeta: 2061
+    voxelMeta: 2060
   - packedPosition: 14692365
     packedAttributes: 273027232
     colorRGBA: 4278715910
-    voxelMeta: 2072
+    voxelMeta: 2071
   - packedPosition: 3159053
     packedAttributes: 630591510
     colorRGBA: 4291350743
-    voxelMeta: 2073
+    voxelMeta: 2072
   - packedPosition: 15741965
     packedAttributes: 410390785
     colorRGBA: 4288784817
-    voxelMeta: 2085
+    voxelMeta: 2084
   - packedPosition: 4208653
     packedAttributes: 543559787
     colorRGBA: 4279440919
-    voxelMeta: 2086
+    voxelMeta: 2085
   - packedPosition: 15742989
     packedAttributes: 274075728
     colorRGBA: 4290626507
-    voxelMeta: 2097
+    voxelMeta: 2096
   - packedPosition: 4209677
     packedAttributes: 613290092
     colorRGBA: 4279703835
-    voxelMeta: 2098
+    voxelMeta: 2097
   - packedPosition: 4195342
     packedAttributes: 679874637
     colorRGBA: 4287995299
-    voxelMeta: 2110
+    voxelMeta: 2109
   - packedPosition: 5243918
     packedAttributes: 141955328
     colorRGBA: 4287863713
-    voxelMeta: 2111
+    voxelMeta: 2110
   - packedPosition: 6292494
     packedAttributes: 141955255
     colorRGBA: 4287796889
-    voxelMeta: 2112
+    voxelMeta: 2111
   - packedPosition: 7341070
     packedAttributes: 141955257
     colorRGBA: 4287994268
-    voxelMeta: 2113
+    voxelMeta: 2112
   - packedPosition: 8389646
     packedAttributes: 141955255
     colorRGBA: 4287862425
-    voxelMeta: 2114
+    voxelMeta: 2113
   - packedPosition: 9438222
     packedAttributes: 141955236
     colorRGBA: 4287599253
-    voxelMeta: 2115
+    voxelMeta: 2114
   - packedPosition: 10486798
     packedAttributes: 141955348
     colorRGBA: 4283651929
-    voxelMeta: 2116
+    voxelMeta: 2115
   - packedPosition: 11535374
     packedAttributes: 141955175
     colorRGBA: 4279769112
-    voxelMeta: 2117
+    voxelMeta: 2116
   - packedPosition: 12583950
     packedAttributes: 141955237
     colorRGBA: 4279110925
-    voxelMeta: 2118
+    voxelMeta: 2117
   - packedPosition: 13632526
     packedAttributes: 141955206
     colorRGBA: 4279374097
-    voxelMeta: 2119
+    voxelMeta: 2118
   - packedPosition: 14681102
     packedAttributes: 141955240
     colorRGBA: 4279768599
-    voxelMeta: 2120
+    voxelMeta: 2119
   - packedPosition: 15729678
     packedAttributes: 141955181
     colorRGBA: 4279571733
-    voxelMeta: 2121
+    voxelMeta: 2120
   - packedPosition: 3147790
     packedAttributes: 677777640
     colorRGBA: 4289443004
-    voxelMeta: 2122
+    voxelMeta: 2121
   - packedPosition: 2100238
     packedAttributes: 679874619
     colorRGBA: 4290824656
-    voxelMeta: 2135
+    voxelMeta: 2134
   - packedPosition: 2101262
     packedAttributes: 544084229
     colorRGBA: 4291087828
-    voxelMeta: 2149
+    voxelMeta: 2148
   - packedPosition: 2102286
     packedAttributes: 543559941
     colorRGBA: 4291087828
-    voxelMeta: 2163
+    voxelMeta: 2162
   - packedPosition: 2103310
     packedAttributes: 543035416
     colorRGBA: 4291482329
-    voxelMeta: 2177
+    voxelMeta: 2176
   - packedPosition: 2104334
     packedAttributes: 543035416
     colorRGBA: 4291548378
-    voxelMeta: 2191
+    voxelMeta: 2190
   - packedPosition: 2105358
     packedAttributes: 543559706
     colorRGBA: 4291614172
-    voxelMeta: 2205
+    voxelMeta: 2204
   - packedPosition: 2106382
     packedAttributes: 544608280
     colorRGBA: 4291548123
-    voxelMeta: 2219
+    voxelMeta: 2218
   - packedPosition: 2107406
     packedAttributes: 630067226
     colorRGBA: 4291548379
-    voxelMeta: 2233
+    voxelMeta: 2232
   - packedPosition: 3157006
     packedAttributes: 543559706
     colorRGBA: 4291679708
-    voxelMeta: 2247
+    voxelMeta: 2246
   - packedPosition: 15739918
     packedAttributes: 377360655
     colorRGBA: 4280621591
-    voxelMeta: 2259
+    voxelMeta: 2258
   - packedPosition: 3158030
     packedAttributes: 629542938
     colorRGBA: 4291548379
-    voxelMeta: 2260
+    voxelMeta: 2259
   - packedPosition: 14692366
     packedAttributes: 274075813
     colorRGBA: 4279045389
-    voxelMeta: 2271
+    voxelMeta: 2270
   - packedPosition: 4207630
     packedAttributes: 543559704
     colorRGBA: 4291482329
-    voxelMeta: 2272
+    voxelMeta: 2271
   - packedPosition: 15741966
     packedAttributes: 429854976
     colorRGBA: 4287863457
-    voxelMeta: 2283
+    voxelMeta: 2282
   - packedPosition: 4208654
     packedAttributes: 561909778
     colorRGBA: 4279901729
-    voxelMeta: 2284
+    voxelMeta: 2283
   - packedPosition: 15742990
     packedAttributes: 293998648
     colorRGBA: 4290231749
-    voxelMeta: 2295
+    voxelMeta: 2294
   - packedPosition: 4209678
     packedAttributes: 631705707
     colorRGBA: 4279572249
-    voxelMeta: 2296
+    voxelMeta: 2295
   - packedPosition: 15744014
     packedAttributes: 293998649
     colorRGBA: 4290100163
-    voxelMeta: 2307
+    voxelMeta: 2306
   - packedPosition: 4195343
     packedAttributes: 698290252
     colorRGBA: 4289048244
-    voxelMeta: 2308
+    voxelMeta: 2307
   - packedPosition: 5243919
     packedAttributes: 142479441
     colorRGBA: 4289245623
-    voxelMeta: 2309
+    voxelMeta: 2308
   - packedPosition: 6292495
     packedAttributes: 141955122
     colorRGBA: 4287928733
-    voxelMeta: 2310
+    voxelMeta: 2309
   - packedPosition: 7341071
     packedAttributes: 141955256
     colorRGBA: 4288191134
-    voxelMeta: 2311
+    voxelMeta: 2310
   - packedPosition: 8389647
     packedAttributes: 141955257
     colorRGBA: 4287994012
-    voxelMeta: 2312
+    voxelMeta: 2311
   - packedPosition: 9438223
     packedAttributes: 141955211
     colorRGBA: 4281085746
-    voxelMeta: 2313
+    voxelMeta: 2312
   - packedPosition: 10486799
     packedAttributes: 141955125
     colorRGBA: 4279835421
-    voxelMeta: 2314
+    voxelMeta: 2313
   - packedPosition: 11535375
     packedAttributes: 141955206
     colorRGBA: 4279374611
-    voxelMeta: 2315
+    voxelMeta: 2314
   - packedPosition: 12583951
     packedAttributes: 141955158
     colorRGBA: 4280295972
-    voxelMeta: 2316
+    voxelMeta: 2315
   - packedPosition: 13632527
     packedAttributes: 141955206
     colorRGBA: 4279374355
-    voxelMeta: 2317
+    voxelMeta: 2316
   - packedPosition: 14681103
     packedAttributes: 141955206
     colorRGBA: 4279373840
-    voxelMeta: 2318
+    voxelMeta: 2317
   - packedPosition: 15729679
     packedAttributes: 141955173
     colorRGBA: 4279900956
-    voxelMeta: 2319
+    voxelMeta: 2318
   - packedPosition: 3147791
     packedAttributes: 697176144
     colorRGBA: 4290364362
-    voxelMeta: 2320
+    voxelMeta: 2319
   - packedPosition: 2100239
     packedAttributes: 698814483
     colorRGBA: 4290824914
-    voxelMeta: 2333
+    voxelMeta: 2332
   - packedPosition: 2101263
     packedAttributes: 562958597
     colorRGBA: 4291153365
-    voxelMeta: 2347
+    voxelMeta: 2346
   - packedPosition: 2102287
     packedAttributes: 562958358
     colorRGBA: 4291351000
-    voxelMeta: 2361
+    voxelMeta: 2360
   - packedPosition: 15733775
     packedAttributes: 290853106
     colorRGBA: 4289507508
-    voxelMeta: 2374
+    voxelMeta: 2373
   - packedPosition: 2103311
     packedAttributes: 562958360
     colorRGBA: 4291482586
-    voxelMeta: 2375
+    voxelMeta: 2374
   - packedPosition: 15734799
     packedAttributes: 22417545
     colorRGBA: 4288587180
-    voxelMeta: 2388
+    voxelMeta: 2387
   - packedPosition: 2104335
     packedAttributes: 562958360
     colorRGBA: 4291548378
-    voxelMeta: 2389
+    voxelMeta: 2388
   - packedPosition: 2105359
     packedAttributes: 562958362
     colorRGBA: 4291613915
-    voxelMeta: 2403
+    voxelMeta: 2402
   - packedPosition: 2106383
     packedAttributes: 630591514
     colorRGBA: 4291613915
-    voxelMeta: 2417
+    voxelMeta: 2416
   - packedPosition: 3155983
     packedAttributes: 543559706
     colorRGBA: 4291679964
-    voxelMeta: 2431
+    voxelMeta: 2430
   - packedPosition: 3157007
     packedAttributes: 629542938
     colorRGBA: 4291614172
-    voxelMeta: 2444
+    voxelMeta: 2443
   - packedPosition: 15739919
     packedAttributes: 343281916
     colorRGBA: 4280951325
-    voxelMeta: 2456
+    voxelMeta: 2455
   - packedPosition: 4206607
     packedAttributes: 543559711
     colorRGBA: 4291679965
-    voxelMeta: 2457
+    voxelMeta: 2456
   - packedPosition: 14692367
     packedAttributes: 274600235
     colorRGBA: 4280489746
-    voxelMeta: 2467
+    voxelMeta: 2466
   - packedPosition: 4207631
     packedAttributes: 630067382
     colorRGBA: 4291152335
-    voxelMeta: 2468
+    voxelMeta: 2467
   - packedPosition: 14693391
     packedAttributes: 292950273
     colorRGBA: 4288916146
-    voxelMeta: 2478
+    voxelMeta: 2477
   - packedPosition: 5257231
     packedAttributes: 560336913
     colorRGBA: 4280165418
-    voxelMeta: 2479
+    voxelMeta: 2478
   - packedPosition: 14694415
     packedAttributes: 292950052
     colorRGBA: 4291021778
-    voxelMeta: 2488
+    voxelMeta: 2487
   - packedPosition: 5258255
     packedAttributes: 630067204
     colorRGBA: 4280691247
-    voxelMeta: 2489
+    voxelMeta: 2488
   - packedPosition: 14695439
     packedAttributes: 292950052
     colorRGBA: 4291021778
-    voxelMeta: 2498
+    voxelMeta: 2497
   - packedPosition: 16788483
     packedAttributes: 514789420
     colorRGBA: 4283669904
@@ -58449,7 +58435,7 @@ MonoBehaviour:
     voxelMeta: 393239
   lods:
   - lodLevel: 1
-    voxelSize: 0.00084342813
+    voxelSize: 0.3272727
     dimensions: {x: 11, y: 12, z: 10}
     visibleVoxels:
     - packedPosition: 14692352
@@ -59194,7 +59180,7 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 2058
       packedAttributes: 1070075910
-      colorRGBA: 4280625453
+      colorRGBA: 4280493610
       voxelMeta: 1
     - packedPosition: 14682122
       packedAttributes: 1070076110
@@ -60005,7 +59991,7 @@ MonoBehaviour:
       colorRGBA: 4280886305
       voxelMeta: 1
   - lodLevel: 2
-    voxelSize: 0.0016868563
+    voxelSize: 0.6545454
     dimensions: {x: 6, y: 6, z: 5}
     visibleVoxels:
     - packedPosition: 4194304
@@ -60154,7 +60140,7 @@ MonoBehaviour:
       voxelMeta: 2
     - packedPosition: 8
       packedAttributes: 1070076038
-      colorRGBA: 4280362023
+      colorRGBA: 4280296230
       voxelMeta: 2
     - packedPosition: 4194312
       packedAttributes: 1070076034
@@ -60416,9 +60402,9 @@ MonoBehaviour:
       packedAttributes: 1070076007
       colorRGBA: 4280032285
       voxelMeta: 2
-  totalOccupiedVoxels: 3844
-  totalSurfaceVoxels: 1781
+  totalOccupiedVoxels: 3843
+  totalSurfaceVoxels: 1780
   totalInteriorVoxels: 2063
   totalVisibleVoxels: 1136
-  bakeDurationSeconds: 2.7649498
+  bakeDurationSeconds: 2.779476
   interiorProfile: {fileID: 0}

@@ -590,17 +590,45 @@ namespace VoxelBaker.Editor
             EditorGUILayout.LabelField("② 网格尺寸与实体化填充 (Geometry & Solid Voxelization)", sectionHeaderStyle);
 
             EditorGUILayout.BeginVertical(cardStyle);
-            EditorGUILayout.LabelField("1. 模型整体尺寸与体素粒度配置", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("1. 体素总数量快捷预设 (Voxel Count Presets)", EditorStyles.boldLabel);
+            EditorGUILayout.HelpBox("【参数作用】：一键选择您希望该关卡生成的方块总数量。方块数量直接决定消除手感、难度和视觉颗粒度。", MessageType.None);
+            EditorGUILayout.Space(4);
+
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("⚡ 轻量快节奏\n(~400 格)", GUILayout.Height(38)))
+            {
+                voxelSize = 0.28f;
+                targetModelHeight = 3.0f;
+            }
+            if (GUILayout.Button("🎯 标准消除关卡\n(~1,000 格 - 推荐)", GUILayout.Height(38)))
+            {
+                voxelSize = 0.22f;
+                targetModelHeight = 3.0f;
+            }
+            if (GUILayout.Button("💎 高清细腻\n(~2,000 格)", GUILayout.Height(38)))
+            {
+                voxelSize = 0.16f;
+                targetModelHeight = 3.0f;
+            }
+            if (GUILayout.Button("👑 旗舰超精细\n(~3,500 格)", GUILayout.Height(38)))
+            {
+                voxelSize = 0.12f;
+                targetModelHeight = 3.0f;
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("2. 详细尺寸与颗粒度微调", EditorStyles.boldLabel);
             EditorGUILayout.Space(4);
 
             EditorGUI.BeginChangeCheck();
-            targetModelHeight = EditorGUILayout.Slider(new GUIContent("模型目标整体高度 (Target Height)", "【控制模型在场景中看起来有多大】：例如设为 4.0 米会让模型更大更显眼，设为 2.2 米为标准人偶尺寸。"), targetModelHeight, 1.0f, 10.0f);
+            targetModelHeight = EditorGUILayout.Slider(new GUIContent("模型整体物理跨度 (Target Height)", "【控制模型在场景中整体有多大】：统一默认为 3.0 米（与小黄鸭/房屋预设完全一致）。拉大则模型在场景中变得巨大，缩小则小巧。"), targetModelHeight, 1.0f, 10.0f);
             if (EditorGUI.EndChangeCheck() && sourceGameObject != null)
             {
                 ExtractModelFromSource(sourceGameObject);
             }
 
-            voxelSize = EditorGUILayout.Slider(new GUIContent("单个体素颗粒尺寸 (Voxel Size)", "【控制体素颗粒的粗细与精细度】：数值越小（如 0.08），细节越多、总方块数越多；数值越大（如 0.20），像素颗粒感越强、总方块数越少。"), voxelSize, 0.04f, 0.5f);
+            voxelSize = EditorGUILayout.Slider(new GUIContent("单个体素颗粒边长 (Voxel Size)", "【控制方块粗细与总数】：每个小方块的物理尺寸（米）。\n• 调小 (如 0.12)：细节丰富、颗粒超细、总方块数多。\n• 调大 (如 0.28)：复古像素大方块、总方块数少、消除通关极快。"), voxelSize, 0.04f, 0.5f);
 
             if (analysisReport != null && GUILayout.Button("🎯 自动计算并应用推荐的最佳体素粒度", GUILayout.Height(26)))
             {
@@ -608,12 +636,12 @@ namespace VoxelBaker.Editor
             }
 
             EditorGUILayout.Space(10);
-            EditorGUILayout.LabelField("2. 内部实体化填充", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("3. 内部实体化填充", EditorStyles.boldLabel);
             EditorGUILayout.Space(4);
-            fillInteriorSolid = EditorGUILayout.Toggle(new GUIContent("启用 3D 边界泛洪实体填充 (Solid Fill)", "【控制是否为实心】：勾选后模型内部是实心肉体，消解时像削苹果皮一样由外向内逐层剥落；不勾选则为空心气球外壳。"), fillInteriorSolid);
+            fillInteriorSolid = EditorGUILayout.Toggle(new GUIContent("启用 3D 边界泛洪实体填充 (Solid Fill)", "【控制是否为实心】：\n• 勾选 [√] (推荐)：模型内部塞满方块，像削苹果一样一层层向内剥落消除，手感极佳！\n• 不勾选：只生成空心气球薄皮。"), fillInteriorSolid);
 
             EditorGUILayout.Space(6);
-            EditorGUILayout.HelpBox("【尺寸换算提示】：总占用体素数 ≈ (模型高度 / 体素尺寸)³ × 填充率。消除游戏推荐总数在 600 ~ 1,500 格之间最佳！", MessageType.Info);
+            EditorGUILayout.HelpBox($"【实时估算】：当前配置下模型高 {targetModelHeight:F1}m，单格边长 {voxelSize:F2}m，预估总占用体素：约 {(int)(Mathf.Pow(targetModelHeight / voxelSize, 3) * 0.35f):N0} 格。", MessageType.Info);
             EditorGUILayout.EndVertical();
         }
         #endregion
@@ -885,12 +913,30 @@ namespace VoxelBaker.Editor
         private static void InstantiateRecipeInScene(VoxelAsset asset)
         {
             if (asset == null) return;
-            GameObject go = new GameObject($"VoxelModel_{asset.name}");
+
+            // 彻底清理场景中原有的旧体素模型游戏对象，绝不发生多个模型重叠！
+            VoxelModelInstance[] existing = Object.FindObjectsOfType<VoxelModelInstance>();
+            foreach (var inst in existing)
+            {
+                if (inst != null && inst.gameObject != null)
+                {
+                    Undo.DestroyObjectImmediate(inst.gameObject);
+                }
+            }
+
+            GameObject go = new GameObject($"VoxelTargetModel_{asset.name}");
+            go.transform.position = Vector3.zero;
+            go.transform.rotation = Quaternion.identity;
             VoxelModelInstance instance = go.AddComponent<VoxelModelInstance>();
             instance.voxelAsset = asset;
             instance.InitializeModel();
             Selection.activeGameObject = go;
             Undo.RegisterCreatedObjectUndo(go, "Instantiate Voxel Model");
+
+            if (SceneView.lastActiveSceneView != null)
+            {
+                SceneView.lastActiveSceneView.FrameSelected();
+            }
         }
         #endregion
 
