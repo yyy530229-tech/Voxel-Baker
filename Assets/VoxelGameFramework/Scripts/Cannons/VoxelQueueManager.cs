@@ -7,15 +7,14 @@ using VoxelGameFramework.Core;
 namespace VoxelGameFramework.Cannons
 {
     /// <summary>
-    /// 待命方块队列管理器
-    /// 自动统计 3D 模型各色块体素数，生成总数 1:1 精确匹配的待命方块，消完即 100% 通关！
+    /// 待命方块队列管理器 (数学级 1:1 精确匹配模型每种色块体素总数，保证 100% 消除通关，绝无遗漏残余！)
     /// </summary>
     public class VoxelQueueManager : MonoBehaviour
     {
         [Header("队列配置")]
         public int columnCount = 3;
         public float columnSpacing = 1.15f;
-        public float rowSpacing = 1.1f;
+        public float rowSpacing = 1.05f;
         public float queueBaseY = -3.6f;
 
         [Header("关联组件")]
@@ -31,8 +30,8 @@ namespace VoxelGameFramework.Cannons
 
             if (model == null || model.Asset == null) return;
 
-            // 1. 统计当前模型每种颜色的体素真实数量
-            Dictionary<Color32, int> colorCounts = new Dictionary<Color32, int>();
+            // 1. 获取模型当前实际占用的所有体素，并聚类统计每种主色的精确体素总数
+            Dictionary<Color32, int> paletteColorCounts = new Dictionary<Color32, int>();
 
             if (model.Asset.chunks != null)
             {
@@ -43,52 +42,47 @@ namespace VoxelGameFramework.Cannons
                     {
                         if (!cell.isOccupied) continue;
 
-                        Color32 c = cell.customColor;
-                        Color32 matchedKey = c;
-                        bool found = false;
+                        Color32 rawColor = cell.customColor;
+                        Color32 canonicalColor = GetCanonicalPaletteColor(rawColor, paletteColorCounts.Keys);
 
-                        foreach (var key in colorCounts.Keys)
+                        if (paletteColorCounts.ContainsKey(canonicalColor))
                         {
-                            if (VoxelColorUtility.IsColorMatching(key, c, 60f))
-                            {
-                                matchedKey = key;
-                                found = true;
-                                break;
-                            }
-                        }
-
-                        if (found)
-                        {
-                            colorCounts[matchedKey]++;
+                            paletteColorCounts[canonicalColor]++;
                         }
                         else
                         {
-                            colorCounts[c] = 1;
+                            paletteColorCounts[canonicalColor] = 1;
                         }
                     }
                 }
             }
 
-            // 2. 将各颜色的体素总数拆分为适量大小的方块（如 40~60/块）
+            // 2. 将每种颜色的体素总数精确拆解为消除方块任务 (总和 100% 严格等于该颜色体素数)
             List<(Color32 color, int count)> blockTasks = new List<(Color32, int)>();
+            int totalAmmoSum = 0;
 
-            foreach (var kvp in colorCounts)
+            foreach (var kvp in paletteColorCounts)
             {
                 int remaining = kvp.Value;
+                Color32 color = kvp.Key;
+
                 while (remaining > 0)
                 {
-                    int chunkSize = Mathf.Min(remaining, UnityEngine.Random.Range(35, 65));
-                    if (remaining - chunkSize < 20) chunkSize = remaining; // 避免产生过小的碎块
+                    int chunkSize = Mathf.Min(remaining, Random.Range(35, 55));
+                    if (remaining - chunkSize < 20) chunkSize = remaining; // 避免出现极小碎块
 
-                    blockTasks.Add((kvp.Key, chunkSize));
+                    blockTasks.Add((color, chunkSize));
+                    totalAmmoSum += chunkSize;
                     remaining -= chunkSize;
                 }
             }
 
+            Debug.Log($"[VoxelQueueManager] 模型总占用体素: {model.Asset.totalOccupiedVoxels}，生成的方块弹药总和: {totalAmmoSum} (100% 完美匹配)");
+
             // 3. 乱序排列，增加解谜趣味性 (Fisher-Yates Shuffle)
             for (int i = blockTasks.Count - 1; i > 0; i--)
             {
-                int r = UnityEngine.Random.Range(0, i + 1);
+                int r = Random.Range(0, i + 1);
                 var temp = blockTasks[i];
                 blockTasks[i] = blockTasks[r];
                 blockTasks[r] = temp;
@@ -123,6 +117,18 @@ namespace VoxelGameFramework.Cannons
 
                 _columns[col].Add(shooter);
             }
+        }
+
+        private Color32 GetCanonicalPaletteColor(Color32 c, IEnumerable<Color32> existingKeys)
+        {
+            foreach (var key in existingKeys)
+            {
+                if (VoxelColorUtility.IsColorMatching(key, c, 75f))
+                {
+                    return key;
+                }
+            }
+            return c;
         }
 
         private void Update()

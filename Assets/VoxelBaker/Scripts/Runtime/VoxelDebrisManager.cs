@@ -4,15 +4,15 @@ using UnityEngine;
 namespace VoxelBaker.Runtime
 {
     /// <summary>
-    /// 高仿真物理体素爆裂喷溅系统 (完全移除多余气泡，专注于符合动量力学的海量方块爆破飞溅)
+    /// 高质感聚焦物理体素碎屑管理器 (适量 3~4 块微型方块原位炸裂，干净利落不乱飞)
     /// </summary>
     public class VoxelDebrisManager : MonoBehaviour
     {
         public static VoxelDebrisManager Instance { get; private set; }
 
-        [Header("物理与材质配置")]
+        [Header("材质配置")]
         public Material debrisBaseMaterial;
-        public int maxPoolSize = 800; // 支持炮台全开时数百块体素在空中飞舞
+        public int maxPoolSize = 200;
 
         private Queue<GameObject> _debrisPool = new Queue<GameObject>();
         private List<DebrisItem> _activeDebris = new List<DebrisItem>();
@@ -49,16 +49,16 @@ namespace VoxelBaker.Runtime
             for (int i = 0; i < maxPoolSize; i++)
             {
                 GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                cube.name = $"PhysicalDebris_{i}";
+                cube.name = $"Debris_{i}";
                 cube.transform.SetParent(transform);
 
                 Collider col = cube.GetComponent<Collider>();
-                if (col != null) col.enabled = false; // 移除互相阻挡以获得纯粹弹道抛物线
+                if (col != null) col.enabled = false;
 
                 Rigidbody rb = cube.AddComponent<Rigidbody>();
-                rb.mass = 0.02f;
-                rb.drag = 0.08f;          // 低空气阻力，形成极其舒展优美的抛物线
-                rb.angularDrag = 0.1f;
+                rb.mass = 0.05f;
+                rb.drag = 1.2f;        // 适量空气阻力，保持紧凑聚集
+                rb.angularDrag = 0.5f;
                 rb.useGravity = true;
 
                 if (debrisBaseMaterial != null)
@@ -72,24 +72,21 @@ namespace VoxelBaker.Runtime
         }
 
         /// <summary>
-        /// 触发极其逼真的动量爆炸力学碎屑飞溅 (20~28 块向外锥形散射，完全无气泡)
+        /// 精确原位产生 3~4 块微型同色物理方块 (小范围聚集爆裂，0.5秒自然淡出，干净清爽)
         /// </summary>
-        public void SpawnDebris(Vector3 worldPos, Vector3 worldNormal, Color32 color, float voxelSize, int count = 24)
+        public void SpawnDebris(Vector3 worldPos, Vector3 worldNormal, Color32 color, float voxelSize, int count = 4)
         {
-            // 真实物理碎屑飞散：根据受击法线 + 子弹冲击力形成扇面锥形爆发
+            float dScale = voxelSize * 0.38f;
+            Vector3 initScale = new Vector3(dScale, dScale, dScale);
+
             for (int i = 0; i < count; i++)
             {
                 GameObject obj = (_debrisPool.Count > 0) ? _debrisPool.Dequeue() : null;
                 if (obj == null) break;
 
                 Transform t = obj.transform;
-                t.position = worldPos + Random.insideUnitSphere * (voxelSize * 0.4f);
+                t.position = worldPos + Random.insideUnitSphere * (voxelSize * 0.18f);
                 t.rotation = Random.rotation;
-
-                // 产生多尺度碎块 (大中小碎片层次分明)
-                float scaleMultiplier = Random.Range(0.28f, 0.62f);
-                float dScale = voxelSize * scaleMultiplier;
-                Vector3 initScale = new Vector3(dScale, dScale, dScale);
                 t.localScale = initScale;
 
                 Renderer r = obj.GetComponent<Renderer>();
@@ -106,18 +103,11 @@ namespace VoxelBaker.Runtime
                     rb.velocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;
 
-                    // 1. 严格符合力学的受击散射方向：
-                    // 法线冲量 + 强劲的向外径向发散 + 适量向上反弹
-                    Vector3 radialSpread = Random.insideUnitSphere;
-                    // 确保主要朝外侧和前上方扇形炸开，绝非机械竖直下落
-                    Vector3 burstDir = (worldNormal * 1.8f + radialSpread * 1.5f + Vector3.up * 0.9f + Vector3.back * 0.6f).normalized;
-
-                    // 2. 强劲的初速爆炸动能 (8~16 m/s)
-                    float impulseSpeed = Random.Range(8.5f, 16.0f);
-                    rb.velocity = burstDir * impulseSpeed;
-
-                    // 3. 高速旋转翻滚力矩
-                    rb.angularVelocity = Random.insideUnitSphere * Random.Range(30f, 75f);
+                    // 紧凑小范围向外轻微弹射 (3.0 ~ 5.5 m/s 适度初速)
+                    Vector3 burstDir = (worldNormal * 1.0f + Random.insideUnitSphere * 0.6f + Vector3.up * 0.4f).normalized;
+                    float impulse = Random.Range(3.2f, 5.8f);
+                    rb.velocity = burstDir * impulse;
+                    rb.angularVelocity = Random.insideUnitSphere * 35f;
                 }
 
                 obj.SetActive(true);
@@ -128,7 +118,7 @@ namespace VoxelBaker.Runtime
                     transform = t,
                     rb = rb,
                     spawnTime = Time.time,
-                    lifetime = Random.Range(0.9f, 1.4f),
+                    lifetime = Random.Range(0.45f, 0.65f), // 快速消隐
                     initialScale = initScale
                 });
             }
@@ -138,7 +128,6 @@ namespace VoxelBaker.Runtime
         {
             float now = Time.time;
 
-            // 更新海量物理碎屑 (遵循重力与抛物线，并在后半段平滑自然缩小消隐)
             for (int i = _activeDebris.Count - 1; i >= 0; i--)
             {
                 DebrisItem item = _activeDebris[i];
@@ -150,10 +139,9 @@ namespace VoxelBaker.Runtime
                     _debrisPool.Enqueue(item.go);
                     _activeDebris.RemoveAt(i);
                 }
-                else if (age > item.lifetime * 0.55f)
+                else if (age > item.lifetime * 0.4f)
                 {
-                    // 在飞行后半段优雅淡出缩小，不产生突兀闪烁
-                    float fade = 1.0f - (age - item.lifetime * 0.55f) / (item.lifetime * 0.45f);
+                    float fade = 1.0f - (age - item.lifetime * 0.4f) / (item.lifetime * 0.6f);
                     item.transform.localScale = item.initialScale * Mathf.Max(0.01f, fade);
                 }
             }
