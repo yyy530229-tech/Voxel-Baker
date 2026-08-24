@@ -103,15 +103,7 @@ namespace VoxelGameFramework.Level
             if (queueManager != null)
             {
                 queueManager.slotManager = slotManager;
-                queueManager.targetModel = targetModelInstance;
-                queueManager.SetupQueue(levelColors, new int[] { 40, 50, 80 });
-            }
-
-            // 4. 配置传统炮台 (可选)
-            if (cannonSquad != null && _currentConfig != null)
-            {
-                cannonSquad.targetModel = targetModelInstance;
-                cannonSquad.SetupSquad(_currentConfig.initialCannonPowers, new Color(0.95f, 0.22f, 0.62f));
+                queueManager.SetupQueueFromModel(targetModelInstance);
             }
 
             // 触发初始进度更新

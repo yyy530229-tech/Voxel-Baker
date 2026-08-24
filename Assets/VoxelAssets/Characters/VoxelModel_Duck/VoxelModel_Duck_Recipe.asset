@@ -35,7 +35,7 @@ MonoBehaviour:
   generateLODs: 1
   customOutputSubFolder: 
   bakedAsset: {fileID: 11400000, guid: 434d7c21e4523a8448050e19a0263204, type: 2}
-  lastBakeTime: 2026-08-24 09:48:10
-  lastBakeDuration: 0.0980517
+  lastBakeTime: 2026-08-24 09:55:16
+  lastBakeDuration: 0.097326
   lastTotalVoxels: 19317
   isDirty: 0

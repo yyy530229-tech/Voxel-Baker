@@ -1,18 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using VoxelBaker.Data;
 using VoxelBaker.Runtime;
+using VoxelGameFramework.Core;
 
 namespace VoxelGameFramework.Cannons
 {
     /// <summary>
-    /// 底部排队待命方块队列管理器 (匹配参考图2底部的 3~4 列待命方块)
-    /// 玩家点击最前排方块时，方块飞升进入 5 个活动槽位；后排方块自动向前递进补位！
+    /// 待命方块队列管理器
+    /// 自动统计 3D 模型各色块体素数，生成总数 1:1 精确匹配的待命方块，消完即 100% 通关！
     /// </summary>
     public class VoxelQueueManager : MonoBehaviour
     {
         [Header("队列配置")]
         public int columnCount = 3;
-        public int rowCount = 4;
         public float columnSpacing = 1.15f;
         public float rowSpacing = 1.1f;
         public float queueBaseY = -3.6f;
@@ -23,43 +24,104 @@ namespace VoxelGameFramework.Cannons
 
         private List<List<VoxelColorShooterBlock>> _columns = new List<List<VoxelColorShooterBlock>>();
 
-        public void SetupQueue(List<Color32> availableColors, int[] defaultCapacities)
+        public void SetupQueueFromModel(VoxelModelInstance model)
         {
+            targetModel = model;
             ClearQueue();
+
+            if (model == null || model.Asset == null) return;
+
+            // 1. 统计当前模型每种颜色的体素真实数量
+            Dictionary<Color32, int> colorCounts = new Dictionary<Color32, int>();
+
+            if (model.Asset.chunks != null)
+            {
+                foreach (var chunk in model.Asset.chunks)
+                {
+                    if (chunk.cells == null) continue;
+                    foreach (var cell in chunk.cells)
+                    {
+                        if (!cell.isOccupied) continue;
+
+                        Color32 c = cell.customColor;
+                        Color32 matchedKey = c;
+                        bool found = false;
+
+                        foreach (var key in colorCounts.Keys)
+                        {
+                            if (VoxelColorUtility.IsColorMatching(key, c, 60f))
+                            {
+                                matchedKey = key;
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        if (found)
+                        {
+                            colorCounts[matchedKey]++;
+                        }
+                        else
+                        {
+                            colorCounts[c] = 1;
+                        }
+                    }
+                }
+            }
+
+            // 2. 将各颜色的体素总数拆分为适量大小的方块（如 40~60/块）
+            List<(Color32 color, int count)> blockTasks = new List<(Color32, int)>();
+
+            foreach (var kvp in colorCounts)
+            {
+                int remaining = kvp.Value;
+                while (remaining > 0)
+                {
+                    int chunkSize = Mathf.Min(remaining, UnityEngine.Random.Range(35, 65));
+                    if (remaining - chunkSize < 20) chunkSize = remaining; // 避免产生过小的碎块
+
+                    blockTasks.Add((kvp.Key, chunkSize));
+                    remaining -= chunkSize;
+                }
+            }
+
+            // 3. 乱序排列，增加解谜趣味性 (Fisher-Yates Shuffle)
+            for (int i = blockTasks.Count - 1; i > 0; i--)
+            {
+                int r = UnityEngine.Random.Range(0, i + 1);
+                var temp = blockTasks[i];
+                blockTasks[i] = blockTasks[r];
+                blockTasks[r] = temp;
+            }
+
+            // 4. 将方块均分排入 3 列队列中
+            for (int col = 0; col < columnCount; col++)
+            {
+                _columns.Add(new List<VoxelColorShooterBlock>());
+            }
 
             float startX = -((columnCount - 1) * columnSpacing) * 0.5f;
 
-            for (int col = 0; col < columnCount; col++)
+            for (int i = 0; i < blockTasks.Count; i++)
             {
-                List<VoxelColorShooterBlock> columnBlocks = new List<VoxelColorShooterBlock>();
+                int col = i % columnCount;
+                int row = i / columnCount;
 
-                for (int row = 0; row < rowCount; row++)
-                {
-                    Vector3 blockPos = new Vector3(startX + col * columnSpacing, queueBaseY - row * rowSpacing, 0f);
+                Vector3 blockPos = new Vector3(startX + col * columnSpacing, queueBaseY - row * rowSpacing, 0f);
 
-                    GameObject blockObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    blockObj.name = $"QueueBlock_{col}_{row}";
-                    blockObj.transform.SetParent(transform);
-                    blockObj.transform.position = blockPos;
-                    blockObj.transform.localScale = new Vector3(0.88f, 0.88f, 0.88f);
+                GameObject blockObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                blockObj.name = $"QueueBlock_{col}_{row}";
+                blockObj.transform.SetParent(transform);
+                blockObj.transform.position = blockPos;
+                blockObj.transform.localScale = new Vector3(0.88f, 0.88f, 0.88f);
 
-                    // 确保有碰撞体可供点击
-                    BoxCollider box = blockObj.GetComponent<BoxCollider>();
-                    if (box == null) box = blockObj.AddComponent<BoxCollider>();
+                BoxCollider box = blockObj.GetComponent<BoxCollider>();
+                if (box == null) box = blockObj.AddComponent<BoxCollider>();
 
-                    VoxelColorShooterBlock shooter = blockObj.AddComponent<VoxelColorShooterBlock>();
+                VoxelColorShooterBlock shooter = blockObj.AddComponent<VoxelColorShooterBlock>();
+                shooter.Initialize(blockTasks[i].color, blockTasks[i].count, targetModel, OnBlockDisappeared);
 
-                    // 随机分配关卡主要颜色与容量 (如 40, 50, 80)
-                    Color32 c = availableColors[Random.Range(0, availableColors.Count)];
-                    int cap = (defaultCapacities != null && defaultCapacities.Length > 0)
-                        ? defaultCapacities[Random.Range(0, defaultCapacities.Length)]
-                        : (row == 0 ? 50 : 80);
-
-                    shooter.Initialize(c, cap, targetModel, OnBlockDisappeared);
-                    columnBlocks.Add(shooter);
-                }
-
-                _columns.Add(columnBlocks);
+                _columns[col].Add(shooter);
             }
         }
 
@@ -79,13 +141,12 @@ namespace VoxelGameFramework.Cannons
                 }
             }
 
-            // 平滑移动队列后排方块向前补位
+            // 队列后排平滑向前推进
             UpdateQueuePositions();
         }
 
         private void TryDeployBlock(VoxelColorShooterBlock block)
         {
-            // 检查该方块是否处于列的最前端
             int foundCol = -1;
             int foundRow = -1;
 
@@ -102,7 +163,7 @@ namespace VoxelGameFramework.Cannons
                 }
             }
 
-            // 只有每列最前排的方块可以点击上阵
+            // 只能点击每列最前排的方块 (Row 0)
             if (foundCol != -1 && foundRow == 0)
             {
                 if (slotManager != null && slotManager.FreeSlotCount > 0)

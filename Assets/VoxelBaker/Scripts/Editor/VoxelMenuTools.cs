@@ -17,20 +17,20 @@ namespace VoxelBaker.Editor
         {
             VoxelProjectDatabase db = VoxelProjectDatabase.GetOrCreateDatabase();
 
-            // 1. 烘焙小黄鸭 (Characters)
+            // 1. 烘焙小黄鸭 (Characters - 休闲消除规格约 450 体素)
             EditorUtility.DisplayProgressBar("体素烘焙工作室", "正在烘焙小黄鸭 (Yellow Duck)...", 0.3f);
             Mesh duckMesh = VoxelDemoModelGenerator.CreateYellowDuckMesh(out Material[] duckMats);
-            BakeAndRegisterSample(db, "VoxelModel_Duck", VoxelModelCategory.Characters, duckMesh, duckMats, 0.09f, "Duck, Animal, Destructible");
+            BakeAndRegisterSample(db, "VoxelModel_Duck", VoxelModelCategory.Characters, duckMesh, duckMats, 0.22f, "Duck, Animal, Destructible");
 
-            // 2. 烘焙粉色多层头颅 (Characters)
+            // 2. 烘焙粉色多层头颅 (Characters - 约 380 体素)
             EditorUtility.DisplayProgressBar("体素烘焙工作室", "正在烘焙多层粉色头颅 (Pink Head)...", 0.6f);
             Mesh pinkMesh = VoxelDemoModelGenerator.CreatePinkCharacterMesh(out Material[] pinkMats);
-            BakeAndRegisterSample(db, "VoxelModel_PinkHead", VoxelModelCategory.Characters, pinkMesh, pinkMats, 0.1f, "Character, Multi-Layer, Cake");
+            BakeAndRegisterSample(db, "VoxelModel_PinkHead", VoxelModelCategory.Characters, pinkMesh, pinkMats, 0.24f, "Character, Multi-Layer, Cake");
 
-            // 3. 烘焙像素房子 (Buildings)
+            // 3. 烘焙像素房子 (Buildings - 匹配参考图2约 480 体素)
             EditorUtility.DisplayProgressBar("体素烘焙工作室", "正在烘焙像素小房子 (House)...", 0.9f);
             Mesh houseMesh = VoxelDemoModelGenerator.CreateHouseMesh(out Material[] houseMats);
-            BakeAndRegisterSample(db, "VoxelModel_House", VoxelModelCategory.Buildings, houseMesh, houseMats, 0.12f, "Building, House, Prop");
+            BakeAndRegisterSample(db, "VoxelModel_House", VoxelModelCategory.Buildings, houseMesh, houseMats, 0.26f, "Building, House, Prop");
 
             EditorUtility.ClearProgressBar();
             db.ScanAndRefreshRecipes();
