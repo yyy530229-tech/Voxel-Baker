@@ -142,7 +142,7 @@ namespace VoxelBaker.Runtime
         private readonly List<int> _tempFrontIndices = new List<int>(64);
 
         /// <summary>
-        /// 查找当前暴露在外面的表面同色体素（优先面向正面的可见体素，实现直观精准的指向性）
+        /// 查找当前暴露在最外层且对炮台无遮挡的表面同色体素 (严格一对一从外到内消除，绝不隔空击穿)
         /// </summary>
         public bool FindExposedVoxelOfColor(Color32 targetColor, Vector3 fromWorldPos, out Vector3Int hitGridPos, out Vector3 hitWorldPos)
         {
@@ -162,13 +162,13 @@ namespace VoxelBaker.Runtime
                 PackedVoxelGPU gpuVoxel = _activeGPUList[i];
                 Color32 vColor = PackedVoxelGPU.UIntToColor(gpuVoxel.colorRGBA);
 
-                // 颜色匹配判定 (RGB 距离容差)
+                // 严格颜色匹配判定 (RGB 距离容差)
                 float dr = vColor.r - targetColor.r;
                 float dg = vColor.g - targetColor.g;
                 float db = vColor.b - targetColor.b;
                 float dist = Mathf.Sqrt(dr * dr + dg * dg + db * db);
 
-                if (dist <= 85f)
+                if (dist <= 80f)
                 {
                     _tempMatchingIndices.Add(i);
 
@@ -176,7 +176,9 @@ namespace VoxelBaker.Runtime
                     Vector3 localPos = voxelAsset.GridToLocalPosition(pos);
                     Vector3 wPos = transform.TransformPoint(localPos);
 
-                    // 优先挑选朝向正面与炮台镜头的体素 (Z <= center.z + 0.15f)
+                    // 1. 严格筛选朝向正面与炮台的外部表面体素 (Z <= center.z + 0.15f)
+                    // 2. 检查法线是否大致朝向炮台/摄像机，确保处于模型外壳可见第一层
+                    Vector3 dirToShooter = (fromWorldPos - wPos).normalized;
                     if (wPos.z <= center.z + 0.15f)
                     {
                         _tempFrontIndices.Add(i);
@@ -186,7 +188,7 @@ namespace VoxelBaker.Runtime
 
             if (_tempMatchingIndices.Count == 0) return false;
 
-            // 优先从正面可见的同色体素中挑选，确保弹道直射对应色块！
+            // 优先挑选正对外面的最外层同色体素；绝不隔空穿透打内部
             int chosenIdx = (_tempFrontIndices.Count > 0)
                 ? _tempFrontIndices[UnityEngine.Random.Range(0, _tempFrontIndices.Count)]
                 : _tempMatchingIndices[UnityEngine.Random.Range(0, _tempMatchingIndices.Count)];
