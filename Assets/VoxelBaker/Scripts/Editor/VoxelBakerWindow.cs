@@ -442,9 +442,21 @@ namespace VoxelBaker.Editor
                 }
             }
 
-            if (recipe.bakedAsset != null && GUILayout.Button("🌟 场景实例化", GUILayout.Height(26)))
+            if (recipe.bakedAsset != null)
             {
-                InstantiateRecipeInScene(recipe.bakedAsset);
+                GUI.backgroundColor = new Color(0.2f, 0.75f, 1f);
+                if (GUILayout.Button("👁 3D 预览", GUILayout.Height(26)))
+                {
+                    bakedAsset = recipe.bakedAsset;
+                    currentNavIndex = 6;
+                    SceneView.RepaintAll();
+                }
+                GUI.backgroundColor = Color.white;
+
+                if (GUILayout.Button("🌟 场景实例化", GUILayout.Height(26)))
+                {
+                    InstantiateRecipeInScene(recipe.bakedAsset);
+                }
             }
 
             if (GUILayout.Button("🔍 定位文件", GUILayout.Width(80), GUILayout.Height(26)))
@@ -674,9 +686,41 @@ namespace VoxelBaker.Editor
             EditorGUILayout.LabelField("⑥ Scene 视图 3D 实时切片与预览 (3D Scene Preview)", sectionHeaderStyle);
 
             EditorGUILayout.BeginVertical(cardStyle);
-            EditorGUILayout.LabelField("可视化检查与剖面切片工具", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("1. 选择预览的体素资产 (Voxel Asset)", EditorStyles.boldLabel);
             EditorGUILayout.Space(4);
 
+            EditorGUI.BeginChangeCheck();
+            bakedAsset = (VoxelAsset)EditorGUILayout.ObjectField("当前预览资产", bakedAsset, typeof(VoxelAsset), false);
+
+            EditorGUILayout.Space(4);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("快捷切换:", GUILayout.Width(70));
+            if (projectDb != null && projectDb.recipes != null)
+            {
+                for (int i = 0; i < projectDb.recipes.Count; i++)
+                {
+                    var r = projectDb.recipes[i];
+                    if (r != null && r.bakedAsset != null)
+                    {
+                        if (GUILayout.Button(r.modelName, GUILayout.Height(22)))
+                        {
+                            bakedAsset = r.bakedAsset;
+                            SceneView.RepaintAll();
+                        }
+                    }
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+            if (EditorGUI.EndChangeCheck())
+            {
+                SceneView.RepaintAll();
+            }
+
+            EditorGUILayout.Space(8);
+            EditorGUILayout.LabelField("2. 可视化检查与剖面切片工具", EditorStyles.boldLabel);
+            EditorGUILayout.Space(4);
+
+            EditorGUI.BeginChangeCheck();
             selectedPreviewModeIndex = EditorGUILayout.Popup("预览显示模式", selectedPreviewModeIndex, previewModeNames);
             previewMode = (VoxelPreviewMode)selectedPreviewModeIndex;
 
@@ -687,15 +731,27 @@ namespace VoxelBaker.Editor
                 sliceNormal = EditorGUILayout.Vector3Field("剖面法线方向 (Normal)", sliceNormal);
                 sliceOffset = EditorGUILayout.Slider("剖面距离偏移 (Offset)", sliceOffset, -5f, 5f);
             }
+            if (EditorGUI.EndChangeCheck())
+            {
+                SceneView.RepaintAll();
+            }
 
             EditorGUILayout.Space(8);
             if (bakedAsset != null)
             {
                 EditorGUILayout.HelpBox($"✓ 当前预览资产: {bakedAsset.name}\n总占据体素: {bakedAsset.totalOccupiedVoxels:N0} (表面: {bakedAsset.totalSurfaceVoxels:N0}, 内部实体: {bakedAsset.totalInteriorVoxels:N0})\n初始 GPU 可见渲染实例: {bakedAsset.totalVisibleVoxels:N0}", MessageType.Info);
+
+                EditorGUILayout.Space(6);
+                GUI.backgroundColor = new Color(0.2f, 0.75f, 1f);
+                if (GUILayout.Button("🌟 一键将此体素模型实例化至当前场景 (并在视口聚焦)", GUILayout.Height(32)))
+                {
+                    InstantiateRecipeInScene(bakedAsset);
+                }
+                GUI.backgroundColor = Color.white;
             }
             else
             {
-                EditorGUILayout.HelpBox("当前尚未烘焙资产。可先在步骤 ⑦ 中执行烘焙！", MessageType.Warning);
+                EditorGUILayout.HelpBox("请在上方选择一个已烘焙的体素资产，或点击左侧快速预设后在步骤 ⑦ 执行烘焙！", MessageType.Warning);
             }
             EditorGUILayout.EndVertical();
         }

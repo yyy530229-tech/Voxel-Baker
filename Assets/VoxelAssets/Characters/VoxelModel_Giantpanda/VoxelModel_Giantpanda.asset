@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59ba71558824cf4d8d4c85114c0ee3b, type: 3}
+  m_Name: VoxelModel_Giantpanda
+  m_EditorClassIdentifier: 
+  version: 1.0.0
+  sourceModelName: node_0
+  boundsCenter: {x: -0.00030838512, y: 0.004638855, z: -0.00086995994}
+  boundsSize: {x: 0.00764707, y: 0.00927771, z: 0.0074895592}
+  gridDimensions: {x: 3, y: 3, z: 3}
+  voxelSize: 0.02
+  localOrigin: {x: -0.02413192, y: -0.02, z: -0.02461474}
+  chunkSize: 16
+  palette: {fileID: 11400000, guid: edf5a9fef63df4b43a89e1bf8f77b1b1, type: 2}
+  paletteTexture: {fileID: 0}
+  chunks:
+  - chunkId: 0
+    chunkCoord: {x: 0, y: 0, z: 0}
+    minGridPos: {x: 0, y: 0, z: 0}
+    chunkSize: 16
+    localBounds:
+      m_Center: {x: 0.005868079, y: 0.01, z: 0.005385259}
+      m_Extent: {x: 0.03, y: 0.03, z: 0.03}
+    cells:
+    - gridPos: {x: 1, y: 1, z: 1}
+      isOccupied: 1
+      layer: 1
+      distanceToSurface: 0
+      paletteIndex: 0
+      materialId: 0
+      ao: 255
+      faceMask: 63
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4279769372
+    initialVisibleCellIndices: 00000000
+  initialVisibleVoxels:
+  - packedPosition: 1049601
+    packedAttributes: 1073680384
+    colorRGBA: 4279769372
+    voxelMeta: 0
+  lods:
+  - lodLevel: 1
+    voxelSize: 0.04
+    dimensions: {x: 2, y: 2, z: 2}
+    visibleVoxels:
+    - packedPosition: 0
+      packedAttributes: 1070075904
+      colorRGBA: 4279769372
+      voxelMeta: 1
+  - lodLevel: 2
+    voxelSize: 0.08
+    dimensions: {x: 1, y: 1, z: 1}
+    visibleVoxels:
+    - packedPosition: 0
+      packedAttributes: 1070075904
+      colorRGBA: 4279769372
+      voxelMeta: 2
+  totalOccupiedVoxels: 1
+  totalSurfaceVoxels: 1
+  totalInteriorVoxels: 0
+  totalVisibleVoxels: 1
+  bakeDurationSeconds: 2.3625672
+  interiorProfile: {fileID: 11400000, guid: 9294935c49bf4644bad0c6c680a0d7b6, type: 2}
