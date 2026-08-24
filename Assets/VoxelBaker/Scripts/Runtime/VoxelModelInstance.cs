@@ -188,12 +188,37 @@ namespace VoxelBaker.Runtime
 
             if (_tempMatchingIndices.Count == 0) return false;
 
-            // 优先挑选正对外面的最外层同色体素；绝不隔空穿透打内部
-            int chosenIdx = (_tempFrontIndices.Count > 0)
-                ? _tempFrontIndices[UnityEngine.Random.Range(0, _tempFrontIndices.Count)]
-                : _tempMatchingIndices[UnityEngine.Random.Range(0, _tempMatchingIndices.Count)];
+            // 剥皮式层序消除核心算法 (Peeling Layer-by-Layer)：
+            // 挑选当前最外层、最凸出的“表皮层”同色体素进行消解！
+            // 严格像削苹果一样从最外层一层一层向内剥落，彻底消灭“悬空空洞”！
+            int bestIdx = -1;
+            float maxOutwardness = -float.MaxValue;
 
-            PackedVoxelGPU chosenGpu = _activeGPUList[chosenIdx];
+            var candidates = (_tempFrontIndices.Count > 0) ? _tempFrontIndices : _tempMatchingIndices;
+
+            for (int k = 0; k < candidates.Count; k++)
+            {
+                int idx = candidates[k];
+                PackedVoxelGPU gpuVoxel = _activeGPUList[idx];
+                Vector3Int pos = PackedVoxelGPU.UnpackPosition(gpuVoxel.packedPosition);
+                Vector3 localPos = voxelAsset.GridToLocalPosition(pos);
+                Vector3 wPos = transform.TransformPoint(localPos);
+
+                // 外凸度 = 离模型中心距离 + 朝向镜头/炮台的前凸权重 (越靠前外侧越优先)
+                float distFromCenter = (wPos - center).sqrMagnitude;
+                float frontBias = (center.z - wPos.z) * 3.0f;
+                float outwardness = distFromCenter + frontBias;
+
+                if (outwardness > maxOutwardness)
+                {
+                    maxOutwardness = outwardness;
+                    bestIdx = idx;
+                }
+            }
+
+            if (bestIdx == -1) bestIdx = candidates[0];
+
+            PackedVoxelGPU chosenGpu = _activeGPUList[bestIdx];
 
             hitGridPos = PackedVoxelGPU.UnpackPosition(chosenGpu.packedPosition);
             Vector3 finalLocal = voxelAsset.GridToLocalPosition(hitGridPos);

@@ -123,7 +123,7 @@ namespace VoxelGameFramework.Editor
             cfg.spawnScale = 0.95f;
             cfg.initialCannonPowers = powers;
             cfg.backgroundColor = bg;
-            cfg.winDestructionRatio = 0.92f;
+            cfg.winDestructionRatio = 1.0f; // 必须 100% 彻底消灭所有体素才判定通关
             cfg.rewardCoins = 500 * idx;
 
             EditorUtility.SetDirty(cfg);

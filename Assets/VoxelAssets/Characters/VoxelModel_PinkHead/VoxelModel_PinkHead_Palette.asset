@@ -19,21 +19,3 @@ MonoBehaviour:
     smoothness: 0.5
     emissionColor: {r: 0, g: 0, b: 0, a: 1}
     gameplayTag: 0
-  - name: Color_1
-    baseColor: {r: 1, g: 0.4117647, b: 0.7058824, a: 1}
-    metallic: 0
-    smoothness: 0.5
-    emissionColor: {r: 0, g: 0, b: 0, a: 1}
-    gameplayTag: 0
-  - name: Color_2
-    baseColor: {r: 0.19607843, g: 0.9019608, b: 0.74509805, a: 1}
-    metallic: 0
-    smoothness: 0.5
-    emissionColor: {r: 0, g: 0, b: 0, a: 1}
-    gameplayTag: 0
-  - name: Color_3
-    baseColor: {r: 0.47058824, g: 0.9411765, b: 0.19607843, a: 1}
-    metallic: 0
-    smoothness: 0.5
-    emissionColor: {r: 0, g: 0, b: 0, a: 1}
-    gameplayTag: 0

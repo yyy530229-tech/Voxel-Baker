@@ -875,7 +875,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -884,12 +884,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 4, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -898,12 +898,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 4, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -912,7 +912,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 4, z: 7}
       isOccupied: 1
       layer: 1
@@ -1001,7 +1001,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1010,12 +1010,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 5, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1024,12 +1024,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 5, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1038,7 +1038,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 5, z: 7}
       isOccupied: 1
       layer: 1
@@ -1113,7 +1113,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1122,12 +1122,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 6, z: 4}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1136,12 +1136,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 6, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1150,12 +1150,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 6, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1164,12 +1164,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 6, z: 7}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1178,7 +1178,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 6, z: 8}
       isOccupied: 1
       layer: 1
@@ -1239,7 +1239,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1248,12 +1248,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 7, z: 4}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1262,12 +1262,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 7, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1276,12 +1276,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 7, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1290,12 +1290,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 7, z: 7}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1304,7 +1304,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 7, z: 8}
       isOccupied: 1
       layer: 1
@@ -1379,7 +1379,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1388,12 +1388,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 8, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1402,12 +1402,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 8, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1416,7 +1416,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 8, z: 7}
       isOccupied: 1
       layer: 1
@@ -1505,7 +1505,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1514,7 +1514,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 2, y: 9, z: 6}
       isOccupied: 1
       layer: 1
@@ -1939,7 +1939,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1948,12 +1948,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 3, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1962,12 +1962,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 3, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -1976,7 +1976,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 3, z: 7}
       isOccupied: 1
       layer: 1
@@ -2051,7 +2051,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2060,54 +2060,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 4, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 4, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 4, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 4, z: 7}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2116,7 +2074,49 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 4, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 4, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 4, z: 7}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 3, y: 4, z: 8}
       isOccupied: 1
       layer: 1
@@ -2177,7 +2177,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2186,54 +2186,54 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 5, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
-      initialHP: 2
-      currentHP: 2
+      initialHP: 1
+      currentHP: 1
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290700850
+        rgba: 4289083637
     - gridPos: {x: 3, y: 5, z: 5}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
-      initialHP: 2
-      currentHP: 2
+      initialHP: 1
+      currentHP: 1
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290700850
+        rgba: 4289083637
     - gridPos: {x: 3, y: 5, z: 6}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
-      initialHP: 2
-      currentHP: 2
+      initialHP: 1
+      currentHP: 1
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290700850
+        rgba: 4289083637
     - gridPos: {x: 3, y: 5, z: 7}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2242,12 +2242,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 5, z: 8}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2256,7 +2256,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 5, z: 9}
       isOccupied: 1
       layer: 1
@@ -2289,7 +2289,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2298,82 +2298,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 6, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 6, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 6, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 6, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 6, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 6, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2382,7 +2312,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 6, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 6, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 6, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 6, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 6, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 3, y: 6, z: 9}
       isOccupied: 1
       layer: 1
@@ -2415,7 +2415,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2424,82 +2424,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 7, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 7, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 7, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 7, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 7, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 7, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2508,7 +2438,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 7, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 7, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 7, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 7, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 7, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 3, y: 7, z: 9}
       isOccupied: 1
       layer: 1
@@ -2555,7 +2555,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2564,54 +2564,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 8, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 8, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 8, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 3, y: 8, z: 7}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2620,7 +2578,49 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 8, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 8, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 3, y: 8, z: 7}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 3, y: 8, z: 8}
       isOccupied: 1
       layer: 1
@@ -2681,7 +2681,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2690,12 +2690,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 9, z: 4}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2704,26 +2704,26 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 9, z: 5}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
-      initialHP: 2
-      currentHP: 2
+      initialHP: 1
+      currentHP: 1
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290700850
+        rgba: 4289083637
     - gridPos: {x: 3, y: 9, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2732,12 +2732,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 9, z: 7}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2746,7 +2746,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 9, z: 8}
       isOccupied: 1
       layer: 1
@@ -2807,7 +2807,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2816,12 +2816,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 10, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2830,12 +2830,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 10, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -2844,7 +2844,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 3, y: 10, z: 7}
       isOccupied: 1
       layer: 1
@@ -3143,7 +3143,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3152,12 +3152,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 2, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3166,12 +3166,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 2, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3180,7 +3180,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 2, z: 7}
       isOccupied: 1
       layer: 1
@@ -3241,7 +3241,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3250,54 +3250,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 3, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 3, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 3, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 3, z: 7}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3306,7 +3264,49 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 3, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 3, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 3, z: 7}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 4, y: 3, z: 8}
       isOccupied: 1
       layer: 1
@@ -3353,7 +3353,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3362,82 +3362,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 4, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 4, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 4, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 4, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 4, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 4, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3446,7 +3376,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 4, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 4, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 4, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 4, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 4, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 4, y: 4, z: 9}
       isOccupied: 1
       layer: 1
@@ -3479,7 +3479,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3488,82 +3488,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 5, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 5, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 5, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 5, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 5, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 5, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3572,7 +3502,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 5, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 5, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 5, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 5, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 5, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 4, y: 5, z: 9}
       isOccupied: 1
       layer: 1
@@ -3619,7 +3619,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3628,82 +3628,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 6, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 6, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 6, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 6, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 6, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 6, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3712,7 +3642,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 6, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 6, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 6, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 6, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 6, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 4, y: 6, z: 9}
       isOccupied: 1
       layer: 1
@@ -3759,7 +3759,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3768,82 +3768,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 7, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 7, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 7, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 7, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 7, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 7, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3852,7 +3782,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 7, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 7, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 7, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 7, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 7, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 4, y: 7, z: 9}
       isOccupied: 1
       layer: 1
@@ -3899,7 +3899,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3908,82 +3908,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 8, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 8, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 8, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 8, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 8, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 8, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -3992,7 +3922,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 8, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 8, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 8, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 8, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 8, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 4, y: 8, z: 9}
       isOccupied: 1
       layer: 1
@@ -4053,7 +4053,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4062,68 +4062,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 9, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 9, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 9, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 9, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 4, y: 9, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4132,7 +4076,63 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 9, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 9, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 9, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 4, y: 9, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 4, y: 9, z: 9}
       isOccupied: 1
       layer: 1
@@ -4179,7 +4179,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4188,12 +4188,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 10, z: 4}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4202,26 +4202,26 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 10, z: 5}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
-      initialHP: 2
-      currentHP: 2
+      initialHP: 1
+      currentHP: 1
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290700850
+        rgba: 4289083637
     - gridPos: {x: 4, y: 10, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4230,12 +4230,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 10, z: 7}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4244,7 +4244,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 10, z: 8}
       isOccupied: 1
       layer: 1
@@ -4319,7 +4319,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4328,7 +4328,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 4, y: 11, z: 6}
       isOccupied: 1
       layer: 1
@@ -4557,7 +4557,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4566,12 +4566,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 2, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4580,12 +4580,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 2, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4594,12 +4594,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 2, z: 7}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4608,7 +4608,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 2, z: 8}
       isOccupied: 1
       layer: 1
@@ -4655,7 +4655,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4664,54 +4664,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 3, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 3, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 3, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 3, z: 7}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4720,7 +4678,49 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 3, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 3, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 3, z: 7}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 5, y: 3, z: 8}
       isOccupied: 1
       layer: 1
@@ -4767,7 +4767,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4776,82 +4776,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 4, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 4, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 4, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 4, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 4, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 4, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4860,7 +4790,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 4, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 4, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 4, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 4, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 4, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 5, y: 4, z: 9}
       isOccupied: 1
       layer: 1
@@ -4893,7 +4893,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4902,82 +4902,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 5, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 5, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 5, z: 5}
-      isOccupied: 1
-      layer: 4
-      distanceToSurface: 4
-      paletteIndex: 3
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 4
-      currentHP: 4
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4281528440
-    - gridPos: {x: 5, y: 5, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 5, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 5, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -4986,7 +4916,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 5, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 5, z: 5}
+      isOccupied: 1
+      layer: 4
+      distanceToSurface: 4
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 5, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 5, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 5, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 5, y: 5, z: 9}
       isOccupied: 1
       layer: 1
@@ -5033,7 +5033,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5042,96 +5042,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 6, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 6, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 6, z: 5}
-      isOccupied: 1
-      layer: 4
-      distanceToSurface: 4
-      paletteIndex: 3
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 4
-      currentHP: 4
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4281528440
-    - gridPos: {x: 5, y: 6, z: 6}
-      isOccupied: 1
-      layer: 4
-      distanceToSurface: 4
-      paletteIndex: 3
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 4
-      currentHP: 4
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4281528440
-    - gridPos: {x: 5, y: 6, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 6, z: 8}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 6, z: 9}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5140,7 +5056,91 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 6, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 6, z: 5}
+      isOccupied: 1
+      layer: 4
+      distanceToSurface: 4
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 6, z: 6}
+      isOccupied: 1
+      layer: 4
+      distanceToSurface: 4
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 6, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 6, z: 8}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 6, z: 9}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 5, y: 6, z: 10}
       isOccupied: 1
       layer: 1
@@ -5173,7 +5173,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5182,96 +5182,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 7, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 7, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 7, z: 5}
-      isOccupied: 1
-      layer: 4
-      distanceToSurface: 4
-      paletteIndex: 3
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 4
-      currentHP: 4
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4281528440
-    - gridPos: {x: 5, y: 7, z: 6}
-      isOccupied: 1
-      layer: 4
-      distanceToSurface: 4
-      paletteIndex: 3
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 4
-      currentHP: 4
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4281528440
-    - gridPos: {x: 5, y: 7, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 7, z: 8}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 7, z: 9}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5280,7 +5196,91 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 7, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 7, z: 5}
+      isOccupied: 1
+      layer: 4
+      distanceToSurface: 4
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 7, z: 6}
+      isOccupied: 1
+      layer: 4
+      distanceToSurface: 4
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 7, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 7, z: 8}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 7, z: 9}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 5, y: 7, z: 10}
       isOccupied: 1
       layer: 1
@@ -5313,7 +5313,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5322,82 +5322,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 8, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 8, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 8, z: 5}
-      isOccupied: 1
-      layer: 4
-      distanceToSurface: 4
-      paletteIndex: 3
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 4
-      currentHP: 4
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4281528440
-    - gridPos: {x: 5, y: 8, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 8, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 8, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5406,7 +5336,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 8, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 8, z: 5}
+      isOccupied: 1
+      layer: 4
+      distanceToSurface: 4
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 8, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 8, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 8, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 5, y: 8, z: 9}
       isOccupied: 1
       layer: 1
@@ -5453,7 +5453,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5462,82 +5462,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 9, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 9, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 9, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 9, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 9, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 9, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5546,7 +5476,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 9, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 9, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 9, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 9, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 9, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 5, y: 9, z: 9}
       isOccupied: 1
       layer: 1
@@ -5593,7 +5593,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5602,54 +5602,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 10, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 10, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 10, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 5, y: 10, z: 7}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5658,7 +5616,49 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 10, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 10, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 5, y: 10, z: 7}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 5, y: 10, z: 8}
       isOccupied: 1
       layer: 1
@@ -5719,7 +5719,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5728,12 +5728,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 11, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5742,12 +5742,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 11, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5756,7 +5756,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 5, y: 11, z: 7}
       isOccupied: 1
       layer: 1
@@ -5971,7 +5971,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5980,12 +5980,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 2, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -5994,12 +5994,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 2, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6008,7 +6008,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 2, z: 7}
       isOccupied: 1
       layer: 1
@@ -6069,7 +6069,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6078,54 +6078,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 3, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 3, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 3, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 3, z: 7}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6134,7 +6092,49 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 3, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 3, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 3, z: 7}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 6, y: 3, z: 8}
       isOccupied: 1
       layer: 1
@@ -6181,7 +6181,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6190,82 +6190,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 4, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 4, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 4, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 4, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 4, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 4, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6274,7 +6204,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 4, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 4, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 4, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 4, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 4, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 6, y: 4, z: 9}
       isOccupied: 1
       layer: 1
@@ -6307,7 +6307,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6316,82 +6316,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 5, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 5, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 5, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 5, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 5, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 5, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6400,7 +6330,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 5, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 5, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 5, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 5, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 5, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 6, y: 5, z: 9}
       isOccupied: 1
       layer: 1
@@ -6447,7 +6447,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6456,82 +6456,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 6, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 6, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 6, z: 5}
-      isOccupied: 1
-      layer: 4
-      distanceToSurface: 4
-      paletteIndex: 3
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 4
-      currentHP: 4
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4281528440
-    - gridPos: {x: 6, y: 6, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 6, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 6, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6540,7 +6470,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 6, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 6, z: 5}
+      isOccupied: 1
+      layer: 4
+      distanceToSurface: 4
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 6, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 6, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 6, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 6, y: 6, z: 9}
       isOccupied: 1
       layer: 1
@@ -6587,7 +6587,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6596,82 +6596,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 7, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 7, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 7, z: 5}
-      isOccupied: 1
-      layer: 4
-      distanceToSurface: 4
-      paletteIndex: 3
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 4
-      currentHP: 4
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4281528440
-    - gridPos: {x: 6, y: 7, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 7, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 7, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6680,7 +6610,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 7, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 7, z: 5}
+      isOccupied: 1
+      layer: 4
+      distanceToSurface: 4
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 7, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 7, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 7, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 6, y: 7, z: 9}
       isOccupied: 1
       layer: 1
@@ -6727,7 +6727,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6736,82 +6736,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 8, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 8, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 8, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 8, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 8, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 8, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6820,7 +6750,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 8, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 8, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 8, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 8, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 8, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 6, y: 8, z: 9}
       isOccupied: 1
       layer: 1
@@ -6881,7 +6881,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6890,68 +6890,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 9, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 9, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 9, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 9, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 9, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -6960,7 +6904,63 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 9, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 9, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 9, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 9, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 6, y: 9, z: 9}
       isOccupied: 1
       layer: 1
@@ -7007,7 +7007,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7016,12 +7016,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 10, z: 4}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7030,40 +7030,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 10, z: 5}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 10, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 6, y: 10, z: 7}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7072,7 +7044,35 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 10, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 6, y: 10, z: 7}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 6, y: 10, z: 8}
       isOccupied: 1
       layer: 1
@@ -7147,7 +7147,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7156,12 +7156,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 11, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7170,7 +7170,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 6, y: 11, z: 7}
       isOccupied: 1
       layer: 1
@@ -7385,7 +7385,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7394,7 +7394,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 2, z: 6}
       isOccupied: 1
       layer: 1
@@ -7483,7 +7483,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7492,12 +7492,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 3, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7506,12 +7506,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 3, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7520,7 +7520,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 3, z: 7}
       isOccupied: 1
       layer: 1
@@ -7595,7 +7595,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7604,54 +7604,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 4, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 4, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 4, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 4, z: 7}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7660,7 +7618,49 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 4, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 4, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 4, z: 7}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 7, y: 4, z: 8}
       isOccupied: 1
       layer: 1
@@ -7721,7 +7721,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7730,68 +7730,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 5, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 5, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 5, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 5, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 5, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7800,7 +7744,63 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 5, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 5, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 5, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 5, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 7, y: 5, z: 9}
       isOccupied: 1
       layer: 1
@@ -7833,7 +7833,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7842,82 +7842,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 6, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 6, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 6, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 6, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 6, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 6, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7926,7 +7856,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 6, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 6, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 6, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 6, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 6, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 7, y: 6, z: 9}
       isOccupied: 1
       layer: 1
@@ -7959,7 +7959,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -7968,82 +7968,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 7, z: 3}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 7, z: 4}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 7, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 3
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 3
-      currentHP: 3
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 7, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 7, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 7, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8052,7 +7982,77 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 7, z: 4}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 7, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 3
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 7, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 7, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 7, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 7, y: 7, z: 9}
       isOccupied: 1
       layer: 1
@@ -8099,7 +8099,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8108,68 +8108,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 8, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 8, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 8, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 8, z: 7}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 8, z: 8}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8178,7 +8122,63 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 8, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 8, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 8, z: 7}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 8, z: 8}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 7, y: 8, z: 9}
       isOccupied: 1
       layer: 1
@@ -8225,7 +8225,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8234,54 +8234,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 9, z: 4}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 9, z: 5}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 9, z: 6}
-      isOccupied: 1
-      layer: 3
-      distanceToSurface: 2
-      paletteIndex: 2
-      materialId: 0
-      ao: 50
-      faceMask: 0
-      initialHP: 2
-      currentHP: 2
-      isAlive: 1
-      customColor:
-        serializedVersion: 2
-        rgba: 4290700850
-    - gridPos: {x: 7, y: 9, z: 7}
-      isOccupied: 1
-      layer: 2
-      distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8290,7 +8248,49 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 9, z: 5}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 9, z: 6}
+      isOccupied: 1
+      layer: 3
+      distanceToSurface: 2
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
+    - gridPos: {x: 7, y: 9, z: 7}
+      isOccupied: 1
+      layer: 2
+      distanceToSurface: 1
+      paletteIndex: 0
+      materialId: 0
+      ao: 50
+      faceMask: 0
+      initialHP: 1
+      currentHP: 1
+      isAlive: 1
+      customColor:
+        serializedVersion: 2
+        rgba: 4289083637
     - gridPos: {x: 7, y: 9, z: 8}
       isOccupied: 1
       layer: 1
@@ -8351,7 +8351,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8360,12 +8360,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 10, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8374,12 +8374,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 10, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8388,7 +8388,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 7, y: 10, z: 7}
       isOccupied: 1
       layer: 1
@@ -8827,7 +8827,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8836,12 +8836,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 4, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8850,12 +8850,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 4, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8864,7 +8864,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 4, z: 7}
       isOccupied: 1
       layer: 1
@@ -8939,7 +8939,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8948,12 +8948,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 5, z: 4}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8962,12 +8962,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 5, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8976,12 +8976,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 5, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -8990,12 +8990,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 5, z: 7}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9004,7 +9004,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 5, z: 8}
       isOccupied: 1
       layer: 1
@@ -9065,7 +9065,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9074,12 +9074,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 6, z: 4}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9088,26 +9088,26 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 6, z: 5}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
-      initialHP: 2
-      currentHP: 2
+      initialHP: 1
+      currentHP: 1
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290700850
+        rgba: 4289083637
     - gridPos: {x: 8, y: 6, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9116,12 +9116,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 6, z: 7}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9130,7 +9130,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 6, z: 8}
       isOccupied: 1
       layer: 1
@@ -9191,7 +9191,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9200,12 +9200,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 7, z: 4}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9214,26 +9214,26 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 7, z: 5}
       isOccupied: 1
       layer: 3
       distanceToSurface: 2
-      paletteIndex: 2
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
-      initialHP: 2
-      currentHP: 2
+      initialHP: 1
+      currentHP: 1
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290700850
+        rgba: 4289083637
     - gridPos: {x: 8, y: 7, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9242,12 +9242,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 7, z: 7}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9256,7 +9256,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 7, z: 8}
       isOccupied: 1
       layer: 1
@@ -9331,7 +9331,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9340,12 +9340,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 8, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9354,12 +9354,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 8, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9368,12 +9368,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 8, z: 7}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9382,7 +9382,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 8, z: 8}
       isOccupied: 1
       layer: 1
@@ -9443,7 +9443,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9452,12 +9452,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 9, z: 5}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9466,12 +9466,12 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 9, z: 6}
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -9480,7 +9480,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 8, y: 9, z: 7}
       isOccupied: 1
       layer: 1
@@ -10003,7 +10003,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -10012,7 +10012,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 9, y: 6, z: 6}
       isOccupied: 1
       layer: 1
@@ -10101,7 +10101,7 @@ MonoBehaviour:
       isOccupied: 1
       layer: 2
       distanceToSurface: 1
-      paletteIndex: 1
+      paletteIndex: 0
       materialId: 0
       ao: 50
       faceMask: 0
@@ -10110,7 +10110,7 @@ MonoBehaviour:
       isAlive: 1
       customColor:
         serializedVersion: 2
-        rgba: 4290013695
+        rgba: 4289083637
     - gridPos: {x: 9, y: 7, z: 6}
       isOccupied: 1
       layer: 1
@@ -11901,12 +11901,12 @@ MonoBehaviour:
       colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 4196354
-      packedAttributes: 1070075905
-      colorRGBA: 4289283319
+      packedAttributes: 1070075904
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 6293506
       packedAttributes: 1070075904
-      colorRGBA: 4289150710
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 8390658
       packedAttributes: 1070075904
@@ -11917,12 +11917,12 @@ MonoBehaviour:
       colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 2101250
-      packedAttributes: 1070075905
-      colorRGBA: 4289283319
+      packedAttributes: 1070075904
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 8392706
       packedAttributes: 1070075904
-      colorRGBA: 4289150710
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 6146
       packedAttributes: 1070075904
@@ -11930,15 +11930,15 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 8394754
       packedAttributes: 1070075904
-      colorRGBA: 4289283319
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 8194
       packedAttributes: 1070075904
       colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 2105346
-      packedAttributes: 1070075905
-      colorRGBA: 4289283319
+      packedAttributes: 1070075904
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 8396802
       packedAttributes: 1070075904
@@ -11950,11 +11950,11 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 4204546
       packedAttributes: 1070075904
-      colorRGBA: 4289283319
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 6301698
       packedAttributes: 1070075904
-      colorRGBA: 4289150710
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 8398850
       packedAttributes: 1070075904
@@ -11989,8 +11989,8 @@ MonoBehaviour:
       colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 2099204
-      packedAttributes: 1070075905
-      colorRGBA: 4289283319
+      packedAttributes: 1070075904
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 8390660
       packedAttributes: 1070075904
@@ -12002,7 +12002,7 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 8392708
       packedAttributes: 1070075904
-      colorRGBA: 4289548538
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 10489860
       packedAttributes: 1070075904
@@ -12022,7 +12022,7 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 8396804
       packedAttributes: 1070075904
-      colorRGBA: 4289548538
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 10493956
       packedAttributes: 1070075904
@@ -12034,7 +12034,7 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 2107396
       packedAttributes: 1070075904
-      colorRGBA: 4289283319
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 8398852
       packedAttributes: 1070075904
@@ -12074,7 +12074,7 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 2099206
       packedAttributes: 1070075904
-      colorRGBA: 4289150710
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 8390662
       packedAttributes: 1070075904
@@ -12086,7 +12086,7 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 8392710
       packedAttributes: 1070075904
-      colorRGBA: 4289415928
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 10489862
       packedAttributes: 1070075904
@@ -12098,7 +12098,7 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 8394758
       packedAttributes: 1070075904
-      colorRGBA: 4289548538
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 10491910
       packedAttributes: 1070075904
@@ -12110,7 +12110,7 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 8396806
       packedAttributes: 1070075904
-      colorRGBA: 4289415928
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 10493958
       packedAttributes: 1070075904
@@ -12122,7 +12122,7 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 2107398
       packedAttributes: 1070075904
-      colorRGBA: 4289150710
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 8398854
       packedAttributes: 1070075904
@@ -12170,15 +12170,15 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 2101256
       packedAttributes: 1070075904
-      colorRGBA: 4289150710
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 4198408
       packedAttributes: 1070075904
-      colorRGBA: 4289548538
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 6295560
       packedAttributes: 1070075904
-      colorRGBA: 4289415928
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 8392712
       packedAttributes: 1070075904
@@ -12190,11 +12190,11 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 2103304
       packedAttributes: 1070075904
-      colorRGBA: 4289283319
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 6297608
       packedAttributes: 1070075904
-      colorRGBA: 4289548538
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 8394760
       packedAttributes: 1070075904
@@ -12210,11 +12210,11 @@ MonoBehaviour:
       voxelMeta: 1
     - packedPosition: 4202504
       packedAttributes: 1070075904
-      colorRGBA: 4289548538
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 6299656
       packedAttributes: 1070075904
-      colorRGBA: 4289415928
+      colorRGBA: 4289083637
       voxelMeta: 1
     - packedPosition: 8396808
       packedAttributes: 1070075904
@@ -12270,31 +12270,31 @@ MonoBehaviour:
       voxelMeta: 2
     - packedPosition: 4194304
       packedAttributes: 1070075904
-      colorRGBA: 4289150710
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 8388608
       packedAttributes: 1070075904
       colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 4096
-      packedAttributes: 1070075906
-      colorRGBA: 4289351146
+      packedAttributes: 1070075904
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 4198400
-      packedAttributes: 1070075906
-      colorRGBA: 4289821631
+      packedAttributes: 1070075904
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 8392704
       packedAttributes: 1070075904
-      colorRGBA: 4289216502
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 8192
       packedAttributes: 1070075904
-      colorRGBA: 4289150197
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 4202496
       packedAttributes: 1070075904
-      colorRGBA: 4289418469
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 8396800
       packedAttributes: 1070075904
@@ -12306,31 +12306,31 @@ MonoBehaviour:
       voxelMeta: 2
     - packedPosition: 4
       packedAttributes: 1070075904
-      colorRGBA: 4289150710
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 4194308
       packedAttributes: 1070075904
-      colorRGBA: 4289685971
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 8388612
       packedAttributes: 1070075904
       colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 4100
-      packedAttributes: 1070075906
-      colorRGBA: 4289821631
+      packedAttributes: 1070075904
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 8392708
       packedAttributes: 1070075904
-      colorRGBA: 4289483503
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 8196
       packedAttributes: 1070075904
-      colorRGBA: 4289418469
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 8396804
       packedAttributes: 1070075904
-      colorRGBA: 4289283063
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 12292
       packedAttributes: 1070075904
@@ -12354,11 +12354,11 @@ MonoBehaviour:
       voxelMeta: 2
     - packedPosition: 4104
       packedAttributes: 1070075904
-      colorRGBA: 4289216502
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 4198408
       packedAttributes: 1070075904
-      colorRGBA: 4289483503
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 8392712
       packedAttributes: 1070075904
@@ -12370,7 +12370,7 @@ MonoBehaviour:
       voxelMeta: 2
     - packedPosition: 4202504
       packedAttributes: 1070075904
-      colorRGBA: 4289283063
+      colorRGBA: 4289083637
       voxelMeta: 2
     - packedPosition: 8396808
       packedAttributes: 1070075904
@@ -12380,5 +12380,5 @@ MonoBehaviour:
   totalSurfaceVoxels: 450
   totalInteriorVoxels: 303
   totalVisibleVoxels: 308
-  bakeDurationSeconds: 0.0061985
+  bakeDurationSeconds: 0.0061098
   interiorProfile: {fileID: 0}

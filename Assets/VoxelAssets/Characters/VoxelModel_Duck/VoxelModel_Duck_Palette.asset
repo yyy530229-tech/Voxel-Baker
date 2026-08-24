@@ -37,15 +37,3 @@ MonoBehaviour:
     smoothness: 0.5
     emissionColor: {r: 0, g: 0, b: 0, a: 1}
     gameplayTag: 0
-  - name: Color_4
-    baseColor: {r: 1, g: 0.4117647, b: 0.7058824, a: 1}
-    metallic: 0
-    smoothness: 0.5
-    emissionColor: {r: 0, g: 0, b: 0, a: 1}
-    gameplayTag: 0
-  - name: Color_5
-    baseColor: {r: 0.19607843, g: 0.9019608, b: 0.74509805, a: 1}
-    metallic: 0
-    smoothness: 0.5
-    emissionColor: {r: 0, g: 0, b: 0, a: 1}
-    gameplayTag: 0
