@@ -248,20 +248,6 @@ namespace VoxelBaker.Runtime
         {
             if (!IsVoxelAlive(gridPos)) return false;
 
-            VoxelCell cell = _runtimeGrid[gridPos.x, gridPos.y, gridPos.z];
-
-            // 检查颜色是否匹配
-            float dr = cell.customColor.r - attackerColor.r;
-            float dg = cell.customColor.g - attackerColor.g;
-            float db = cell.customColor.b - attackerColor.b;
-            float dist = Mathf.Sqrt(dr * dr + dg * dg + db * db);
-
-            if (dist > 80f)
-            {
-                // 颜色不匹配，无法消除！
-                return false;
-            }
-
             ApplyDamage(gridPos, damageAmount, hitWorldPoint, hitWorldNormal);
             return true;
         }
