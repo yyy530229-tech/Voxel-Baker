@@ -30,7 +30,16 @@ namespace VoxelGameFramework.Cannons
 
             if (model == null || model.Asset == null) return;
 
-            // 1. 直接从模型运行时网格精确统计每种颜色的实际体素数
+            // 1. 直接从模型调色板或网格提取全局离散颜色映射，杜绝动态字典带来的分类漂移
+            List<Color32> paletteColors = new List<Color32>();
+            if (model.Asset.palette != null && model.Asset.palette.entries != null && model.Asset.palette.entries.Count > 0)
+            {
+                foreach (var entry in model.Asset.palette.entries)
+                {
+                    if (entry.baseColor.a > 0) paletteColors.Add((Color32)entry.baseColor);
+                }
+            }
+
             Dictionary<Color32, int> colorCounts = new Dictionary<Color32, int>();
             int totalModelVoxels = 0;
 
@@ -44,7 +53,7 @@ namespace VoxelGameFramework.Cannons
                         if (!cell.isOccupied) continue;
 
                         Color32 rawColor = cell.customColor;
-                        Color32 canonicalColor = GetCanonicalPaletteColor(rawColor, colorCounts.Keys);
+                        Color32 canonicalColor = GetCanonicalPaletteColor(rawColor, paletteColors);
 
                         if (colorCounts.ContainsKey(canonicalColor))
                         {
@@ -121,16 +130,27 @@ namespace VoxelGameFramework.Cannons
             }
         }
 
-        private Color32 GetCanonicalPaletteColor(Color32 c, IEnumerable<Color32> existingKeys)
+        private Color32 GetCanonicalPaletteColor(Color32 c, List<Color32> palette)
         {
-            foreach (var key in existingKeys)
+            if (palette == null || palette.Count == 0) return c;
+
+            Color32 best = palette[0];
+            float minDist = float.MaxValue;
+
+            for (int i = 0; i < palette.Count; i++)
             {
-                if (VoxelColorUtility.IsColorMatching(key, c, 75f))
+                Color32 p = palette[i];
+                float dr = c.r - p.r;
+                float dg = c.g - p.g;
+                float db = c.b - p.b;
+                float distSq = dr * dr + dg * dg + db * db;
+                if (distSq < minDist)
                 {
-                    return key;
+                    minDist = distSq;
+                    best = p;
                 }
             }
-            return c;
+            return best;
         }
 
         private void Update()

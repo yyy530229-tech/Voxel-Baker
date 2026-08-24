@@ -195,10 +195,30 @@ namespace VoxelBaker.Runtime
                     {
                         _tempFrontIndices.Add(i);
                     }
-                }
             }
 
-            if (_tempMatchingIndices.Count == 0) return false;
+            if (_tempMatchingIndices.Count == 0)
+            {
+                // 如果模型上已经没有与该方块严格同色的体素了（例如黑色已被提前全部消灭），
+                // 自动寻找当前暴露在最外层的任意剩余存活体素作为目标，保证所有在槽位中的方块 1:1 彻底打完并 100% 通关！
+                for (int i = 0; i < _activeGPUList.Count; i++)
+                {
+                    PackedVoxelGPU gpuVoxel = _activeGPUList[i];
+                    Vector3Int pos = PackedVoxelGPU.UnpackPosition(gpuVoxel.packedPosition);
+                    if (_targetedVoxels.Contains(pos)) continue;
+
+                    _tempMatchingIndices.Add(i);
+                    Vector3 localPos = voxelAsset.GridToLocalPosition(pos);
+                    Vector3 wPos = transform.TransformPoint(localPos);
+
+                    if (wPos.z <= center.z + 0.15f)
+                    {
+                        _tempFrontIndices.Add(i);
+                    }
+                }
+
+                if (_tempMatchingIndices.Count == 0) return false;
+            }
 
             // 剥皮式层序消除核心算法 (Peeling Layer-by-Layer)：
             // 挑选当前最外层、最凸出的“表皮层”同色体素进行消解！
