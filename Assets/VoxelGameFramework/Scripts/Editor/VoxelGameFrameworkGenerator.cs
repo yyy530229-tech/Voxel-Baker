@@ -40,14 +40,15 @@ namespace VoxelGameFramework.Editor
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             string scenePath = $"{sceneDir}/VoxelShooterGameMainScene.unity";
 
-            // 相机
+            // 相机 (适配 1080x1920 竖屏视野，模型在上、槽位在中、队列在下)
             GameObject camObj = new GameObject("Main Camera");
             Camera cam = camObj.AddComponent<Camera>();
             camObj.tag = "MainCamera";
-            camObj.transform.position = new Vector3(0f, 0.5f, -8.5f);
-            camObj.transform.rotation = Quaternion.Euler(6f, 0f, 0f);
+            camObj.transform.position = new Vector3(0f, 0.2f, -14.5f);
+            camObj.transform.rotation = Quaternion.Euler(5.5f, 0f, 0f);
+            cam.fieldOfView = 50f;
             cam.clearFlags = CameraClearFlags.SolidColor;
-            cam.backgroundColor = new Color(0.16f, 0.22f, 0.30f);
+            cam.backgroundColor = new Color(0.15f, 0.20f, 0.28f);
 
             // 灯光
             GameObject lightObj = new GameObject("Directional Light");
@@ -61,9 +62,9 @@ namespace VoxelGameFramework.Editor
             GameObject debrisObj = new GameObject("VoxelDebrisManager");
             debrisObj.AddComponent<VoxelDebrisManager>();
 
-            // 目标体素模型 (带 3D 旋转与浮动)
+            // 目标体素模型 (位于屏幕上半区域)
             GameObject targetObj = new GameObject("VoxelTargetModel");
-            targetObj.transform.position = new Vector3(0f, 1.2f, 0f);
+            targetObj.transform.position = new Vector3(0f, 2.7f, 0f);
             VoxelModelInstance targetModel = targetObj.AddComponent<VoxelModelInstance>();
             targetModel.voxelAsset = duckAsset;
             Shader s = Shader.Find("VoxelBaker/URP/VoxelLit");
@@ -118,6 +119,8 @@ namespace VoxelGameFramework.Editor
             cfg.levelIndex = idx;
             cfg.levelTitle = title;
             cfg.targetAsset = asset;
+            cfg.spawnPosition = new Vector3(0f, 2.7f, 0f);
+            cfg.spawnScale = 0.95f;
             cfg.initialCannonPowers = powers;
             cfg.backgroundColor = bg;
             cfg.winDestructionRatio = 0.92f;

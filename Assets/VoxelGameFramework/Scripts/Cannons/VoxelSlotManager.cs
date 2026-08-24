@@ -11,7 +11,7 @@ namespace VoxelGameFramework.Cannons
         [Header("槽位配置")]
         public int totalSlots = 5;
         public float slotSpacing = 1.15f;
-        public float slotYPosition = -2.8f;
+        public float slotYPosition = -1.6f;
 
         private Vector3[] _slotPositions;
         private VoxelColorShooterBlock[] _occupiedBlocks;
@@ -43,15 +43,15 @@ namespace VoxelGameFramework.Cannons
                 Vector3 pos = new Vector3(startX + i * slotSpacing, slotYPosition, 0f);
                 _slotPositions[i] = pos;
 
-                // 创建底座槽位可视化几何体 (扁圆柱/倒圆角方形槽)
-                GameObject pedestal = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                // 创建底座槽位凹槽可视化几何体 (匹配截图2中的 5 个暗色凹槽)
+                GameObject pedestal = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 pedestal.name = $"SlotPedestal_{i}";
                 pedestal.transform.SetParent(transform);
-                pedestal.transform.position = pos - Vector3.up * 0.45f;
-                pedestal.transform.localScale = new Vector3(0.9f, 0.08f, 0.9f);
+                pedestal.transform.position = pos - Vector3.up * 0.52f;
+                pedestal.transform.localScale = new Vector3(0.95f, 0.12f, 0.95f);
 
                 Material pm = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-                pm.color = new Color(0.12f, 0.16f, 0.22f);
+                pm.color = new Color(0.11f, 0.14f, 0.18f); // 优雅深色底座
                 pedestal.GetComponent<Renderer>().sharedMaterial = pm;
 
                 _pedestals[i] = pedestal;

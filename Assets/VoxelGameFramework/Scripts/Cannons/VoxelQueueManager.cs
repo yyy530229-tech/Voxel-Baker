@@ -12,10 +12,10 @@ namespace VoxelGameFramework.Cannons
     {
         [Header("队列配置")]
         public int columnCount = 3;
-        public int rowCount = 3;
+        public int rowCount = 4;
         public float columnSpacing = 1.15f;
-        public float rowSpacing = 0.95f;
-        public float queueBaseY = -4.4f;
+        public float rowSpacing = 1.1f;
+        public float queueBaseY = -3.6f;
 
         [Header("关联组件")]
         public VoxelSlotManager slotManager;

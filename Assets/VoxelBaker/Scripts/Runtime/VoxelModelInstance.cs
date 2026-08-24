@@ -138,10 +138,12 @@ namespace VoxelBaker.Runtime
             return _runtimeGrid[gridPos.x, gridPos.y, gridPos.z];
         }
 
+        private readonly List<int> _tempMatchingIndices = new List<int>(128);
+
         /// <summary>
-        /// 查找距离指定世界坐标最近且颜色匹配的当前暴露在外面的表面体素
+        /// 查找当前暴露在外面的表面同色体素（在整个同色区域均匀生动消解，而非只从最底下开始）
         /// </summary>
-        public bool FindNearestExposedVoxelOfColor(Color32 targetColor, Vector3 fromWorldPos, out Vector3Int hitGridPos, out Vector3 hitWorldPos)
+        public bool FindExposedVoxelOfColor(Color32 targetColor, Vector3 fromWorldPos, out Vector3Int hitGridPos, out Vector3 hitWorldPos)
         {
             hitGridPos = Vector3Int.zero;
             hitWorldPos = Vector3.zero;
@@ -149,8 +151,7 @@ namespace VoxelBaker.Runtime
             if (_activeGPUList == null || _activeGPUList.Count == 0 || voxelAsset == null)
                 return false;
 
-            float minDistanceSq = float.MaxValue;
-            bool found = false;
+            _tempMatchingIndices.Clear();
 
             for (int i = 0; i < _activeGPUList.Count; i++)
             {
@@ -163,25 +164,22 @@ namespace VoxelBaker.Runtime
                 float db = vColor.b - targetColor.b;
                 float dist = Mathf.Sqrt(dr * dr + dg * dg + db * db);
 
-                if (dist <= 75f)
+                if (dist <= 85f)
                 {
-                    Vector3Int pos = PackedVoxelGPU.UnpackPosition(gpuVoxel.packedPosition);
-                    Vector3 localPos = voxelAsset.GridToLocalPosition(pos);
-                    Vector3 wPos = transform.TransformPoint(localPos);
-
-                    // 优先选择正面朝向且距离近的体素
-                    float dSq = (wPos - fromWorldPos).sqrMagnitude;
-                    if (dSq < minDistanceSq)
-                    {
-                        minDistanceSq = dSq;
-                        hitGridPos = pos;
-                        hitWorldPos = wPos;
-                        found = true;
-                    }
+                    _tempMatchingIndices.Add(i);
                 }
             }
 
-            return found;
+            if (_tempMatchingIndices.Count == 0) return false;
+
+            // 随机挑选一个匹配颜色的暴露体素，让子弹均匀打在整个色块上（屋顶、墙壁、窗户），实现生动自然的粉碎效果
+            int chosenIdx = _tempMatchingIndices[UnityEngine.Random.Range(0, _tempMatchingIndices.Count)];
+            PackedVoxelGPU chosenGpu = _activeGPUList[chosenIdx];
+
+            hitGridPos = PackedVoxelGPU.UnpackPosition(chosenGpu.packedPosition);
+            Vector3 localPos = voxelAsset.GridToLocalPosition(hitGridPos);
+            hitWorldPos = transform.TransformPoint(localPos);
+            return true;
         }
 
         public bool ApplyColorDamage(Vector3Int gridPos, int damageAmount, Color32 attackerColor, Vector3 hitWorldPoint, Vector3 hitWorldNormal)

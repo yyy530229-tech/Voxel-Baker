@@ -22,6 +22,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   voxelSize: 0.09
   fillInteriorSolid: 1
   colorTolerance: 4
@@ -30,7 +35,7 @@ MonoBehaviour:
   generateLODs: 1
   customOutputSubFolder: 
   bakedAsset: {fileID: 11400000, guid: 434d7c21e4523a8448050e19a0263204, type: 2}
-  lastBakeTime: 2026-08-21 11:44:39
-  lastBakeDuration: 0.0946702
-  lastTotalVoxels: 19766
+  lastBakeTime: 2026-08-24 09:48:10
+  lastBakeDuration: 0.0980517
+  lastTotalVoxels: 19317
   isDirty: 0

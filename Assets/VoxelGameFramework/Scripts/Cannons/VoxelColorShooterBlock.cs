@@ -153,7 +153,7 @@ namespace VoxelGameFramework.Cannons
             if (now >= _nextFireTime)
             {
                 // 寻找模型上当前暴露出来的【同色体素】
-                if (_targetModel.FindNearestExposedVoxelOfColor(blockColor, transform.position, out Vector3Int hitGridPos, out Vector3 hitWorldPos))
+                if (_targetModel.FindExposedVoxelOfColor(blockColor, transform.position, out Vector3Int hitGridPos, out Vector3 hitWorldPos))
                 {
                     // 发射同色子弹
                     FireColorBullet(hitGridPos, hitWorldPos);
@@ -162,25 +162,34 @@ namespace VoxelGameFramework.Cannons
                 else
                 {
                     // 暂无该颜色的暴露体素，稍作等待（等待模型旋转露出或其它颜色被消除）
-                    _nextFireTime = now + 0.25f;
+                    _nextFireTime = now + 0.2f;
                 }
             }
         }
 
         private void FireColorBullet(Vector3Int targetGridPos, Vector3 targetWorldPos)
         {
-            // 创建并朝目标体素发射子弹
+            // 创建并朝目标体素发射子弹 (带微白光晕与拖尾)
             GameObject bulletObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             bulletObj.name = "ColorBullet";
             bulletObj.transform.position = transform.position + Vector3.up * 0.6f;
-            bulletObj.transform.localScale = Vector3.one * 0.25f;
+            bulletObj.transform.localScale = Vector3.one * 0.26f;
 
             Collider c = bulletObj.GetComponent<Collider>();
             if (c != null) c.enabled = false;
 
             Material bm = new Material(Shader.Find("Universal Render Pipeline/Unlit") ?? Shader.Find("Unlit/Color"));
-            bm.color = blockColor;
+            bm.color = Color.Lerp(blockColor, Color.white, 0.45f); // 亮色弹头
             bulletObj.GetComponent<Renderer>().sharedMaterial = bm;
+
+            // 添加明亮拖尾特效 (匹配截图中的发射白光轨迹)
+            TrailRenderer trail = bulletObj.AddComponent<TrailRenderer>();
+            trail.time = 0.22f;
+            trail.startWidth = 0.22f;
+            trail.endWidth = 0.02f;
+            trail.sharedMaterial = bm;
+            trail.startColor = new Color(1f, 1f, 1f, 0.9f);
+            trail.endColor = new Color(blockColor.r / 255f, blockColor.g / 255f, blockColor.b / 255f, 0f);
 
             var bulletComp = bulletObj.AddComponent<ColorMatchBullet>();
             bulletComp.Launch(
@@ -193,7 +202,7 @@ namespace VoxelGameFramework.Cannons
             );
 
             // 轻微后坐力抖动
-            transform.position = _targetSlotPos - Vector3.up * 0.1f;
+            transform.position = _targetSlotPos - Vector3.up * 0.08f;
         }
 
         private void OnBulletHitSuccess()
@@ -246,7 +255,7 @@ namespace VoxelGameFramework.Cannons
             float dist = dir.magnitude;
             float step = _speed * dt;
 
-            if (dist <= step || dist < 0.15f)
+            if (dist <= step || dist < 0.2f)
             {
                 // 击中目标体素！
                 if (_modelInstance != null)
