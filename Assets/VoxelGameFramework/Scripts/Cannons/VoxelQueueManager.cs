@@ -40,7 +40,8 @@ namespace VoxelGameFramework.Cannons
                 }
             }
 
-            Dictionary<Color32, int> colorCounts = new Dictionary<Color32, int>();
+            // 1. 统计所有颜色体素并聚合微量杂色到主色调中，杜绝产生 1发、2发 的碎方块
+            Dictionary<Color32, int> rawColorCounts = new Dictionary<Color32, int>();
             int totalModelVoxels = 0;
 
             if (model.Asset.chunks != null)
@@ -55,40 +56,90 @@ namespace VoxelGameFramework.Cannons
                         Color32 rawColor = cell.customColor;
                         Color32 canonicalColor = GetCanonicalPaletteColor(rawColor, paletteColors);
 
-                        if (colorCounts.ContainsKey(canonicalColor))
-                        {
-                            colorCounts[canonicalColor]++;
-                        }
+                        if (rawColorCounts.ContainsKey(canonicalColor))
+                            rawColorCounts[canonicalColor]++;
                         else
-                        {
-                            colorCounts[canonicalColor] = 1;
-                        }
+                            rawColorCounts[canonicalColor] = 1;
+
                         totalModelVoxels++;
                     }
                 }
             }
 
-            // 2. 将每种颜色的体素拆分为标准容量方块任务 (容量 40~55/块)
+            // 过滤并合并少于 30 格的微量杂色到最相近的主色中，保证只有清晰的大色块
+            Dictionary<Color32, int> dominantColorCounts = new Dictionary<Color32, int>();
+            List<Color32> majorColors = new List<Color32>();
+
+            foreach (var kvp in rawColorCounts)
+            {
+                if (kvp.Value >= 30)
+                {
+                    dominantColorCounts[kvp.Key] = kvp.Value;
+                    majorColors.Add(kvp.Key);
+                }
+            }
+
+            // 若所有颜色都很碎，则至少保留数量最多的前 3 种主色
+            if (majorColors.Count == 0)
+            {
+                var sorted = new List<KeyValuePair<Color32, int>>(rawColorCounts);
+                sorted.Sort((a, b) => b.Value.CompareTo(a.Value));
+                for (int i = 0; i < Mathf.Min(3, sorted.Count); i++)
+                {
+                    dominantColorCounts[sorted[i].Key] = sorted[i].Value;
+                    majorColors.Add(sorted[i].Key);
+                }
+            }
+
+            // 将碎色数量 100% 守恒合并到最近的 Dominant 主色中
+            foreach (var kvp in rawColorCounts)
+            {
+                if (!dominantColorCounts.ContainsKey(kvp.Key))
+                {
+                    Color32 nearestMajor = GetCanonicalPaletteColor(kvp.Key, majorColors);
+                    if (dominantColorCounts.ContainsKey(nearestMajor))
+                        dominantColorCounts[nearestMajor] += kvp.Value;
+                    else
+                        dominantColorCounts[nearestMajor] = kvp.Value;
+                }
+            }
+
+            // 2. 将每种主色拆解为 35~55 发的大容量消除方块，绝对不允许出现 1, 2, 8 等碎数字！
             List<(Color32 color, int count)> blockTasks = new List<(Color32, int)>();
             int totalQueueAmmo = 0;
 
-            foreach (var kvp in colorCounts)
+            foreach (var kvp in dominantColorCounts)
             {
                 int remaining = kvp.Value;
                 Color32 color = kvp.Key;
 
                 while (remaining > 0)
                 {
-                    int chunkSize = Mathf.Min(remaining, Random.Range(40, 56));
-                    if (remaining - chunkSize < 20) chunkSize = remaining; // 尾数合并
+                    if (remaining <= 55)
+                    {
+                        // 剩余量直接作为一个独立方块 (最少也是 >= 30)
+                        blockTasks.Add((color, remaining));
+                        totalQueueAmmo += remaining;
+                        remaining = 0;
+                    }
+                    else
+                    {
+                        // 随机切分 35~50 容量
+                        int chunkSize = Random.Range(35, 51);
+                        if (remaining - chunkSize < 25)
+                        {
+                            // 避免尾数过小，将尾数合并到当前块
+                            chunkSize = remaining;
+                        }
 
-                    blockTasks.Add((color, chunkSize));
-                    totalQueueAmmo += chunkSize;
-                    remaining -= chunkSize;
+                        blockTasks.Add((color, chunkSize));
+                        totalQueueAmmo += chunkSize;
+                        remaining -= chunkSize;
+                    }
                 }
             }
 
-            Debug.Log($"[VoxelQueueManager] 模型总占用体素: {totalModelVoxels}, 生成待命方块数: {blockTasks.Count}, 总弹药: {totalQueueAmmo} (1:1 绝对守恒匹配)");
+            Debug.Log($"[VoxelQueueManager] 成功聚合主色！模型总占用体素: {totalModelVoxels}, 生成大容量待命方块数: {blockTasks.Count}, 总弹药: {totalQueueAmmo} (1:1 绝对守恒匹配)");
 
             // 3. 乱序排列 (Fisher-Yates Shuffle)
             for (int i = blockTasks.Count - 1; i > 0; i--)
