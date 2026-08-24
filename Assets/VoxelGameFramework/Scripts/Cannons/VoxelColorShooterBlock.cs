@@ -23,8 +23,8 @@ namespace VoxelGameFramework.Cannons
         public Color32 blockColor = new Color32(230, 40, 50, 255);
         public int initialCapacity = 50;
         public int remainingAmmo = 50;
-        public float bulletSpeed = 36f;     // 高速精准命中
-        public float shotCooldown = 0.22f;  // 节奏清晰的单发节奏 (每秒约4.5发)
+        public float bulletSpeed = 52f;      // 极速飞驰精准命中
+        public float shotCooldown = 0.085f;  // 畅快爽利的消除射速 (每秒约 11~12 发)
 
         [Header("状态")]
         public ShooterBlockState state = ShooterBlockState.InQueue;
