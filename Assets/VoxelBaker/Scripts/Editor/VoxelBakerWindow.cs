@@ -962,15 +962,30 @@ namespace VoxelBaker.Editor
                 sourceMesh = combined;
             }
 
+            // 自动寻找模型目录已有的原生材质与贴图 (绝不生成任何多余的新材质/贴图文件)
+            if (materials.Count == 0 && !string.IsNullOrEmpty(assetPath))
+            {
+                string dir = Path.GetDirectoryName(assetPath);
+                string[] matGuids = AssetDatabase.FindAssets("t:Material", new string[] { dir });
+                foreach (var guid in matGuids)
+                {
+                    string mPath = AssetDatabase.GUIDToAssetPath(guid);
+                    Material existingMat = AssetDatabase.LoadAssetAtPath<Material>(mPath);
+                    if (existingMat != null && !materials.Contains(existingMat))
+                    {
+                        materials.Add(existingMat);
+                    }
+                }
+            }
+
             if (materials.Count > 0)
             {
                 sourceMaterials = materials.ToArray();
             }
 
-            if (string.IsNullOrEmpty(assetName) || assetName.StartsWith("NewModel_"))
-            {
-                assetName = $"VoxelModel_{go.name}";
-            }
+            // 资产名称严格跟随导入模型的原名
+            string cleanModelName = go.name.Replace(" ", "_");
+            assetName = cleanModelName.StartsWith("VoxelModel_") ? cleanModelName : $"VoxelModel_{cleanModelName}";
 
             RunAnalysis();
         }
