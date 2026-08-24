@@ -63,14 +63,3 @@ namespace VoxelBaker.Data
         }
     }
 }
-
-namespace VoxelGameFramework.Core
-{
-    // 向后兼容命名空间别名
-    public static class VoxelColorUtility
-    {
-        public static bool IsColorMatching(Color32 a, Color32 b, float tolerance = 65f) => VoxelBaker.Data.VoxelColorUtility.IsColorMatching(a, b, tolerance);
-        public static int GetHueFamilyKey(Color32 c) => VoxelBaker.Data.VoxelColorUtility.GetHueFamilyKey(c);
-        public static string GetColorName(Color32 c) => VoxelBaker.Data.VoxelColorUtility.GetColorName(c);
-    }
-}
