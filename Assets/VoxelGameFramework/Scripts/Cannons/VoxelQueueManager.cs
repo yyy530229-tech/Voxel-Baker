@@ -91,7 +91,7 @@ namespace VoxelGameFramework.Cannons
                 }
                 Color32 avgColor = new Color32((byte)(sumR / indices.Count), (byte)(sumG / indices.Count), (byte)(sumB / indices.Count), 255);
 
-                // 如果是竹绿色系，增强饱和度让方块鲜艳亮丽
+                // 对具备鲜明色相的有彩色系适度提升饱和度，增强方块在场景中的视觉辨识度
                 Color.RGBToHSV(avgColor, out float h, out float s, out float v);
                 if (s > 0.15f)
                 {
@@ -114,38 +114,43 @@ namespace VoxelGameFramework.Cannons
             // 同步刷新模型当前的 GPU 渲染列表，使 3D 渲染与消除方块颜色 100% 绝对一致
             model.SynchronizeGPUColors();
 
-            // 2. 将每个色系切分为大容量方块 (若某个特征色如竹子总量较少，如 25~45 发，直接生成专属绿色大方块)
+            // 2. 通用方块均衡切分管线：将任意色系的所有体素按标准区间进行数学均衡拆分
             List<(Color32 color, int count)> blockTasks = new List<(Color32, int)>();
             int totalQueueAmmo = 0;
+
+            const int maxSingleBlockCapacity = 52;
+            const float targetBlockAverage = 42f;
 
             for (int c = 0; c < distinctCategoryList.Count; c++)
             {
                 int count = distinctCategoryList[c].count;
                 Color32 col = distinctCategoryList[c].color;
 
-                while (count > 0)
+                if (count <= 0) continue;
+
+                if (count <= maxSingleBlockCapacity)
                 {
-                    if (count <= 55)
+                    // 若该颜色总量适中，直接作为一个完整消除方块
+                    blockTasks.Add((col, count));
+                    totalQueueAmmo += count;
+                }
+                else
+                {
+                    // 确定切分块数，确保各方块容量均匀分布在舒适射击区间内
+                    int numBlocks = Mathf.CeilToInt((float)count / targetBlockAverage);
+                    int baseSize = count / numBlocks;
+                    int remainder = count % numBlocks;
+
+                    for (int b = 0; b < numBlocks; b++)
                     {
-                        blockTasks.Add((col, count));
-                        totalQueueAmmo += count;
-                        count = 0;
-                    }
-                    else
-                    {
-                        int size = Random.Range(35, 51);
-                        if (count - size < 20)
-                        {
-                            size = count; // 尾数自动合并
-                        }
-                        blockTasks.Add((col, size));
-                        totalQueueAmmo += size;
-                        count -= size;
+                        int blockSize = baseSize + (b < remainder ? 1 : 0);
+                        blockTasks.Add((col, blockSize));
+                        totalQueueAmmo += blockSize;
                     }
                 }
             }
 
-            Debug.Log($"[VoxelQueueManager] 色相特征提取成功！提取特征色数: {distinctCategoryList.Count}, 总占用: {totalModelVoxels}, 总弹药: {totalQueueAmmo} (1:1 绝对守恒)");
+            Debug.Log($"[VoxelQueueManager] 色彩特征提取完成！独立特征色数: {distinctCategoryList.Count}, 模型总占用: {totalModelVoxels}, 生成待命方块数: {blockTasks.Count}, 总弹药: {totalQueueAmmo} (1:1 绝对守恒)");
 
             // 3. 乱序排列 (Fisher-Yates Shuffle)
             for (int i = blockTasks.Count - 1; i > 0; i--)
