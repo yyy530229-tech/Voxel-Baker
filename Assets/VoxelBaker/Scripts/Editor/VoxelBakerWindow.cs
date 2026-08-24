@@ -914,13 +914,16 @@ namespace VoxelBaker.Editor
             List<Material> materials = new List<Material>();
             List<Matrix4x4> transforms = new List<Matrix4x4>();
 
+            Matrix4x4 rootScaleMatrix = Matrix4x4.Scale(go.transform.localScale);
+
             MeshFilter[] filters = go.GetComponentsInChildren<MeshFilter>(true);
             foreach (var mf in filters)
             {
                 if (mf != null && mf.sharedMesh != null)
                 {
                     meshes.Add(mf.sharedMesh);
-                    transforms.Add(go.transform.worldToLocalMatrix * mf.transform.localToWorldMatrix);
+                    Matrix4x4 localMat = (mf.gameObject == go) ? rootScaleMatrix : (go.transform.worldToLocalMatrix * mf.transform.localToWorldMatrix);
+                    transforms.Add(localMat);
 
                     Renderer r = mf.GetComponent<Renderer>();
                     if (r != null && r.sharedMaterials != null)
@@ -936,7 +939,9 @@ namespace VoxelBaker.Editor
                 if (smr != null && smr.sharedMesh != null)
                 {
                     meshes.Add(smr.sharedMesh);
-                    transforms.Add(go.transform.worldToLocalMatrix * smr.transform.localToWorldMatrix);
+                    Matrix4x4 localMat = (smr.gameObject == go) ? rootScaleMatrix : (go.transform.worldToLocalMatrix * smr.transform.localToWorldMatrix);
+                    transforms.Add(localMat);
+
                     if (smr.sharedMaterials != null)
                     {
                         materials.AddRange(smr.sharedMaterials);
@@ -944,11 +949,8 @@ namespace VoxelBaker.Editor
                 }
             }
 
-            if (meshes.Count == 1 && transforms[0] == Matrix4x4.identity)
-            {
-                sourceMesh = meshes[0];
-            }
-            else if (meshes.Count > 0)
+            // 将所有网格与 Transform 实际缩放烘焙至统一 Mesh
+            if (meshes.Count > 0)
             {
                 CombineInstance[] combines = new CombineInstance[meshes.Count];
                 for (int i = 0; i < meshes.Count; i++)
@@ -960,6 +962,23 @@ namespace VoxelBaker.Editor
                 combined.name = $"{go.name}_Combined";
                 combined.CombineMeshes(combines, false, true);
                 sourceMesh = combined;
+            }
+
+            // 尺寸自动规范化 (无论 FBX 原始单位是 0.01 厘米还是 1000 毫米，自动对齐至 ~2.2 米休闲消除标准比例)
+            if (sourceMesh != null)
+            {
+                float maxBoundDim = Mathf.Max(sourceMesh.bounds.size.x, Mathf.Max(sourceMesh.bounds.size.y, sourceMesh.bounds.size.z));
+                if (maxBoundDim > 0 && (maxBoundDim < 0.2f || maxBoundDim > 20f))
+                {
+                    float autoScale = 2.2f / maxBoundDim;
+                    CombineInstance[] scaleCombines = new CombineInstance[1];
+                    scaleCombines[0].mesh = sourceMesh;
+                    scaleCombines[0].transform = Matrix4x4.Scale(Vector3.one * autoScale);
+                    Mesh scaledMesh = new Mesh();
+                    scaledMesh.name = $"{sourceMesh.name}_Normalized";
+                    scaledMesh.CombineMeshes(scaleCombines, false, true);
+                    sourceMesh = scaledMesh;
+                }
             }
 
             // 自动寻找模型目录已有的原生材质与贴图 (绝不生成任何多余的新材质/贴图文件)
