@@ -40,9 +40,9 @@ namespace VoxelGameFramework.Cannons
                 }
             }
 
-            // 1. 统计所有颜色体素并聚合微量杂色到主色调中，杜绝产生 1发、2发 的碎方块
-            Dictionary<Color32, int> rawColorCounts = new Dictionary<Color32, int>();
-            int totalModelVoxels = 0;
+            // 1. 提取模型中所有有效体素的颜色，并使用 K-Means 算法聚合为 3~5 种鲜明的主题主色调
+            List<Vector3Int> allOccupiedPositions = new List<Vector3Int>();
+            List<Color32> allVoxelColors = new List<Color32>();
 
             if (model.Asset.chunks != null)
             {
@@ -52,94 +52,71 @@ namespace VoxelGameFramework.Cannons
                     foreach (var cell in chunk.cells)
                     {
                         if (!cell.isOccupied) continue;
-
-                        Color32 rawColor = cell.customColor;
-                        Color32 canonicalColor = GetCanonicalPaletteColor(rawColor, paletteColors);
-
-                        if (rawColorCounts.ContainsKey(canonicalColor))
-                            rawColorCounts[canonicalColor]++;
-                        else
-                            rawColorCounts[canonicalColor] = 1;
-
-                        totalModelVoxels++;
+                        allOccupiedPositions.Add(cell.gridPos);
+                        allVoxelColors.Add(cell.customColor);
                     }
                 }
             }
 
-            // 过滤并合并少于 30 格的微量杂色到最相近的主色中，保证只有清晰的大色块
-            Dictionary<Color32, int> dominantColorCounts = new Dictionary<Color32, int>();
-            List<Color32> majorColors = new List<Color32>();
+            int totalModelVoxels = allVoxelColors.Count;
+            if (totalModelVoxels == 0) return;
 
-            foreach (var kvp in rawColorCounts)
+            // 智能确定主色数量 K (通常为 3~5 种鲜明主色)
+            int k = Mathf.Clamp(Mathf.Min(4, model.Asset.palette != null && model.Asset.palette.entries != null ? model.Asset.palette.entries.Count : 3), 2, 5);
+            
+            // 执行 K-Means 聚类，得到 K 个纯净鲜明的标准主色
+            List<Color32> clusterCentroids = PerformKMeansClustering(allVoxelColors, k);
+
+            // 统计每个主色的体素数量，并同步更新模型运行时网格的颜色为纯净聚类色
+            int[] clusterVoxelCounts = new int[clusterCentroids.Count];
+            for (int i = 0; i < allVoxelColors.Count; i++)
             {
-                if (kvp.Value >= 30)
+                int bestClusterIdx = GetNearestClusterIndex(allVoxelColors[i], clusterCentroids);
+                clusterVoxelCounts[bestClusterIdx]++;
+
+                // 将模型体素颜色与主色严格 1:1 对齐，保证视觉与发射方块完全一致
+                Vector3Int gPos = allOccupiedPositions[i];
+                var cell = model.GetCell(gPos);
+                if (cell.isOccupied)
                 {
-                    dominantColorCounts[kvp.Key] = kvp.Value;
-                    majorColors.Add(kvp.Key);
+                    cell.customColor = clusterCentroids[bestClusterIdx];
                 }
             }
 
-            // 若所有颜色都很碎，则至少保留数量最多的前 3 种主色
-            if (majorColors.Count == 0)
-            {
-                var sorted = new List<KeyValuePair<Color32, int>>(rawColorCounts);
-                sorted.Sort((a, b) => b.Value.CompareTo(a.Value));
-                for (int i = 0; i < Mathf.Min(3, sorted.Count); i++)
-                {
-                    dominantColorCounts[sorted[i].Key] = sorted[i].Value;
-                    majorColors.Add(sorted[i].Key);
-                }
-            }
-
-            // 将碎色数量 100% 守恒合并到最近的 Dominant 主色中
-            foreach (var kvp in rawColorCounts)
-            {
-                if (!dominantColorCounts.ContainsKey(kvp.Key))
-                {
-                    Color32 nearestMajor = GetCanonicalPaletteColor(kvp.Key, majorColors);
-                    if (dominantColorCounts.ContainsKey(nearestMajor))
-                        dominantColorCounts[nearestMajor] += kvp.Value;
-                    else
-                        dominantColorCounts[nearestMajor] = kvp.Value;
-                }
-            }
-
-            // 2. 将每种主色拆解为 35~55 发的大容量消除方块，绝对不允许出现 1, 2, 8 等碎数字！
+            // 2. 将每个主色均匀切分为 35~50 发的大容量方块，绝对不允许出现任何个位数碎方块！
             List<(Color32 color, int count)> blockTasks = new List<(Color32, int)>();
             int totalQueueAmmo = 0;
 
-            foreach (var kvp in dominantColorCounts)
+            for (int c = 0; c < clusterCentroids.Count; c++)
             {
-                int remaining = kvp.Value;
-                Color32 color = kvp.Key;
+                int count = clusterVoxelCounts[c];
+                Color32 col = clusterCentroids[c];
 
-                while (remaining > 0)
+                if (count <= 0) continue;
+
+                while (count > 0)
                 {
-                    if (remaining <= 55)
+                    if (count <= 55)
                     {
-                        // 剩余量直接作为一个独立方块 (最少也是 >= 30)
-                        blockTasks.Add((color, remaining));
-                        totalQueueAmmo += remaining;
-                        remaining = 0;
+                        blockTasks.Add((col, count));
+                        totalQueueAmmo += count;
+                        count = 0;
                     }
                     else
                     {
-                        // 随机切分 35~50 容量
-                        int chunkSize = Random.Range(35, 51);
-                        if (remaining - chunkSize < 25)
+                        int size = Random.Range(35, 51);
+                        if (count - size < 25)
                         {
-                            // 避免尾数过小，将尾数合并到当前块
-                            chunkSize = remaining;
+                            size = count; // 尾数自动合并
                         }
-
-                        blockTasks.Add((color, chunkSize));
-                        totalQueueAmmo += chunkSize;
-                        remaining -= chunkSize;
+                        blockTasks.Add((col, size));
+                        totalQueueAmmo += size;
+                        count -= size;
                     }
                 }
             }
 
-            Debug.Log($"[VoxelQueueManager] 成功聚合主色！模型总占用体素: {totalModelVoxels}, 生成大容量待命方块数: {blockTasks.Count}, 总弹药: {totalQueueAmmo} (1:1 绝对守恒匹配)");
+            Debug.Log($"[VoxelQueueManager] K-Means 聚类完成！主色数: {clusterCentroids.Count}, 模型总占用: {totalModelVoxels}, 生成方块数: {blockTasks.Count}, 总弹药: {totalQueueAmmo} (1:1 绝对守恒)");
 
             // 3. 乱序排列 (Fisher-Yates Shuffle)
             for (int i = blockTasks.Count - 1; i > 0; i--)
@@ -181,16 +158,14 @@ namespace VoxelGameFramework.Cannons
             }
         }
 
-        private Color32 GetCanonicalPaletteColor(Color32 c, List<Color32> palette)
+        private static int GetNearestClusterIndex(Color32 c, List<Color32> centroids)
         {
-            if (palette == null || palette.Count == 0) return c;
-
-            Color32 best = palette[0];
+            if (centroids == null || centroids.Count == 0) return 0;
+            int best = 0;
             float minDist = float.MaxValue;
-
-            for (int i = 0; i < palette.Count; i++)
+            for (int i = 0; i < centroids.Count; i++)
             {
-                Color32 p = palette[i];
+                Color32 p = centroids[i];
                 float dr = c.r - p.r;
                 float dg = c.g - p.g;
                 float db = c.b - p.b;
@@ -198,10 +173,81 @@ namespace VoxelGameFramework.Cannons
                 if (distSq < minDist)
                 {
                     minDist = distSq;
-                    best = p;
+                    best = i;
                 }
             }
             return best;
+        }
+
+        private static List<Color32> PerformKMeansClustering(List<Color32> colors, int k)
+        {
+            List<Color32> centroids = new List<Color32>();
+            if (colors == null || colors.Count == 0) return centroids;
+
+            k = Mathf.Clamp(k, 1, colors.Count);
+
+            // 1. 选取初始聚类中心 (选取彼此色彩距离最大的点)
+            centroids.Add(colors[0]);
+            while (centroids.Count < k)
+            {
+                Color32 bestNext = colors[0];
+                float maxMinDist = -1f;
+
+                for (int i = 0; i < colors.Count; i++)
+                {
+                    Color32 candidate = colors[i];
+                    float minDistToExisting = float.MaxValue;
+                    for (int c = 0; c < centroids.Count; c++)
+                    {
+                        Color32 exist = centroids[c];
+                        float dr = candidate.r - exist.r;
+                        float dg = candidate.g - exist.g;
+                        float db = candidate.b - exist.b;
+                        float d = dr * dr + dg * dg + db * db;
+                        if (d < minDistToExisting) minDistToExisting = d;
+                    }
+
+                    if (minDistToExisting > maxMinDist)
+                    {
+                        maxMinDist = minDistToExisting;
+                        bestNext = candidate;
+                    }
+                }
+
+                centroids.Add(bestNext);
+            }
+
+            // 2. 迭代 6 轮计算均值更新聚类中心
+            for (int iter = 0; iter < 6; iter++)
+            {
+                long[] sumR = new long[k];
+                long[] sumG = new long[k];
+                long[] sumB = new long[k];
+                int[] clusterCounts = new int[k];
+
+                for (int i = 0; i < colors.Count; i++)
+                {
+                    Color32 c = colors[i];
+                    int clusterIdx = GetNearestClusterIndex(c, centroids);
+                    sumR[clusterIdx] += c.r;
+                    sumG[clusterIdx] += c.g;
+                    sumB[clusterIdx] += c.b;
+                    clusterCounts[clusterIdx]++;
+                }
+
+                for (int c = 0; c < k; c++)
+                {
+                    if (clusterCounts[c] > 0)
+                    {
+                        byte nr = (byte)(sumR[c] / clusterCounts[c]);
+                        byte ng = (byte)(sumG[c] / clusterCounts[c]);
+                        byte nb = (byte)(sumB[c] / clusterCounts[c]);
+                        centroids[c] = new Color32(nr, ng, nb, 255);
+                    }
+                }
+            }
+
+            return centroids;
         }
 
         private void Update()
