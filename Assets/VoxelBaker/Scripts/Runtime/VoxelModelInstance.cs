@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using VoxelBaker.Data;
 using VoxelBaker.Runtime.Rendering;
 using VoxelGameFramework.Core;
@@ -41,6 +42,9 @@ namespace VoxelBaker.Runtime
         public int ActiveVoxelCount => activeVoxelCount;
         public int DestroyedVoxelCount => destroyedVoxelCount;
 
+        // 供 VoxelIndirectRenderFeature 在 URP 管线内取走 CommandBuffer 绘制使用
+        public IVoxelRenderer Renderer => _renderer;
+
         private static readonly Vector3Int[] Directions6 = new Vector3Int[]
         {
             new Vector3Int( 1,  0,  0),
@@ -53,20 +57,19 @@ namespace VoxelBaker.Runtime
 
         private void OnEnable()
         {
+            // 关键: 体素渲染必须由 URP RendererFeature (VoxelIndirectRenderFeature) 在管线内提交,
+            // 才能吃到 MSAA + RenderScale 抗锯齿。之前在 Update() 里直接 Graphics.DrawMeshInstancedIndirect,
+            // DrawCall 完全绕过 URP → RenderScale/MSAA 无效 → 远处体素与屏幕像素干涉产生摩尔纹
+            // (Scene/Game 视图现象一致, 因为 [ExecuteAlways] 让编辑态也走同一路径)。
+            // 这里只把自己注册进静态注册表, 由用户挂载到 Renderer 资产上的 Feature 每帧取走绘制。
+            VoxelIndirectRenderRegistry.Register(this);
             InitializeModel();
         }
 
         private void OnDisable()
         {
+            VoxelIndirectRenderRegistry.Unregister(this);
             ReleaseRenderer();
-        }
-
-        private void Update()
-        {
-            if (_renderer != null)
-            {
-                _renderer.Render();
-            }
         }
 
         public void InitializeModel()

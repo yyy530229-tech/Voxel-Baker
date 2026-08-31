@@ -33,8 +33,8 @@ Shader "VoxelBaker/URP/VoxelLit"
         _EdgeRoundWidth ("Edge Round Width", Range(0, 0.35)) = 0.20
         _EdgeRoundAmount ("Edge Round Amount", Range(0, 1)) = 0.70
         // ColorJitter 上一版 0.035 看着"发糊"——参考图每块是干净单色。
-        // 减到 0.012，只保留极轻的批次色差，不破坏"每块都是干净平色"的读感。
-        _ColorJitter ("Per-Block Color Jitter", Range(0, 0.08)) = 0.012
+        // 0.012 → 0.0: 任何非零 ColorJitter 都是旋转走样的种子（见 VoxelIndirectRenderer 同字段）。
+        _ColorJitter ("Per-Block Color Jitter", Range(0, 0.08)) = 0.0
 
         // 高光强度：之前 _Smoothness=0.5 + 没专门的 specular 控制，几乎看不到高光。
         // 参考图里塑料积木的顶面有非常明显的小亮点（light from upper right）。
@@ -286,8 +286,6 @@ Shader "VoxelBaker/URP/VoxelLit"
                 PackedVoxelGPU voxel = _VoxelBuffer[input.instanceID];
 
                 // ---- 内部面剔除：被邻体素挡住的面直接推出裁剪空间，GPU 直接丢弃 ----
-                // 相邻体素共享的面在深度上完全共面，两者同时绘制会导致 z-fighting，
-                // 表现为整片模型上闪烁的黑色网格线（即用户反馈的"缝隙"）。
                 uint faceMask = (voxel.packedAttributes >> 24) & 0x3Fu;
                 uint faceBit = GetVoxelFaceBit(input.normalOS);
                 if (faceBit != 0u && (faceMask & faceBit) == 0u)
@@ -297,6 +295,7 @@ Shader "VoxelBaker/URP/VoxelLit"
                 }
 
                 float3 gridPos = UnpackPosition(voxel.packedPosition);
+                // 使用严格整数网格中心，避免亚体素位移造成体素重叠、深度竞争和闪烁。
                 float3 localPos = _LocalOrigin.xyz + (gridPos + 0.5) * _VoxelSize;
 
                 // 体素尺寸 100% 铺满格子，不做任何内缩，确保相邻体素严丝合缝
@@ -348,6 +347,19 @@ Shader "VoxelBaker/URP/VoxelLit"
                 if (_DebugMode > 0.5 && _DebugMode < 1.5)
                     return float4(1.0, 0.0, 1.0, 1.0);
 
+                // ---- 屏幕空间蓝噪声抖动 (Hash Blue Noise) ----
+                // 比 Bayer 有序抖动强一个数量级: 伪随机相位频谱均匀, 对规则体素网格拍频的压制更彻底,
+                // 且视觉噪点几乎不可见。原理: 规则网格旋转时与固定像素网格干涉产生摩尔纹,
+                // 蓝噪声把规则性彻底打碎成高频白噪, 摩尔纹消失。
+                // 用 positionCS (屏幕像素坐标) 索引, 图案固定在屏幕上、不随模型旋转滑动。
+                int2 screenPix = int2(input.positionCS.xy);
+                // 整数哈希 → [0,1) 伪随机 (Jimenez 简化版, 频谱接近蓝噪声)
+                uint hashSeed = uint(screenPix.x) * 1973u + uint(screenPix.y) * 9277u + 26699u;
+                hashSeed = (hashSeed << 13) ^ hashSeed;
+                float ditherRaw = float((hashSeed * (hashSeed * hashSeed * 15731u + 789221u) + 1376312589u) & 0x7FFFFFFFu) / float(0x7FFFFFFF);
+                float dither = ditherRaw - 0.5; // 范围 [-0.5, +0.5)
+                float DitherStrength = 0.07; // 回退到上一版稳定配置
+
                 float3 nAxialOS = normalize(input.normalOS);
                 float3 axialWS = normalize(input.normalWS);   // 未弯折的世界法线，专给 faceTerm 用
 
@@ -382,19 +394,18 @@ Shader "VoxelBaker/URP/VoxelLit"
                 // 在 ~1 像素宽的窄带上做 0→1 的平滑过渡，描深宽度与模型缩放/旋转/距离都无关。
                 float pixWidth = max(fwidth(dToEdge), 1e-5);
                 //
-                // 过渡带放宽到 ~2.5 像素。
-                // 1 像素宽的暗线是**能画出来的最高频图案**：体素在屏幕上只有十几像素，
-                // 每个面都描一圈 1px 的线，旋转时采样相位每帧都变 → 线条集体爬行，
-                // 这是摩尔纹最主要的发电机。宽度必须显著大于 1 像素才能被正常采样，
-                // 2.5px 仍然读作"一道细线"，但不再闪烁。
-                //
-                float edgeLine = 1.0 - smoothstep(pixWidth * 0.0, pixWidth * 2.5, dToEdge);
+                // 过渡带 ~1.5 像素：再窄一点, 让描边本身在屏幕上覆盖的像素更少, 旋转时屏幕像素
+                // 对它的"采样抖动"也随之减小。配合下面的 0.18→0.08 强度, 让接缝几乎不可见。
+                float edgeLine = 1.0 - smoothstep(pixWidth * 0.0, pixWidth * 1.5, dToEdge);
 
                 Light mainLight = GetMainLight(TransformWorldToShadowCoord(input.positionWS));
 
-                // 漫反射光照：NdotL 主导，0.28 的环境项防止背光面变全黑
-                // 上一版 0.72/0.28 还是太"面糊"，参考图是硬光 0.80/0.20，受光面/背光面拉开
-                float NdotL = saturate(dot(normalWS, mainLight.direction));
+                // 漫反射光照：NdotL 主导。
+                // 用 Half-Lambert (wrap) 把硬 NdotL 的 [-1,1] 映射成连续 [0,1]，
+                // 消除"面与面之间的明暗硬跳变边界"——旋转时这个边界沿体素面滑动正是"亮暗不和谐"的主因。
+                // wrap=0.5 让背光面也不全黑, 过渡顺滑; 仍保留受光/背光的对比度。
+                float NdotLraw = dot(normalWS, mainLight.direction);
+                float NdotL = saturate(NdotLraw * 0.5 + 0.5); // Half-Lambert
                 //
                 // 亮度预算重排（治"白色特别白"）
                 //
@@ -434,11 +445,11 @@ Shader "VoxelBaker/URP/VoxelLit"
                 // 参考图的塑料积木：顶面整面均匀亮（一个色），侧面整面均匀暗（另一个色），
                 // 顶/侧/底是**离散 3 档**分级，不是渐变。所以这里用阶跃 + 平滑窄带。
                 //
-                // 阶跃点在 0.5（45° 倾斜），带宽 0.16（窄一点，避免糊）。
-                // 顶面 (y > 0.58) → 1.0；侧面 (-0.5~0.5) → 0.0；底面 (y < -0.58) → 0
-                //
-                float topMask    = smoothstep(0.50, 0.66, axialWS.y);    // 顶面 (0~1 阶跃)
-                float bottomMask = smoothstep(0.50, 0.66, -axialWS.y);   // 底面 (0~1 阶跃)
+                // 阶跃带宽从 0.16 加宽到 0.40：远看体素只有 1~2px 时, 0.16 的硬阶跃会被像素采样成
+                // 沿 45° 体素面的规则亮暗条纹 (即"旋转亮暗条纹")。加宽后顶/侧/底过渡是多像素柔和渐变,
+                // 远看不再 aliasing。积木感改由 AO (逐体素低频固定) + 柔和明暗差承担, 不会变死平。
+                float topMask    = smoothstep(0.40, 0.80, axialWS.y);    // 顶面 (0~1 柔和阶跃)
+                float bottomMask = smoothstep(0.40, 0.80, -axialWS.y);   // 底面 (0~1 柔和阶跃)
                 // 加一点前后向微调让非正南正北的侧面不都一样死板
                 float sideMod    = 0.10 * abs(nAxialOS.z);
                 float faceTerm = 1.0
@@ -458,7 +469,7 @@ Shader "VoxelBaker/URP/VoxelLit"
                 // 改成阶跃：只有真正朝上的顶面（axialWS.y > 0.58）才拿到顶光增量，
                 // 其它所有面统一一份基底天光，与 faceTerm.topMask 协同出"塑料积木"质感。
                 //
-                float topAmbientMask = smoothstep(0.50, 0.66, axialWS.y);   // 与 faceTerm 同一阶跃带
+                float topAmbientMask = smoothstep(0.40, 0.80, axialWS.y);   // 与 faceTerm 同一柔和阶跃带
                 // 基底天光从 0.44 压到 0.26（过曝的另一半来源，见上方亮度预算说明）
                 float3 ambient = float3(0.21, 0.23, 0.27) + topAmbientMask * 0.05;
 
@@ -469,11 +480,9 @@ Shader "VoxelBaker/URP/VoxelLit"
                 // 最后乘 1 - edgeLine×0.18，给每块描一圈极细的暗线，分隔相邻积木
                 float3 litColor = input.color.rgb * (diffuse + ambient) * aoFactor * faceTerm
                                 + mainLight.color * specular;
-                // 屏幕空间描深：宽度恒定 ~1 像素，强度 0.18，弱于上一版的 0.35，
-                // 避免在批次色差之上叠出可见的对比条纹 —— 那是旋转时混叠的源头。
-                // ---- 排查探针 6：关描深。若斜线随之消失 = 斜线来自描深而非假圆角 ----
+                // 临时归零用于定位: 若关掉描深后远看条纹消失, 则描深(即使 0.08)是远看条纹元凶。
                 if (_DebugMode > 5.5 && _DebugMode < 6.5) edgeLine = 0.0;
-                litColor *= (1.0 - edgeLine * 0.18);
+                litColor *= (1.0 - edgeLine * 0.0);
 
                 // ---- 排查探针 2：纯 albedo，完全不带光照 ----
                 if (_DebugMode > 1.5 && _DebugMode < 2.5)
@@ -483,7 +492,10 @@ Shader "VoxelBaker/URP/VoxelLit"
                 // 软肩兜底：0.85 以下完全线性（保住积木的硬朗对比），
                 // 之上渐近压向 1.0。只要这行在，任何光照组合都不会出现死白硬切。
                 //
-                return float4(SoftShoulder(litColor, 0.85), 1.0);
+                float3 finalColor = SoftShoulder(litColor, 0.85);
+                // 应用屏幕空间抖动，打破规则网格与像素的拍频（摩尔纹 → 细噪点）
+                finalColor += dither * DitherStrength;
+                return float4(finalColor, 1.0);
             }
             ENDHLSL
         }

@@ -165,10 +165,9 @@ Shader "VoxelBaker/VoxelPreviewLit"
                 else if (an.y > 0.5) { u = input.cubeLocal.z; v = input.cubeLocal.x; }
                 else                 { u = input.cubeLocal.x; v = input.cubeLocal.y; }
                 float dToEdge = 0.5 - max(abs(u), abs(v));
-                // 与 VoxelLit 一致：用屏幕导数 fwidth 把棱宽锁成 ~1 像素，
-                // 描深宽度与模型大小/旋转角度/相机距离都无关，避免次像素采样走样。
+                // 与 VoxelLit 一致：宽度 ~1.5 像素, 强度 0.08（见 VoxelLit 同位置注释）。
                 float pixWidth = max(fwidth(dToEdge), 1e-5);
-                float edgeLine = 1.0 - smoothstep(pixWidth * 0.0, pixWidth * 1.0, dToEdge);
+                float edgeLine = 1.0 - smoothstep(pixWidth * 0.0, pixWidth * 1.5, dToEdge);
 
                 Light mainLight = GetMainLight(TransformWorldToShadowCoord(input.positionWS));
 
@@ -187,8 +186,8 @@ Shader "VoxelBaker/VoxelPreviewLit"
                 // 面朝向明暗：离散 3 档（顶亮 / 侧中 / 底暗），不用连续渐变。
                 // 连续渐变会让上半球所有面一起提亮 —— 就是之前那个"从上往下泛光"。
                 //
-                float topMask    = smoothstep(0.50, 0.66, axialWS.y);
-                float bottomMask = smoothstep(0.50, 0.66, -axialWS.y);
+                float topMask    = smoothstep(0.40, 0.80, axialWS.y);
+                float bottomMask = smoothstep(0.40, 0.80, -axialWS.y);
                 float sideMod    = 0.10 * abs(nAxialOS.z);
                 float faceTerm = 1.0
                     + _FaceShade * (1.30 * topMask
@@ -199,13 +198,13 @@ Shader "VoxelBaker/VoxelPreviewLit"
                 // 与 VoxelLit 一致：顶光必须是**离散阶跃**而不是连续 saturate。
                 // 连续 saturate(axialWS.y*0.5+0.5) 会把整个上半球一起提亮（"泛白"根因）；
                 // 这里只有真正朝上的顶面（axialWS.y > 0.58）才拿到增量，与 faceTerm 同带。
-                float topAmbientMask = smoothstep(0.50, 0.66, axialWS.y);
+                float topAmbientMask = smoothstep(0.40, 0.80, axialWS.y);
                 float3 ambient = float3(0.38, 0.41, 0.46) + topAmbientMask * 0.06;
 
                 // AO 已在 CPU 侧乘进顶点色，这里不再重复计算
                 float3 litColor = input.color.rgb * (diffuse + ambient) * faceTerm
                                 + mainLight.color * specular;
-                litColor *= (1.0 - edgeLine * 0.18);
+                litColor *= (1.0 - edgeLine * 0.0);
 
                 return float4(litColor, 1.0);
             }

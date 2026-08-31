@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Rendering;
 using VoxelBaker.Data;
 
 namespace VoxelBaker.Runtime.Rendering
@@ -40,24 +41,33 @@ namespace VoxelBaker.Runtime.Rendering
         //
         // EdgeRoundWidth  : 棱边高光的宽度（占面半宽的比例）。0 = 完全直角。
         // EdgeRoundAmount : 棱边处法线外翻的强度。0.45 ≈ 24°，够亮又不糊。
-        // ColorJitter     : 每颗积木的批次色差幅度（±1.5%），打破死平的塑料感。
+        //                  ↑ 0.70 会在旋转时形成"沿棱的高光窄线 + 暗带"，是屏幕像素抖动主因之一。
+        // ColorJitter     : 每颗积木的批次色差幅度。0 = 完全平铺（推荐）。
+        //                  ↑ 任何非零值都会成为旋转时"沙化走样"的种子, 因为批次内像素的采样
+        //                    相位每帧变化, 着色抖动 → 看起来在"流"。
         //
         public const float EdgeRoundWidth = 0.20f;
-        public const float EdgeRoundAmount = 0.70f;
+        public const float EdgeRoundAmount = 0.0f;
 
         // 上一版 0.035 让面"发糊"——参考图每块都是干净平色。
         // 减到 0.012，只留极轻的批次色差。
-        public const float ColorJitter = 0.008f;
+        // ↑ 0.012 → 0.0：任何 batch 色差都是旋转"沙化"的种子，旋转时每像素的批次归属
+        //   每帧都在抖，看起来就像流沙。彻底关掉,牺牲一点点"塑料不平"的质感，换"稳"。
+        public const float ColorJitter = 0.0f;
 
         // Blinn-Phong 高光：参考图里塑料积木的顶面有明显的白色小亮点。
         // Power 64 让高光更集中（更塑料），0.65 强度合适。
         // 强度 0.65 → 0.38：0.65 叠加在已经接近 1.0 的漫反射上必然顶穿（死白来源之一）。
         // 幂 64 → 32：幂越大高光越窄 = 空间频率越高 = 旋转时爬得越厉害。
         // 32 仍读作"塑料的小亮点"，但频带宽度翻倍，摩尔纹显著减轻。
-        public const float SpecularStrength = 0.38f;
-        public const float SpecularPower = 32f;
+        // 临时归零用于定位远看条纹元凶: 若关掉后远看条纹消失, 则高光是元凶之一。
+        // 定位完会从此阈值往上回加 (典型 0.12~0.20 之间找"既能看出塑料感又不产生条纹"的点)。
+        public const float SpecularStrength = 0.0f;
+        public const float SpecularPower = 18f;
 
         // 顶/侧/底面明暗差 —— 「积木感」最关键的一个参数。
+        //
+        // 0.22 是上轮调出的"看起来像积木但不刺眼"的甜点。远看旋转摩尔纹根治后回填。
         public const float FaceShade = 0.22f;
         public const float AOStrength = 0.65f;
 
@@ -143,53 +153,54 @@ namespace VoxelBaker.Runtime.Rendering
 
         private static readonly int PropObjectToWorldMatrix = Shader.PropertyToID("_ObjectToWorldMatrix");
 
-        public void Render()
+        // 历史注记: 这里曾有一个 Render() 方法, 在 Update() 里直接 Graphics.DrawMeshInstancedIndirect
+        // 提交绘制。那条路径完全绕过 URP 管线, RenderScale/MSAA 全部无效, 是远处摩尔纹的根因,
+        // 已连根移除 —— 唯一的绘制入口现在是 RenderToCommandBuffer(CommandBuffer),
+        // 由 VoxelIndirectRenderFeature 在管线内调用。请勿再恢复 Graphics 直提交路径。
+
+        /// <summary>
+        /// 把间接绘制写入 RendererFeature 传入的 CommandBuffer (由 VoxelIndirectRenderFeature 每帧调用)。
+        /// 关键: 走 URP 管线内的 CommandBuffer 让 DrawCall 进入带 MSAA + RenderScale 的相机 RT,
+        /// 摩尔纹才会被硬件抗锯齿打散。之前在 Update() 里直接 Graphics.DrawMeshInstancedIndirect,
+        /// DrawCall 完全绕过 URP → RenderScale/MSAA 无效 → 远处体素与屏幕像素干涉产生摩尔纹。
+        ///
+        /// 注意: CommandBuffer.DrawMeshInstancedIndirect 只有 7 参数重载
+        /// (mesh, submeshIndex, material, shaderPass, bufferWithArgs, argsOffset, properties),
+        /// 不含 bounds / ShadowCastingMode / 探针 —— culling 由 RendererFeature 的相机处理,
+        /// 实时阴影如需要后续补 ShadowCaster Pass。
+        /// </summary>
+        public void RenderToCommandBuffer(CommandBuffer cmd)
         {
-            if (!_isInitialized || _currentInstanceCount == 0 || _material == null || _unitCubeMesh == null)
+            if (!_isInitialized || _currentInstanceCount == 0 || _material == null || _unitCubeMesh == null || cmd == null)
                 return;
 
+            // 每帧 MaterialPropertyBlock 重新下发, 保证与运行时参数一致。
             _matProps.SetBuffer(PropVoxelBuffer, _voxelBuffer);
             _matProps.SetFloat(PropVoxelSize, _asset != null ? _asset.voxelSize : 0.1f);
             _matProps.SetVector(PropLocalOrigin, _asset != null ? (Vector4)_asset.localOrigin : Vector4.zero);
             _matProps.SetMatrix(PropObjectToWorldMatrix, _transform != null ? _transform.localToWorldMatrix : Matrix4x4.identity);
-
-            // 100% 铺满格子，杜绝相邻体素之间的内缩缝隙
             _matProps.SetFloat(PropBevelRoundness, 1.0f);
-
-            // 棱边高光 + 批次色差（细腻感来源；全部只改法线/明度，不碰几何 → 不产生缝隙）
             _matProps.SetFloat(PropEdgeRoundWidth, EdgeRoundWidth);
             _matProps.SetFloat(PropEdgeRoundAmount, EdgeRoundAmount);
             _matProps.SetFloat(PropColorJitter, ColorJitter);
-
-            // 高光 + 顶/侧/底明暗差（「积木感」来源；每帧下发覆盖 Material 旧序列化值）
             _matProps.SetFloat(PropSpecularStrength, SpecularStrength);
             _matProps.SetFloat(PropSpecularPower, SpecularPower);
             _matProps.SetFloat(PropFaceShade, FaceShade);
             _matProps.SetFloat(PropAOStrength, AOStrength);
             _matProps.SetFloat(PropDebugMode, DebugMode);
-
             if (_asset != null && _asset.paletteTexture != null)
-            {
                 _matProps.SetTexture(PropPaletteTex, _asset.paletteTexture);
-            }
 
-            // 计算世界空间包围盒
-            Bounds worldBounds = new Bounds(_transform.position + (_asset != null ? _asset.boundsCenter : Vector3.zero), (_asset != null ? _asset.boundsSize : Vector3.one * 10f) * 1.5f);
-
-            Graphics.DrawMeshInstancedIndirect(
+            // 7 参数重载: Pass 0 = ForwardLit (UniversalForward)。
+            // VoxelLit.shader 内 Pass 1 是 ShadowCaster, 这里只画正向光照。
+            cmd.DrawMeshInstancedIndirect(
                 _unitCubeMesh,
-                0,
+                0,          // submeshIndex
                 _material,
-                worldBounds,
+                0,          // shaderPass = ForwardLit
                 _argsBuffer,
-                0,
-                _matProps,
-                UnityEngine.Rendering.ShadowCastingMode.On,
-                true,
-                0,
-                null,
-                UnityEngine.Rendering.LightProbeUsage.Off
-            );
+                0,          // argsOffset
+                _matProps);
         }
 
         public void Release()
