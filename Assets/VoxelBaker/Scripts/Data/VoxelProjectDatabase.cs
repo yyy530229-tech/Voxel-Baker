@@ -91,6 +91,9 @@ namespace VoxelBaker.Data
                 sourceMesh = recipe.sourceMesh,
                 materials = recipe.sourceMaterials,
                 voxelSize = recipe.voxelSize,
+                autoCalculateVoxelSize = true,
+                targetVoxelBudget = Mathf.Clamp(recipe.targetVoxelBudget, 500, 50000),
+                paletteColorCount = Mathf.Clamp(recipe.paletteColorCount, 4, 128),
                 fillInteriorSolid = recipe.fillInteriorSolid,
                 interiorProfile = recipe.interiorProfile,
                 chunkSize = recipe.chunkSize,
@@ -103,6 +106,16 @@ namespace VoxelBaker.Data
                 string assetPath = $"{targetFolder}/{recipe.modelName}.asset";
                 string palettePath = $"{targetFolder}/{recipe.modelName}_Palette.asset";
 
+                // 覆盖旧产物：先删除已存在的资产文件，再创建新资产
+                if (AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(palettePath) != null)
+                {
+                    AssetDatabase.DeleteAsset(palettePath);
+                }
+                if (AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetPath) != null)
+                {
+                    AssetDatabase.DeleteAsset(assetPath);
+                }
+
                 if (asset.palette != null)
                 {
                     AssetDatabase.CreateAsset(asset.palette, palettePath);
@@ -112,6 +125,7 @@ namespace VoxelBaker.Data
                 AssetDatabase.SaveAssets();
 
                 recipe.bakedAsset = asset;
+                recipe.voxelSize = asset.voxelSize;
                 recipe.lastBakeTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 recipe.lastBakeDuration = asset.bakeDurationSeconds;
                 recipe.lastTotalVoxels = asset.totalOccupiedVoxels;

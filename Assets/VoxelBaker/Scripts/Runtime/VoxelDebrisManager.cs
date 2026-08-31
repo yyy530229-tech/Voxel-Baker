@@ -1,15 +1,20 @@
 using System.Collections.Generic;
+using GameFramework.Event;
 using UnityEngine;
+using VoxelGameFramework.Core;
+using VoxelGameFramework.Events;
 
 namespace VoxelBaker.Runtime
 {
     /// <summary>
     /// 高质感聚焦物理体素碎屑管理器 (适量 3~4 块微型方块原位炸裂，干净利落不乱飞)
+    ///
+    /// 注册进 ServiceLocator (Bootstrap 时或自身 Awake),
+    /// 调用方通过 ServiceLocator.Get&lt;VoxelDebrisManager&gt;() 获取。
+    /// 生成请求走 DebrisSpawnedEventArgs 命令事件 —— 调用方只 Fire, 本类订阅后执行。
     /// </summary>
     public class VoxelDebrisManager : MonoBehaviour
     {
-        public static VoxelDebrisManager Instance { get; private set; }
-
         [Header("材质配置")]
         public Material debrisBaseMaterial;
         public int maxPoolSize = 200;
@@ -30,9 +35,6 @@ namespace VoxelBaker.Runtime
 
         private void Awake()
         {
-            if (Instance == null) Instance = this;
-            else if (Instance != this) { Destroy(gameObject); return; }
-
             _propBlock = new MaterialPropertyBlock();
 
             Shader litShader = Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard");
@@ -42,6 +44,27 @@ namespace VoxelBaker.Runtime
             }
 
             InitPool();
+        }
+
+        private void Start()
+        {
+            // 注册进服务容器, 并订阅碎片生成命令事件
+            ServiceLocator.Register(this);
+            GameEventBus.Subscribe(DebrisSpawnedEventArgs.EventId, OnDebrisRequested);
+        }
+
+        private void OnDestroy()
+        {
+            GameEventBus.Unsubscribe(DebrisSpawnedEventArgs.EventId, OnDebrisRequested);
+        }
+
+        /// <summary>
+        /// DebrisSpawnedEventArgs 命令事件处理器: 解包参数并生成碎片。
+        /// </summary>
+        private void OnDebrisRequested(object sender, GameEventArgs e)
+        {
+            var args = (DebrisSpawnedEventArgs)e;
+            SpawnDebris(args.Position, args.Direction, args.Color, args.Size, args.Count);
         }
 
         private void InitPool()

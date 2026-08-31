@@ -3,6 +3,7 @@ using UnityEngine;
 using VoxelBaker.Data;
 using VoxelBaker.Runtime;
 using VoxelGameFramework.Core;
+using VoxelGameFramework.Events;
 
 namespace VoxelGameFramework.Projectile
 {
@@ -57,8 +58,8 @@ namespace VoxelGameFramework.Projectile
                     // 击中体素！
                     _targetInstance.ApplyDamage(hit.gridPos, damage, hit.worldHitPoint, hit.hitNormal);
 
-                    // 广播事件
-                    VoxelGameEvents.OnVoxelDamaged?.Invoke(hit.worldHitPoint, damage, 0);
+                    // 广播事件 (走 GameFramework 事件总线)
+                    GameEventBus.Fire(this, VoxelDamagedEventArgs.Create(hit.worldHitPoint, damage, 0));
 
                     Recycle();
                     return;

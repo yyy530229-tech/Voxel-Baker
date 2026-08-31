@@ -1,10 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using VoxelGameFramework.Audio;
+using VoxelGameFramework.Core;
+using VoxelGameFramework.Events;
 
 namespace VoxelGameFramework.Cannons
 {
     /// <summary>
-    /// 5 联装活动射击槽位管理器 (匹配参考图2中间 5 个底座槽位)
+    /// 5 联装活动射击槽位管理器 (匹配参考图中间 5 个收集槽位)
+    /// 槽位状态通过 GameEventBus (GameFramework IEventManager) 广播, 表现层按需订阅
     /// </summary>
     public class VoxelSlotManager : MonoBehaviour
     {
@@ -21,6 +25,7 @@ namespace VoxelGameFramework.Cannons
         {
             get
             {
+                if (_occupiedBlocks == null) return totalSlots;
                 int count = 0;
                 for (int i = 0; i < totalSlots; i++)
                 {
@@ -43,7 +48,7 @@ namespace VoxelGameFramework.Cannons
                 Vector3 pos = new Vector3(startX + i * slotSpacing, slotYPosition, 0f);
                 _slotPositions[i] = pos;
 
-                // 创建底座槽位凹槽可视化几何体 (匹配截图2中的 5 个暗色凹槽)
+                // 3D 底座几何体 (参考图中间 5 个暗色凹槽底座)
                 GameObject pedestal = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 pedestal.name = $"SlotPedestal_{i}";
                 pedestal.transform.SetParent(transform);
@@ -51,7 +56,7 @@ namespace VoxelGameFramework.Cannons
                 pedestal.transform.localScale = new Vector3(0.95f, 0.12f, 0.95f);
 
                 Material pm = new Material(Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard"));
-                pm.color = new Color(0.11f, 0.14f, 0.18f); // 优雅深色底座
+                pm.color = new Color(0.11f, 0.14f, 0.18f); // 深色底座
                 pedestal.GetComponent<Renderer>().sharedMaterial = pm;
 
                 _pedestals[i] = pedestal;
@@ -66,6 +71,13 @@ namespace VoxelGameFramework.Cannons
                 {
                     _occupiedBlocks[i] = block;
                     block.MoveToSlot(i, _slotPositions[i]);
+
+                    // 广播槽位填充事件 (UI 监听)
+                    GameEventBus.Fire(this, SlotFilledEventArgs.Create(i, block.blockColor));
+
+                    // 入槽音效 (改发命令事件, 由 VoxelSoundManager 订阅执行)
+                    GameEventBus.Fire(this, SfxPlayedEventArgs.Create(
+                        VoxelSoundManager.SfxType.SlotPlace, 0.6f));
                     return true;
                 }
             }
@@ -77,6 +89,9 @@ namespace VoxelGameFramework.Cannons
             if (slotIndex >= 0 && slotIndex < totalSlots)
             {
                 _occupiedBlocks[slotIndex] = null;
+
+                // 广播槽位释放事件 (UI 监听)
+                GameEventBus.Fire(this, SlotEmptiedEventArgs.Create(slotIndex));
             }
         }
 
@@ -99,6 +114,7 @@ namespace VoxelGameFramework.Cannons
                 {
                     if (_pedestals[i] != null) Destroy(_pedestals[i]);
                 }
+                _pedestals = null;
             }
         }
     }

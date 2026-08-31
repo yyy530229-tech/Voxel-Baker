@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using VoxelBaker.Data;
@@ -7,22 +8,30 @@ using VoxelGameFramework.Core;
 namespace VoxelGameFramework.Cannons
 {
     /// <summary>
-    /// 待命方块队列管理器 (数学级 1:1 精准匹配模型当前存活体素总数，保证 100% 消除通关，绝无多余与遗漏！)
+    /// 待命消除方块队列管理器 (Voxel Queue Manager)
+    /// 职责：
+    /// 1. 从任意 VoxelModelInstance 中自动提取各色系存活体素并聚类；
+    /// 2. 按 1:1 绝对守恒拆分为发射方块；
+    /// 3. 管理 3 列排队队列的平滑推进与点击装填。
+    /// 彻底独立于烘焙管线，不依赖任何特定模型或硬编码关卡逻辑。
     /// </summary>
     public class VoxelQueueManager : MonoBehaviour
     {
-        [Header("队列配置")]
+        [Header("队列排布参数")]
         public int columnCount = 3;
         public float columnSpacing = 1.15f;
         public float rowSpacing = 1.05f;
         public float queueBaseY = -3.4f;
 
-        [Header("关联组件")]
+        [Header("场景引用")]
         public VoxelSlotManager slotManager;
         public VoxelModelInstance targetModel;
 
-        private List<List<VoxelColorShooterBlock>> _columns = new List<List<VoxelColorShooterBlock>>();
+        private readonly List<List<VoxelColorShooterBlock>> _columns = new List<List<VoxelColorShooterBlock>>();
 
+        /// <summary>
+        /// 从目标模型中自动构建消除队列
+        /// </summary>
         public void SetupQueueFromModel(VoxelModelInstance model)
         {
             targetModel = model;
@@ -30,17 +39,7 @@ namespace VoxelGameFramework.Cannons
 
             if (model == null || model.Asset == null) return;
 
-            // 1. 直接从模型调色板或网格提取全局离散颜色映射，杜绝动态字典带来的分类漂移
-            List<Color32> paletteColors = new List<Color32>();
-            if (model.Asset.palette != null && model.Asset.palette.entries != null && model.Asset.palette.entries.Count > 0)
-            {
-                foreach (var entry in model.Asset.palette.entries)
-                {
-                    if (entry.baseColor.a > 0) paletteColors.Add((Color32)entry.baseColor);
-                }
-            }
-
-            // 1. 提取模型中所有有效体素的颜色，并使用色相感知(Hue-Aware)特征聚类，确保竹绿、亮橙等特征色绝对保留！
+            // 1. 遍历收集模型中所有有效存活体素及其原始颜色
             List<Vector3Int> allOccupiedPositions = new List<Vector3Int>();
             List<Color32> allVoxelColors = new List<Color32>();
 
@@ -51,7 +50,7 @@ namespace VoxelGameFramework.Cannons
                     if (chunk.cells == null) continue;
                     foreach (var cell in chunk.cells)
                     {
-                        if (!cell.isOccupied) continue;
+                        if (!cell.isOccupied || !cell.isAlive) continue;
                         allOccupiedPositions.Add(cell.gridPos);
                         allVoxelColors.Add(cell.customColor);
                     }
@@ -61,24 +60,19 @@ namespace VoxelGameFramework.Cannons
             int totalModelVoxels = allVoxelColors.Count;
             if (totalModelVoxels == 0) return;
 
-            // 执行色相感知聚类：将所有体素分类到各自鲜明的主题色系（如：绿色竹子、纯白毛发、深黑四肢）
+            // 2. 基于色相空间的通用自适应色彩聚类
             Dictionary<int, List<int>> colorBuckets = new Dictionary<int, List<int>>();
-            Dictionary<int, Color32> bucketRepresentativeColors = new Dictionary<int, Color32>();
-
             for (int i = 0; i < allVoxelColors.Count; i++)
             {
-                Color32 c = allVoxelColors[i];
-                int bucketKey = VoxelColorUtility.GetHueFamilyKey(c);
-
+                int bucketKey = VoxelColorUtility.GetHueFamilyKey(allVoxelColors[i]);
                 if (!colorBuckets.ContainsKey(bucketKey))
                 {
                     colorBuckets[bucketKey] = new List<int>();
-                    bucketRepresentativeColors[bucketKey] = c;
                 }
                 colorBuckets[bucketKey].Add(i);
             }
 
-            // 计算每个色系的纯净平均代表色，并将模型网格体素更新为该纯净色
+            // 3. 计算每个色系的代表色并同步到模型体素网格
             List<(Color32 color, int count)> distinctCategoryList = new List<(Color32, int)>();
             foreach (var kvp in colorBuckets)
             {
@@ -90,13 +84,6 @@ namespace VoxelGameFramework.Cannons
                     sumR += c.r; sumG += c.g; sumB += c.b;
                 }
                 Color32 avgColor = new Color32((byte)(sumR / indices.Count), (byte)(sumG / indices.Count), (byte)(sumB / indices.Count), 255);
-
-                // 对具备鲜明色相的有彩色系适度提升饱和度，增强方块在场景中的视觉辨识度
-                Color.RGBToHSV(avgColor, out float h, out float s, out float v);
-                if (s > 0.15f)
-                {
-                    avgColor = Color.HSVToRGB(h, Mathf.Clamp01(s * 1.35f + 0.1f), Mathf.Clamp01(v * 1.1f));
-                }
 
                 for (int j = 0; j < indices.Count; j++)
                 {
@@ -111,32 +98,26 @@ namespace VoxelGameFramework.Cannons
                 distinctCategoryList.Add((avgColor, indices.Count));
             }
 
-            // 同步刷新模型当前的 GPU 渲染列表，使 3D 渲染与消除方块颜色 100% 绝对一致
+            // 同步刷新模型 GPU 颜色缓冲，保证视觉绝对一致
             model.SynchronizeGPUColors();
 
-            // 2. 通用方块均衡切分管线：将任意色系的所有体素按标准区间进行数学均衡拆分
+            // 4. 1:1 数学守恒切分为发射方块任务
             List<(Color32 color, int count)> blockTasks = new List<(Color32, int)>();
-            int totalQueueAmmo = 0;
-
-            const int maxSingleBlockCapacity = 52;
-            const float targetBlockAverage = 42f;
+            float targetBlockAverage = totalModelVoxels > 2500 ? Mathf.Clamp(totalModelVoxels / 36f, 45f, 180f) : 42f;
+            int maxSingleBlockCapacity = Mathf.RoundToInt(targetBlockAverage * 1.3f);
 
             for (int c = 0; c < distinctCategoryList.Count; c++)
             {
                 int count = distinctCategoryList[c].count;
                 Color32 col = distinctCategoryList[c].color;
-
                 if (count <= 0) continue;
 
                 if (count <= maxSingleBlockCapacity)
                 {
-                    // 若该颜色总量适中，直接作为一个完整消除方块
                     blockTasks.Add((col, count));
-                    totalQueueAmmo += count;
                 }
                 else
                 {
-                    // 确定切分块数，确保各方块容量均匀分布在舒适射击区间内
                     int numBlocks = Mathf.CeilToInt((float)count / targetBlockAverage);
                     int baseSize = count / numBlocks;
                     int remainder = count % numBlocks;
@@ -145,23 +126,19 @@ namespace VoxelGameFramework.Cannons
                     {
                         int blockSize = baseSize + (b < remainder ? 1 : 0);
                         blockTasks.Add((col, blockSize));
-                        totalQueueAmmo += blockSize;
                     }
                 }
             }
 
-            Debug.Log($"[VoxelQueueManager] 色彩特征提取完成！独立特征色数: {distinctCategoryList.Count}, 模型总占用: {totalModelVoxels}, 生成待命方块数: {blockTasks.Count}, 总弹药: {totalQueueAmmo} (1:1 绝对守恒)");
-
-            // 3. 乱序排列 (Fisher-Yates Shuffle)
+            // 5. 随机洗牌并填充进 3 列队列中
             for (int i = blockTasks.Count - 1; i > 0; i--)
             {
-                int r = Random.Range(0, i + 1);
+                int r = UnityEngine.Random.Range(0, i + 1);
                 var temp = blockTasks[i];
                 blockTasks[i] = blockTasks[r];
                 blockTasks[r] = temp;
             }
 
-            // 4. 将方块均分排入 3 列队列中
             for (int col = 0; col < columnCount; col++)
             {
                 _columns.Add(new List<VoxelColorShooterBlock>());
@@ -192,11 +169,9 @@ namespace VoxelGameFramework.Cannons
             }
         }
 
-
-
         private void Update()
         {
-            // 监听玩家点击最前排方块
+            // 3D 方块用射线拾取点击 (方块是 3D 立方体)
             if (Input.GetMouseButtonDown(0) && Camera.main != null)
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -219,13 +194,13 @@ namespace VoxelGameFramework.Cannons
             int foundCol = -1;
             int foundRow = -1;
 
-            for (int col = 0; col < _columns.Count; col++)
+            for (int c = 0; c < _columns.Count; c++)
             {
-                for (int r = 0; r < _columns[col].Count; r++)
+                for (int r = 0; r < _columns[c].Count; r++)
                 {
-                    if (_columns[col][r] == block)
+                    if (_columns[c][r] == block)
                     {
-                        foundCol = col;
+                        foundCol = c;
                         foundRow = r;
                         break;
                     }
@@ -279,6 +254,40 @@ namespace VoxelGameFramework.Cannons
                 }
             }
             _columns.Clear();
+        }
+
+        /// <summary>
+        /// 获取指定列最前排方块 (Row 0)
+        /// </summary>
+        public VoxelColorShooterBlock GetFrontBlock(int columnIndex)
+        {
+            if (columnIndex >= 0 && columnIndex < _columns.Count && _columns[columnIndex].Count > 0)
+            {
+                return _columns[columnIndex][0];
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 获取指定列指定行的方块
+        /// </summary>
+        public VoxelColorShooterBlock GetBlockAt(int columnIndex, int rowIndex)
+        {
+            if (columnIndex >= 0 && columnIndex < _columns.Count &&
+                rowIndex >= 0 && rowIndex < _columns[columnIndex].Count)
+            {
+                return _columns[columnIndex][rowIndex];
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 从 UI 触发方块部署 (与鼠标点击等效)
+        /// </summary>
+        public void TryDeployFromUI(VoxelColorShooterBlock block)
+        {
+            if (block == null || block.state != ShooterBlockState.InQueue) return;
+            TryDeployBlock(block);
         }
     }
 }

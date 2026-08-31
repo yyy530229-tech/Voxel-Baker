@@ -41,7 +41,7 @@ namespace VoxelBaker.Data
         public Vector3Int gridPos;      // 网格局部整型坐标
         public bool isOccupied;         // 是否被占据
         public VoxelLayerType layer;    // 视觉/深度层级
-        public byte distanceToSurface;  // 曼哈顿/欧氏距表面深度
+        public byte distanceToSurface;  // 曼哈顿/欧氏距表面深度 (量化到 0-255)
         public ushort paletteIndex;     // 调色板索引 (VisualID)
         public byte materialId;         // 材质语义ID / Gameplay区域ID
         public byte ao;                 // 预烘焙环境光遮蔽 (0~255)
@@ -50,6 +50,8 @@ namespace VoxelBaker.Data
         public short currentHP;         // 运行时生命值
         public bool isAlive;            // 是否存活
         public Color32 customColor;     // 原始/烘焙颜色
+        public byte surfaceCoverage;    // 表面覆盖率 0-255 (超采样质量值, 0=无覆盖, 255=完全覆盖)
+        public float exactDistance;     // 精确欧氏距离到表面 (烘焙期使用, 不打包到GPU)
 
         public static VoxelCell Empty => new VoxelCell
         {
@@ -64,7 +66,9 @@ namespace VoxelBaker.Data
             initialHP = 0,
             currentHP = 0,
             isAlive = false,
-            customColor = new Color32(0, 0, 0, 0)
+            customColor = new Color32(0, 0, 0, 0),
+            surfaceCoverage = 0,
+            exactDistance = float.MaxValue
         };
     }
 

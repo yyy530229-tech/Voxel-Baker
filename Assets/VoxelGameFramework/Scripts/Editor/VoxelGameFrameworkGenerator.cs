@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using VoxelBaker.Data;
 using VoxelBaker.Editor;
 using VoxelBaker.Runtime;
+using VoxelGameFramework.Audio;
 using VoxelGameFramework.Cannons;
 using VoxelGameFramework.Core;
 using VoxelGameFramework.Level;
@@ -16,33 +17,53 @@ namespace VoxelGameFramework.Editor
 {
     public static class VoxelGameFrameworkGenerator
     {
-        [MenuItem("Tools/Voxel Game Framework/🚀 一键生成独立完整体素射击游戏场景 (Create Game Scene)", false, 20)]
+        [MenuItem("Tools/Voxel Game Framework/🚀 一键生成重构版游戏场景 (GameFramework Architecture)", false, 20)]
         public static void GenerateStandaloneGame()
         {
-            // 1. 确保示例体素资产存在
-            VoxelMenuTools.CreateSampleAssets();
-
             string configDir = "Assets/VoxelGameFramework/Configs";
             string sceneDir = "Assets/Scenes";
             if (!Directory.Exists(configDir)) Directory.CreateDirectory(configDir);
             if (!Directory.Exists(sceneDir)) Directory.CreateDirectory(sceneDir);
 
-            // 2. 创建 4 个标准关卡配置 (ScriptableObject)
-            VoxelAsset duckAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Characters/VoxelModel_Duck/VoxelModel_Duck.asset");
-            VoxelAsset pinkAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Characters/VoxelModel_PinkHead/VoxelModel_PinkHead.asset");
-            VoxelAsset houseAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Buildings/VoxelModel_House/VoxelModel_House.asset");
-            VoxelAsset pandaAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Characters/VoxelModel_Giantpanda/VoxelModel_Giantpanda.asset");
-
-            VoxelLevelConfig lvl1 = CreateOrUpdateConfig($"{configDir}/Level_01_Duck.asset", 1, "关卡 1: 可爱小黄鸭", duckAsset, new int[] { 33, 45, 55, 66, 77 }, new Color(0.16f, 0.22f, 0.30f));
-            VoxelLevelConfig lvl2 = CreateOrUpdateConfig($"{configDir}/Level_02_PinkHead.asset", 2, "关卡 2: 多层粉色头颅", pinkAsset, new int[] { 45, 60, 75, 90, 110 }, new Color(0.18f, 0.24f, 0.35f));
-            VoxelLevelConfig lvl3 = CreateOrUpdateConfig($"{configDir}/Level_03_House.asset", 3, "关卡 3: 像素复古房屋", houseAsset, new int[] { 60, 80, 100, 125, 150 }, new Color(0.15f, 0.20f, 0.28f));
-            VoxelLevelConfig lvl4 = CreateOrUpdateConfig($"{configDir}/Level_04_Giantpanda.asset", 4, "关卡 4: 国宝大熊猫 (竹林食客)", pandaAsset ?? duckAsset, new int[] { 50, 75, 100, 125, 150 }, new Color(0.12f, 0.22f, 0.18f));
-
-            // 3. 构建独立的游戏主场景
-            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             string scenePath = $"{sceneDir}/VoxelShooterGameMainScene.unity";
+            bool sceneExists = File.Exists(scenePath);
+            if (sceneExists)
+            {
+                bool confirm = EditorUtility.DisplayDialog("⚠️ 确认重新生成场景？",
+                    "此操作会【清空并重建】当前主场景 VoxelShooterGameMainScene.unity：\n\n" +
+                    "• 场景中手动摆放的对象（炮台、竹子、排队方块等）会被删除\n" +
+                    "• 重新生成前会自动备份一份到同目录\n\n" +
+                    "如果你只是想运行游戏，请勿点“确定”。",
+                    "确定重建（先备份）", "取消");
+                if (!confirm) return;
+            }
 
-            // 相机 (适配 1080x1920 竖屏视野，模型在上、槽位在中、队列在下)
+            // 1. 查找并加载工程中的体素资产 (ScriptableObject)
+            string[] guids = AssetDatabase.FindAssets("t:VoxelAsset");
+            List<VoxelAsset> loadedAssets = new List<VoxelAsset>();
+            foreach (var g in guids)
+            {
+                string p = AssetDatabase.GUIDToAssetPath(g);
+                VoxelAsset va = AssetDatabase.LoadAssetAtPath<VoxelAsset>(p);
+                if (va != null) loadedAssets.Add(va);
+            }
+
+            VoxelAsset primaryAsset = loadedAssets.Count > 0 ? loadedAssets[0] : null;
+
+            // 2. 为每个 VoxelAsset 生成/更新关卡配置
+            List<VoxelLevelConfig> configs = new List<VoxelLevelConfig>();
+            for (int i = 0; i < loadedAssets.Count; i++)
+            {
+                VoxelAsset va = loadedAssets[i];
+                string cleanName = va.name.Replace("VoxelModel_", "");
+                VoxelLevelConfig cfg = CreateOrUpdateConfig($"{configDir}/Level_{i + 1:D2}_{cleanName}.asset", i + 1, $"关卡 {i + 1}: {cleanName}", va, new Color(0.15f, 0.20f, 0.28f));
+                configs.Add(cfg);
+            }
+
+            // 3. 构建独立游戏主场景 (GameFramework 重构架构)
+            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+
+            // === 相机 (适配 1080x1920 竖屏, 含 AudioListener) ===
             GameObject camObj = new GameObject("Main Camera");
             Camera cam = camObj.AddComponent<Camera>();
             camObj.tag = "MainCamera";
@@ -51,8 +72,9 @@ namespace VoxelGameFramework.Editor
             cam.fieldOfView = 50f;
             cam.clearFlags = CameraClearFlags.SolidColor;
             cam.backgroundColor = new Color(0.15f, 0.20f, 0.28f);
+            camObj.AddComponent<AudioListener>();
 
-            // 灯光
+            // === 灯光 ===
             GameObject lightObj = new GameObject("Directional Light");
             Light light = lightObj.AddComponent<Light>();
             light.type = LightType.Directional;
@@ -60,56 +82,75 @@ namespace VoxelGameFramework.Editor
             light.intensity = 1.3f;
             lightObj.transform.rotation = Quaternion.Euler(45f, -30f, 0f);
 
-            // 碎片物理管理器
+            // === 碎片物理管理器 (已有对象池) ===
             GameObject debrisObj = new GameObject("VoxelDebrisManager");
             debrisObj.AddComponent<VoxelDebrisManager>();
 
-            // 目标体素模型 (居中位于屏幕上半区域，与顶部HUD和底部槽位完美留白)
+            // === 目标体素模型载体 (由关卡 SO 运行时注入) ===
             GameObject targetObj = new GameObject("VoxelTargetModel");
             targetObj.transform.position = new Vector3(0f, 0.8f, 0f);
             VoxelModelInstance targetModel = targetObj.AddComponent<VoxelModelInstance>();
-            targetModel.voxelAsset = duckAsset;
+            targetModel.voxelAsset = null;
             Shader s = Shader.Find("VoxelBaker/URP/VoxelLit");
             if (s != null) targetModel.voxelMaterial = new Material(s);
-            targetModel.InitializeModel();
 
-            // 添加 3D 自转与浮动控制器
+            // 3D 自转与浮动控制器
             VoxelModelRotator rotator = targetObj.AddComponent<VoxelModelRotator>();
             rotator.autoRotate = true;
             rotator.rotateSpeed = 22f;
 
-            // 中间 5 联装活动槽位 (Slot Manager)
+            // === 中间 5 联装活动槽位 (Slot Manager) ===
             GameObject slotObj = new GameObject("VoxelSlotManager");
             VoxelSlotManager slotManager = slotObj.AddComponent<VoxelSlotManager>();
 
-            // 底部待命方块排队队列 (Queue Manager)
+            // === 底部待命方块排队队列 (Queue Manager) ===
             GameObject queueObj = new GameObject("VoxelQueueManager");
             VoxelQueueManager queueManager = queueObj.AddComponent<VoxelQueueManager>();
             queueManager.slotManager = slotManager;
             queueManager.targetModel = targetModel;
 
-            // 关卡核心总控 (Level Manager)
+            // === 关卡核心总控 (Level Manager, Procedure 驱动) ===
             GameObject lmObj = new GameObject("VoxelLevelManager");
             VoxelLevelManager levelManager = lmObj.AddComponent<VoxelLevelManager>();
+            levelManager.drivenByProcedure = true; // 由 GameFramework Procedure 驱动
             levelManager.mainCamera = cam;
             levelManager.targetModelInstance = targetModel;
             levelManager.slotManager = slotManager;
             levelManager.queueManager = queueManager;
-            levelManager.levelPlaylists = new List<VoxelLevelConfig> { lvl1, lvl2, lvl3, lvl4 };
+            levelManager.levels = configs;
 
-            // HUD 游戏界面
-            GameObject hudObj = new GameObject("VoxelGameHUD");
-            hudObj.AddComponent<VoxelGameHUD>();
+            // === GameFramework 入口组件 (重构核心: 驱动 Procedure FSM + Event + DataNode) ===
+            GameObject gfObj = new GameObject("GameFrameworkEntry");
+            gfObj.AddComponent<GameFrameworkEntryComponent>();
 
-            // 保存场景
+            // === 音效管理器 (程序化合成, 零资产依赖) ===
+            GameObject soundObj = new GameObject("VoxelSoundManager");
+            soundObj.AddComponent<VoxelSoundManager>();
+
+            // === 子弹对象池 ===
+            GameObject poolObj = new GameObject("VoxelBulletPool");
+            poolObj.AddComponent<VoxelBulletPool>();
+
+            // === uGUI 总管理器 (仅顶部 HUD + 弹窗 + 设置, 方块/槽位保持 3D) ===
+            GameObject uiObj = new GameObject("VoxelUIManager");
+            VoxelUIManager uiManager = uiObj.AddComponent<VoxelUIManager>();
+            uiManager.levelManager = levelManager;
+            uiManager.soundManager = soundObj.GetComponent<VoxelSoundManager>();
+
+            // 保存场景（覆盖前先自动备份，防止手滑丢失手动摆放内容）
+            if (File.Exists(scenePath))
+            {
+                string backupPath = $"{scenePath}.bak_{System.DateTime.Now:yyyyMMdd_HHmmss}";
+                File.Copy(scenePath, backupPath, true);
+            }
             EditorSceneManager.SaveScene(scene, scenePath);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            EditorUtility.DisplayDialog("体素游戏框架", $"🎮 独立游戏框架主场景已成功生成于:\n'{scenePath}'\n\n该框架完全独立于烘焙工具，支持自由扩展、替换关卡与打包发布！点击 Play 即可开始游玩！", "确定");
+            EditorUtility.DisplayDialog("体素游戏框架", $"🎮 重构版独立游戏框架场景已成功生成于:\n'{scenePath}'\n\n包含:\n• GameFrameworkEntry (Procedure 状态机)\n• VoxelLevelManager (关卡 SO 驱动)\n• VoxelUIManager (uGUI 分层界面)\n• VoxelSoundManager (程序化音效)\n• VoxelBulletPool (子弹对象池)\n\n点击 Play 即可开始游玩！", "确定");
         }
 
-        private static VoxelLevelConfig CreateOrUpdateConfig(string path, int idx, string title, VoxelAsset asset, int[] powers, Color bg)
+        private static VoxelLevelConfig CreateOrUpdateConfig(string path, int idx, string title, VoxelAsset asset, Color bg)
         {
             VoxelLevelConfig cfg = AssetDatabase.LoadAssetAtPath<VoxelLevelConfig>(path);
             if (cfg == null)
@@ -120,12 +161,11 @@ namespace VoxelGameFramework.Editor
 
             cfg.levelIndex = idx;
             cfg.levelTitle = title;
-            cfg.targetAsset = asset;
+            cfg.targetVoxelAsset = asset;
             cfg.spawnPosition = new Vector3(0f, 0.8f, 0f);
             cfg.spawnScale = 0.95f;
-            cfg.initialCannonPowers = powers;
             cfg.backgroundColor = bg;
-            cfg.winDestructionRatio = 1.0f; // 必须 100% 彻底消灭所有体素才判定通关
+            cfg.winDestructionRatio = 0.95f;
             cfg.rewardCoins = 500 * idx;
 
             EditorUtility.SetDirty(cfg);

@@ -39,6 +39,37 @@ sysinfo.txt
 *.aab
 *.unitypackage
 
+# Unity 导入 FBX 时生成的 Model 节点预览缓存（本地产物，>100MB，且可自动重建）
+Assets/Model/node_0.asset
+Assets/Model/node_0.asset.meta
+
 # OS generated
 .DS_Store
 Thumbs.db
+
+# ===== 本地/工具/调试产物（不应入库）=====
+.workbuddy-ai/
+__pycache__/
+_DeletedCodeBackup/
+_bak_deleted_20260828/
+mem-log/
+screenshots/
+tools/
+test_tcp.py
+Doc_Skills/
+CODELY.md
+
+# 误触/恢复产生的场景备份与菜单生成版
+*.unity.bak_*
+*.menu_generated_*.unity
+*.menu_generated_*.unity.meta
+
+# AI 辅助工具目录
+.codely/
+.codely-cli/
+.codelyignore
+.com-unity-codely.json
+.agents/
+Assets/Codely/
+Assets/Editor/CodelyLogOptimizer.cs
+Assets/Editor/CodelyLogOptimizer.cs.meta

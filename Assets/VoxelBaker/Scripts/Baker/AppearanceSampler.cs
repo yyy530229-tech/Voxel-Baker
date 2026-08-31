@@ -7,30 +7,30 @@ namespace VoxelBaker.Baker
 {
     public static class AppearanceSampler
     {
+        /// <summary>
+        /// 采样表面外观颜色。
+        ///
+        /// 入参是 MeshSnapshot 而非 Mesh/Material —— 与 SurfaceVoxelizer 同理，
+        /// 为了能在后台线程运行：Material/Texture2D 的属性访问同样受主线程限制，
+        /// 这里改用快照里预取好的 Color32[] 做纯 C# 双线性采样。
+        ///
+        /// palette 允许为 null（预览路径）：此时只写 customColor，不注册调色板索引。
+        /// </summary>
         public static void SampleSurfaceAppearance(
-            Mesh mesh,
-            Material[] materials,
+            MeshSnapshot snapshot,
             Vector3Int gridDimensions,
             VoxelCell[,,] grid,
             SurfaceHitInfo[,,] surfaceHits,
-            VoxelPalette palette)
+            VoxelPalette palette,
+            bool enableAntiAliasing = true)
         {
+            if (snapshot == null) return;
+
             int gx = gridDimensions.x;
             int gy = gridDimensions.y;
             int gz = gridDimensions.z;
 
-            // 缓存材质贴图的 CPU 像素数据，避免重复读取
-            Dictionary<int, Texture2D> readableTextures = new Dictionary<int, Texture2D>();
-            if (materials != null)
-            {
-                for (int i = 0; i < materials.Length; i++)
-                {
-                    if (materials[i] != null && materials[i].mainTexture is Texture2D tex)
-                    {
-                        readableTextures[i] = GetReadableTexture(tex);
-                    }
-                }
-            }
+            bool hasVertexColor = snapshot.HasColor;
 
             for (int x = 0; x < gx; x++)
             {
@@ -43,60 +43,60 @@ namespace VoxelBaker.Baker
                             SurfaceHitInfo hit = surfaceHits[x, y, z];
                             int matIdx = hit.subMeshIndex;
 
-                            Material mat = (materials != null && matIdx >= 0 && matIdx < materials.Length) ? materials[matIdx] : null;
-                            Color matColor = mat != null ? (mat.HasProperty("_BaseColor") ? mat.GetColor("_BaseColor") : (mat.HasProperty("_Color") ? mat.color : Color.white)) : Color.white;
+                            SubMeshSnapshot sub = (matIdx >= 0 && matIdx < snapshot.SubMeshes.Length)
+                                ? snapshot.SubMeshes[matIdx]
+                                : null;
 
+                            Color matColor = sub != null ? sub.BaseColor : Color.white;
                             Color finalColor = matColor;
 
-                            if (readableTextures.TryGetValue(matIdx, out Texture2D tex) && tex != null)
+                            if (sub != null && sub.HasTexture)
                             {
                                 Vector2 uv = hit.uv;
                                 // 处理 UV 重复/取模
-                                float u = Mathf.Repeat(uv.x, 1.0f);
-                                float v = Mathf.Repeat(uv.y, 1.0f);
-                                Color texColor = tex.GetPixelBilinear(u, v);
+                                float u = uv.x - Mathf.Floor(uv.x);
+                                float v = uv.y - Mathf.Floor(uv.y);
+
+                                TextureSnapshot tex = sub.Texture;
+                                Color texColor;
+                                if (enableAntiAliasing && tex.Width > 2 && tex.Height > 2)
+                                {
+                                    // MSAA: 2x2 超采样平均，消除颜色锯齿
+                                    float eU = 0.5f / tex.Width;
+                                    float eV = 0.5f / tex.Height;
+                                    Color c1 = tex.SampleBilinear(Wrap01(u - eU), Wrap01(v - eV));
+                                    Color c2 = tex.SampleBilinear(Wrap01(u + eU), Wrap01(v - eV));
+                                    Color c3 = tex.SampleBilinear(Wrap01(u - eU), Wrap01(v + eV));
+                                    Color c4 = tex.SampleBilinear(Wrap01(u + eU), Wrap01(v + eV));
+                                    texColor = (c1 + c2 + c3 + c4) * 0.25f;
+                                }
+                                else
+                                {
+                                    texColor = tex.SampleBilinear(u, v);
+                                }
                                 finalColor = texColor * matColor;
                             }
-                            else if (mesh.colors32 != null && mesh.colors32.Length > 0)
+                            else if (hasVertexColor)
                             {
                                 finalColor = (Color)hit.vertexColor * matColor;
                             }
 
                             Color32 c32 = finalColor;
                             grid[x, y, z].customColor = c32;
-                            grid[x, y, z].paletteIndex = palette.AddOrFindColor(c32);
+                            if (palette != null)
+                                grid[x, y, z].paletteIndex = palette.AddOrFindColor(c32);
                         }
                     }
                 }
             }
         }
 
-        private static Texture2D GetReadableTexture(Texture2D source)
+        private static float Wrap01(float v)
         {
-            if (source == null) return null;
-
-            try
-            {
-                // 测试是否直接可读
-                source.GetPixel(0, 0);
-                return source;
-            }
-            catch
-            {
-                // 若不可读，使用 RenderTexture 离屏复制一张可读贴图
-                RenderTexture rt = RenderTexture.GetTemporary(source.width, source.height, 0, RenderTextureFormat.ARGB32);
-                Graphics.Blit(source, rt);
-                RenderTexture prev = RenderTexture.active;
-                RenderTexture.active = rt;
-
-                Texture2D readable = new Texture2D(source.width, source.height, TextureFormat.RGBA32, false);
-                readable.ReadPixels(new Rect(0, 0, source.width, source.height), 0, 0);
-                readable.Apply();
-
-                RenderTexture.active = prev;
-                RenderTexture.ReleaseTemporary(rt);
-                return readable;
-            }
+            v -= Mathf.Floor(v);
+            // 浮点误差可能让 1-ε 落到 1.0，取一次模保证落在 [0,1)
+            return v >= 1f ? v - 1f : v;
         }
+
     }
 }

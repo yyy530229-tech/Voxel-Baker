@@ -87,10 +87,10 @@ namespace VoxelBaker.Baker
                 report.nonManifoldEdgeCount = 0;
             }
 
-            // 推荐最佳体素尺寸（休闲消除游戏黄金分辨率：长轴方向约 18~24 个体素，总数约 600~1,500 格）
+            // 推荐最佳体素尺寸（超高清乐高/体素画质：长轴方向 64~80 个体素，总数约 6,000~20,000 格）
             float maxDim = Mathf.Max(report.dimensions.x, Mathf.Max(report.dimensions.y, report.dimensions.z));
-            report.recommendedVoxelSize = maxDim > 0 ? (maxDim / 22.0f) : 0.2f;
-            if (targetVoxelSize <= 0 || (maxDim > 0 && maxDim / targetVoxelSize < 3))
+            report.recommendedVoxelSize = maxDim > 0 ? (maxDim / 72.0f) : 0.06f;
+            if (targetVoxelSize <= 0 || (maxDim > 0 && maxDim / targetVoxelSize < 10))
             {
                 targetVoxelSize = report.recommendedVoxelSize;
             }
@@ -102,7 +102,7 @@ namespace VoxelBaker.Baker
             report.totalCells = gx * gy * gz;
 
             // 预估占用体素数 (约占包围盒体积的 25%~45%)
-            report.estimatedOccupiedVoxels = Mathf.Max(120, (int)(report.totalCells * 0.35f));
+            report.estimatedOccupiedVoxels = Mathf.Max(500, (int)(report.totalCells * 0.35f));
             report.estimatedMemoryMB = (report.totalCells * 16f) / (1024f * 1024f);
             report.canDoSolidVoxelization = true;
 

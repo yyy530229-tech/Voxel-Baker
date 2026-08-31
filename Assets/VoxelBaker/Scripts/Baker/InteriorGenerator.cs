@@ -10,11 +10,32 @@ namespace VoxelBaker.Baker
             VoxelCell[,,] grid,
             Vector3Int[,,] nearestSurfaceCoords,
             VoxelInteriorProfile profile,
-            VoxelPalette palette)
+            VoxelPalette palette,
+            VoxelFillStrategy fillStrategy = VoxelFillStrategy.SolidCore,
+            int shellThickness = 2)
         {
             int gx = gridDimensions.x;
             int gy = gridDimensions.y;
             int gz = gridDimensions.z;
+
+            // 若策略为仅表面壳层，直接剔除所有非表面内部占用
+            if (fillStrategy == VoxelFillStrategy.SurfaceShellOnly)
+            {
+                for (int x = 0; x < gx; x++)
+                {
+                    for (int y = 0; y < gy; y++)
+                    {
+                        for (int z = 0; z < gz; z++)
+                        {
+                            if (grid[x, y, z].isOccupied && grid[x, y, z].layer != VoxelLayerType.OuterSurface)
+                            {
+                                grid[x, y, z].isOccupied = false;
+                            }
+                        }
+                    }
+                }
+                return;
+            }
 
             InteriorStrategy strategy = profile != null ? profile.strategy : InteriorStrategy.NearestSurfaceMaterial;
 
@@ -27,7 +48,20 @@ namespace VoxelBaker.Baker
                         if (grid[x, y, z].isOccupied && grid[x, y, z].layer != VoxelLayerType.OuterSurface)
                         {
                             int depth = grid[x, y, z].distanceToSurface;
+
+                            // 若为加厚壳层模式且深度超过指定壳层厚度，置为空心
+                            if (fillStrategy == VoxelFillStrategy.ThickHollowShell && depth > shellThickness)
+                            {
+                                grid[x, y, z].isOccupied = false;
+                                continue;
+                            }
+
                             Vector3Int nearest = nearestSurfaceCoords[x, y, z];
+                            // 保护越界
+                            nearest.x = Mathf.Clamp(nearest.x, 0, gx - 1);
+                            nearest.y = Mathf.Clamp(nearest.y, 0, gy - 1);
+                            nearest.z = Mathf.Clamp(nearest.z, 0, gz - 1);
+
                             VoxelCell nearestSurf = grid[nearest.x, nearest.y, nearest.z];
 
                             Color32 finalColor = nearestSurf.customColor;
@@ -37,7 +71,7 @@ namespace VoxelBaker.Baker
                             {
                                 case InteriorStrategy.ExtendSurfaceColor:
                                 case InteriorStrategy.NearestSurfaceMaterial:
-                                    // 默认继承对应表面色块的颜色 (黄鸭内部即黄色，红屋顶内部即红色，彻底杜绝混入杂色！)
+                                    // 继承表面色块颜色
                                     finalColor = nearestSurf.customColor;
                                     grid[x, y, z].materialId = nearestSurf.materialId;
                                     hp = 1;
@@ -76,7 +110,9 @@ namespace VoxelBaker.Baker
                             grid[x, y, z].customColor = finalColor;
                             grid[x, y, z].initialHP = hp;
                             grid[x, y, z].currentHP = hp;
-                            grid[x, y, z].paletteIndex = palette.AddOrFindColor(finalColor);
+                            // palette 允许为 null（预览路径）：只算颜色，不注册调色板索引
+                            if (palette != null)
+                                grid[x, y, z].paletteIndex = palette.AddOrFindColor(finalColor);
                         }
                     }
                 }

@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: Level_01_Duck
   m_EditorClassIdentifier: 
   levelIndex: 1
-  levelTitle: "\u5173\u5361 1: \u53EF\u7231\u5C0F\u9EC4\u9E2D"
-  description: "\u5C04\u51FB\u7C89\u788E\u5C0F\u9EC4\u9E2D\uFF0C\u5C06\u5176\u5265\u79BB\u5E76\u6D88\u9664\uFF01"
-  targetAsset: {fileID: 11400000, guid: 434d7c21e4523a8448050e19a0263204, type: 2}
+  levelTitle: "\u5173\u5361 1: \u5927\u718A\u732B"
+  targetVoxelAsset: {fileID: 11400000, guid: e7ba742e77a44ee45bbec64c6788c79b, type: 2}
   spawnPosition: {x: 0, y: 0.8, z: 0}
   spawnRotation: {x: 0, y: 0, z: 0}
   spawnScale: 0.95
-  winDestructionRatio: 1
-  rewardCoins: 500
-  initialCannonPowers: 210000002d00000037000000420000004d000000
   backgroundColor: {r: 0.16, g: 0.22, b: 0.3, a: 1}
+  winDestructionRatio: 0.95
+  rewardCoins: 500

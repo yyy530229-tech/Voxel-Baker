@@ -5,6 +5,11 @@ namespace VoxelBaker.Baker
 {
     public static class AOFaceMaskBaker
     {
+        // AO 曲线参数（见 BakeAOAndFaceMask 内的详细说明）
+        private const int AoFloor = 14;  // 邻居数 ≤ 此值视为完全开放，不压暗
+        private const int AoCeil = 24;   // 邻居数 ≥ 此值视为最深遮蔽
+        private const int AoRange = 50;  // 最大压暗量（255 制），约 20% 亮度
+
         public static void BakeAOAndFaceMask(
             Vector3Int gridDimensions,
             VoxelCell[,,] grid)
@@ -58,9 +63,22 @@ namespace VoxelBaker.Baker
                                 }
                             }
 
-                            // 邻居越多越暗，255为完全明亮
-                            int aoVal = 255 - (neighborCount * 210 / 26);
-                            grid[x, y, z].ao = (byte)Mathf.Clamp(aoVal, 50, 255);
+                            //
+                            // 关键修正：旧公式为 255 - neighborCount * 210 / 26，
+                            // 可见表面体素的 neighborCount 大致在 11~22 之间跳动，
+                            // 换算下来相邻体素 AO 能差 40~90/255（约 15%~35% 亮度），
+                            // 于是整片模型浮现出一张高对比的明暗网格 ——
+                            // 这正是用户看到的"体素之间有缝 / 有锯齿感"。
+                            //
+                            // 新做法：保留 26 邻域（凹腔检测更准），
+                            // 但把压暗量压缩到一个很窄的窗口内平滑过渡：
+                            //   · 邻居数 ≤ AoFloor  → 完全开放，不压暗
+                            //   · 邻居数 ≥ AoCeil   → 最深遮蔽，压暗 AoRange
+                            // 相邻体素之间最多只差几个百分点，肉眼是连续过渡而非硬边。
+                            //
+                            float t = Mathf.Clamp01((float)(neighborCount - AoFloor) / (AoCeil - AoFloor));
+                            int aoVal = 255 - Mathf.RoundToInt(t * AoRange);
+                            grid[x, y, z].ao = (byte)Mathf.Clamp(aoVal, 255 - AoRange, 255);
                         }
                     }
                 }

@@ -1,61 +1,83 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using VoxelBaker.Baker;
 using VoxelBaker.Data;
-using VoxelBaker.Runtime;
 
 namespace VoxelBaker.Editor
 {
+    /// <summary>
+    /// 体素烘焙通用编辑器菜单 (Pure Generic Voxel Baker Tools)
+    /// 职责：提供纯净的烘焙工具箱入口与对选定 3D 资产的一键烘焙，不包含任何业务预设或游戏关卡逻辑
+    /// </summary>
     public static class VoxelMenuTools
     {
-        [MenuItem("Tools/Voxel Baker/生成示例模型工程资产 (Create Sample Assets)", false, 10)]
-        public static void CreateSampleAssets()
+        [MenuItem("Tools/Voxel Baker/📦 烘焙选中的 3D 模型 (Bake Selected 3D Model)", false, 1)]
+        public static void BakeSelectedModel()
         {
-            VoxelProjectDatabase db = VoxelProjectDatabase.GetOrCreateDatabase();
+            GameObject selectedGo = Selection.activeGameObject;
+            if (selectedGo == null)
+            {
+                EditorUtility.DisplayDialog("提示", "请先在 Project 或 Hierarchy 中选中一个 3D 模型预制体或游戏对象 (FBX / Prefab / OBJ)！", "确定");
+                return;
+            }
 
-            // 1. 烘焙小黄鸭 (Characters - 休闲消除规格约 450 体素)
-            EditorUtility.DisplayProgressBar("体素烘焙工作室", "正在烘焙小黄鸭 (Yellow Duck)...", 0.3f);
-            Mesh duckMesh = VoxelDemoModelGenerator.CreateYellowDuckMesh(out Material[] duckMats);
-            BakeAndRegisterSample(db, "VoxelModel_Duck", VoxelModelCategory.Characters, duckMesh, duckMats, 0.22f, "Duck, Animal, Destructible");
+            MeshFilter mf = selectedGo.GetComponentInChildren<MeshFilter>();
+            SkinnedMeshRenderer smr = selectedGo.GetComponentInChildren<SkinnedMeshRenderer>();
+            Renderer ren = selectedGo.GetComponentInChildren<Renderer>();
 
-            // 2. 烘焙粉色多层头颅 (Characters - 约 380 体素)
-            EditorUtility.DisplayProgressBar("体素烘焙工作室", "正在烘焙多层粉色头颅 (Pink Head)...", 0.6f);
-            Mesh pinkMesh = VoxelDemoModelGenerator.CreatePinkCharacterMesh(out Material[] pinkMats);
-            BakeAndRegisterSample(db, "VoxelModel_PinkHead", VoxelModelCategory.Characters, pinkMesh, pinkMats, 0.24f, "Character, Multi-Layer, Cake");
+            Mesh mesh = mf != null ? mf.sharedMesh : (smr != null ? smr.sharedMesh : null);
+            Material[] mats = ren != null ? ren.sharedMaterials : null;
 
-            // 3. 烘焙像素房子 (Buildings - 匹配参考图2约 480 体素)
-            EditorUtility.DisplayProgressBar("体素烘焙工作室", "正在烘焙像素小房子 (House)...", 0.9f);
-            Mesh houseMesh = VoxelDemoModelGenerator.CreateHouseMesh(out Material[] houseMats);
-            BakeAndRegisterSample(db, "VoxelModel_House", VoxelModelCategory.Buildings, houseMesh, houseMats, 0.26f, "Building, House, Prop");
+            string assetPathSelected = AssetDatabase.GetAssetPath(selectedGo);
+            if ((mats == null || mats.Length == 0 || mats[0] == null) && !string.IsNullOrEmpty(assetPathSelected))
+            {
+                string dir = Path.GetDirectoryName(assetPathSelected).Replace('\\', '/');
+                string[] searchDirs = new string[] { dir, dir + "/Materials" };
+                string[] matGuids = AssetDatabase.FindAssets("t:Material", searchDirs);
+                List<Material> foundMats = new List<Material>();
+                foreach (var guid in matGuids)
+                {
+                    string mPath = AssetDatabase.GUIDToAssetPath(guid);
+                    Material existingMat = AssetDatabase.LoadAssetAtPath<Material>(mPath);
+                    if (existingMat != null && !foundMats.Contains(existingMat))
+                    {
+                        foundMats.Add(existingMat);
+                    }
+                }
+                if (foundMats.Count > 0) mats = foundMats.ToArray();
+            }
 
-            EditorUtility.ClearProgressBar();
-            db.ScanAndRefreshRecipes();
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+            if (mesh == null)
+            {
+                EditorUtility.DisplayDialog("错误", $"选中的对象 '{selectedGo.name}' 未包含有效的 Mesh 数据！", "确定");
+                return;
+            }
 
-            EditorUtility.DisplayDialog("体素烘焙工程库", "成功生成并归档所有示例模型至 'Assets/VoxelAssets/' 工程目录，并已登记至工程数据库！", "确定");
-        }
-
-        private static void BakeAndRegisterSample(VoxelProjectDatabase db, string modelName, VoxelModelCategory category, Mesh mesh, Material[] mats, float vSize, string tags)
-        {
-            string targetFolder = $"Assets/VoxelAssets/{category}/{modelName}";
+            string modelName = $"VoxelModel_{selectedGo.name.Replace(" ", "_")}";
+            string targetFolder = $"Assets/VoxelAssets/General/{modelName}";
             if (!Directory.Exists(targetFolder)) Directory.CreateDirectory(targetFolder);
 
+            EditorUtility.DisplayProgressBar("体素烘焙中...", $"正在烘焙模型 '{selectedGo.name}'...", 0.4f);
+
+            // 乐高风格：按块数预算自动推导体素尺寸 (默认标准乐高 ~6,000 格)
             VoxelBakeSettings settings = new VoxelBakeSettings
             {
                 sourceMesh = mesh,
                 materials = mats,
-                voxelSize = vSize,
+                autoCalculateVoxelSize = true,
+                targetVoxelBudget = 6000,
+                paletteColorCount = 32,
                 fillInteriorSolid = true,
                 chunkSize = 16,
                 assetName = modelName
             };
 
             VoxelAsset asset = VoxelBakerCore.Bake(settings);
+            EditorUtility.ClearProgressBar();
+
             if (asset != null)
             {
                 string assetPath = $"{targetFolder}/{modelName}.asset";
@@ -67,13 +89,15 @@ namespace VoxelBaker.Editor
 
                 VoxelModelRecipe recipe = ScriptableObject.CreateInstance<VoxelModelRecipe>();
                 recipe.modelName = modelName;
-                recipe.category = category;
+                recipe.category = VoxelModelCategory.General;
+                recipe.sourcePrefab = selectedGo;
                 recipe.sourceMesh = mesh;
                 recipe.sourceMaterials = mats;
-                recipe.voxelSize = vSize;
+                recipe.voxelSize = asset.voxelSize;
                 recipe.fillInteriorSolid = true;
-                recipe.tags = tags;
                 recipe.chunkSize = 16;
+                recipe.targetVoxelBudget = 6000;
+                recipe.paletteColorCount = 32;
                 recipe.bakedAsset = asset;
                 recipe.lastBakeTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 recipe.lastBakeDuration = asset.bakeDurationSeconds;
@@ -81,84 +105,69 @@ namespace VoxelBaker.Editor
                 recipe.isDirty = false;
 
                 AssetDatabase.CreateAsset(recipe, recipePath);
+
+                VoxelProjectDatabase db = VoxelProjectDatabase.GetOrCreateDatabase();
+                db.ScanAndRefreshRecipes();
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+
+                VoxelScenePreview.ClearCache();
+                EditorGUIUtility.PingObject(asset);
+                EditorUtility.DisplayDialog("体素烘焙完成", $"成功将模型 '{selectedGo.name}' 烘焙为通用体素资产！\n总占据体素: {asset.totalOccupiedVoxels:N0} 格\n文件路径: {assetPath}", "确定");
             }
         }
 
-        [MenuItem("Tools/Voxel Baker/创建并打开射击破坏演示场景 (Playground Demo Scene)", false, 11)]
-        public static void CreateAndOpenDemoScene()
+        [MenuItem("Tools/Voxel Baker/🔄 扫描并刷新工程配方库 (Refresh Project Database)", false, 20)]
+        public static void RefreshDatabase()
         {
-            CreateSampleAssets();
-
-            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            string scenePath = "Assets/Scenes/VoxelBakerDemoScene.unity";
-
-            string sceneDir = Path.GetDirectoryName(scenePath);
-            if (!Directory.Exists(sceneDir)) Directory.CreateDirectory(sceneDir);
-
-            // 1. 设置主相机
-            GameObject camObj = new GameObject("Main Camera");
-            Camera cam = camObj.AddComponent<Camera>();
-            camObj.tag = "MainCamera";
-            camObj.transform.position = new Vector3(0f, 0.5f, -8.5f);
-            camObj.transform.rotation = Quaternion.Euler(6f, 0f, 0f);
-            cam.clearFlags = CameraClearFlags.SolidColor;
-            cam.backgroundColor = new Color(0.16f, 0.22f, 0.30f);
-
-            // 2. 设置平行光
-            GameObject lightObj = new GameObject("Directional Light");
-            Light light = lightObj.AddComponent<Light>();
-            light.type = LightType.Directional;
-            light.color = new Color(1.0f, 0.98f, 0.92f);
-            light.intensity = 1.3f;
-            lightObj.transform.rotation = Quaternion.Euler(45f, -30f, 0f);
-
-            // 3. 创建碎片管理器
-            GameObject debrisObj = new GameObject("VoxelDebrisManager");
-            debrisObj.AddComponent<VoxelDebrisManager>();
-
-            // 4. 创建体素模型实例
-            GameObject modelObj = new GameObject("VoxelModel_Target");
-            modelObj.transform.position = new Vector3(0f, 1.2f, 0f);
-            VoxelModelInstance modelInstance = modelObj.AddComponent<VoxelModelInstance>();
-
-            VoxelAsset targetAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Characters/VoxelModel_PinkHead/VoxelModel_PinkHead.asset");
-            if (targetAsset == null)
+            VoxelProjectDatabase db = VoxelProjectDatabase.GetOrCreateDatabase();
+            if (db != null)
             {
-                targetAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Characters/VoxelModel_Duck/VoxelModel_Duck.asset");
+                db.ScanAndRefreshRecipes();
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+                EditorUtility.DisplayDialog("提示", $"工程体素配方库已成功同步并刷新！当前已归档 {db.recipes.Count} 个配方。", "确定");
             }
-            modelInstance.voxelAsset = targetAsset;
+        }
 
-            Shader voxelShader = Shader.Find("VoxelBaker/URP/VoxelLit");
-            if (voxelShader != null)
+        /// <summary>
+        /// 批量重新烘焙全部已登记配方 (可被 -executeMethod 命令行调用)
+        /// 使用配方自身的块数预算与平色块数量设置，输出新的体素资产。
+        /// </summary>
+        public static void BatchRebakeAll()
+        {
+            VoxelProjectDatabase db = VoxelProjectDatabase.GetOrCreateDatabase();
+            if (db == null)
             {
-                modelInstance.voxelMaterial = new Material(voxelShader);
+                UnityEngine.Debug.LogError("[VoxelMenuTools] 无法加载体素工程数据库！");
+                return;
             }
 
-            modelInstance.InitializeModel();
+            db.ScanAndRefreshRecipes();
 
-            // 添加 3D 自转与浮动控制器
-            var rotator = modelObj.AddComponent<VoxelGameFramework.Core.VoxelModelRotator>();
-            rotator.autoRotate = true;
-            rotator.rotateSpeed = 22f;
+            int count = 0;
+            for (int i = 0; i < db.recipes.Count; i++)
+            {
+                VoxelModelRecipe r = db.recipes[i];
+                if (r == null || r.sourceMesh == null) continue;
 
-            // 5. 创建底部 5 联射击炮台
-            GameObject shooterObj = new GameObject("VoxelShooter_Cannons");
-            VoxelShooterDemo shooter = shooterObj.AddComponent<VoxelShooterDemo>();
-            shooter.targetModel = modelInstance;
+                UnityEngine.Debug.Log($"[VoxelMenuTools] 开始重新烘焙: {r.modelName} (预算 {r.targetVoxelBudget:N0} 格, 平色块 {r.paletteColorCount})...");
 
-            // 6. 添加演示 HUD 控制器
-            GameObject uiObj = new GameObject("VoxelDemoUI");
-            VoxelDemoUI demoUI = uiObj.AddComponent<VoxelDemoUI>();
-            demoUI.targetModelInstance = modelInstance;
-            demoUI.shooterDemo = shooter;
-            demoUI.duckAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Characters/VoxelModel_Duck/VoxelModel_Duck.asset");
-            demoUI.pinkHeadAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Characters/VoxelModel_PinkHead/VoxelModel_PinkHead.asset");
-            demoUI.houseAsset = AssetDatabase.LoadAssetAtPath<VoxelAsset>("Assets/VoxelAssets/Buildings/VoxelModel_House/VoxelModel_House.asset");
+                VoxelAsset res = db.BakeSingleRecipe(r, null);
+                if (res != null)
+                {
+                    count++;
+                    UnityEngine.Debug.Log($"[VoxelMenuTools] ✓ {r.modelName} 完成: {res.totalOccupiedVoxels:N0} 格 (表面 {res.totalSurfaceVoxels:N0}, 内部 {res.totalInteriorVoxels:N0}), voxelSize={res.voxelSize:F4}, 耗时 {res.bakeDurationSeconds:F2}s");
+                }
+                else
+                {
+                    UnityEngine.Debug.LogError($"[VoxelMenuTools] ✗ {r.modelName} 烘焙失败");
+                }
+            }
 
-            EditorSceneManager.SaveScene(scene, scenePath);
+            AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-
-            EditorUtility.DisplayDialog("体素烘焙工作室", $"演示场景已成功创建并保存于 '{scenePath}'！\n点击 Unity Play 运行按钮即可开始射击粉碎与多层体素剥落体验！", "确定");
+            UnityEngine.Debug.Log($"[VoxelMenuTools] 批量重新烘焙完成: {count} 个配方");
         }
     }
 }

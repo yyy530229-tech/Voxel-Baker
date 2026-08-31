@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using VoxelBaker.Runtime;
 using VoxelGameFramework.Core;
+using VoxelGameFramework.Events;
 using VoxelGameFramework.Projectile;
 
 namespace VoxelGameFramework.Cannons
@@ -87,7 +88,8 @@ namespace VoxelGameFramework.Cannons
         {
             power += delta;
             UpdateNumberDisplay();
-            VoxelGameEvents.OnCannonUpgraded?.Invoke(cannonIndex, power);
+
+            GameEventBus.Fire(this, CannonUpgradedEventArgs.Create(cannonIndex, power));
         }
 
         public void Tick(float now, Vector3 aimTargetPos, VoxelModelInstance targetModel, Action<Vector3, Vector3, int, float, VoxelModelInstance> spawnBulletAction)
